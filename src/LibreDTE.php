@@ -95,10 +95,14 @@ class LibreDTE
     private function error($response)
     {
         $data = json_decode($response->getBody(), true);
-        if (empty($data['code'])) {
-            $data['code'] = $response->getStatusCode();
+        if ($data) {
+            if (empty($data['code'])) {
+                $data['code'] = $response->getStatusCode();
+            }
+            throw new Exception($data['message'], $data['code']);
+        } else {
+            throw new Exception($response->getBody(), $response->getStatusCode());
         }
-        throw new Exception($data['message'], $data['code']);
     }
 
 }

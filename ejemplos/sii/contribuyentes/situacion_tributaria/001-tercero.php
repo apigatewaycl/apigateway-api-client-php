@@ -23,7 +23,7 @@
  * Ejemplo que muestra los pasos para:
  *  - Consultar la situación tributaria de un contribuyente
  * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]sasco.cl)
- * @version 2020-01-18
+ * @version 2020-01-19
  */
 
 // datos a utilizar
@@ -32,14 +32,14 @@ $token = '';
 $rut = '76192083-9';
 
 // incluir autocarga de composer
-require('../vendor/autoload.php');
+require('../../../../vendor/autoload.php');
 
 // crear cliente
 $LibreDTE = new \sasco\LibreDTE\API\LibreDTE($token, $url);
 
 // consultar situación
 try {
-    $data = $LibreDTE->consume('/sii/contribuyentes/situacion_tributaria/'.$rut);
+    $data = $LibreDTE->consume('/sii/contribuyentes/situacion_tributaria/tercero/'.$rut);
     print_r($data);
 } catch (\sasco\LibreDTE\API\Exception $e) {
     die('Error #'.$e->getCode().': '.$e->getMessage()."\n");
