@@ -23,7 +23,7 @@
  * Ejemplo que muestra los pasos para:
  *  - Obtener listado de boletas de honorarios electrónicas recibidas en el SII de un contribuyente (formato CSV o JSON).
  * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]sasco.cl)
- * @version 2020-01-25
+ * @version 2020-01-26
  */
 
 // datos a utilizar
@@ -42,7 +42,7 @@ $LibreDTE = new \sasco\LibreDTE\API\LibreDTE($token, $url);
 
 // obtener boletas de honorario recibidas en el SII
 try {
-    $recibidas = $LibreDTE->consume('/sii/bhe/recibidas/documentos/'.$receptor.'/'.$periodo.'?formato='.$formato, [
+    $LibreDTE->consume('/sii/bhe/recibidas/documentos/'.$receptor.'/'.$periodo.'?formato='.$formato, [
         'auth' => [
             'pass' => [
                 'rut' => $receptor,
@@ -56,7 +56,7 @@ try {
 
 // guardar datos en el disco
 if ($formato=='csv') {
-    file_put_contents(str_replace('.php', '.csv', basename(__FILE__)), $recibidas);
+    file_put_contents(str_replace('.php', '.csv', basename(__FILE__)), $LibreDTE->getBody());
 } else {
-    file_put_contents(str_replace('.php', '.json', basename(__FILE__)), json_encode($recibidas, JSON_PRETTY_PRINT));
+    file_put_contents(str_replace('.php', '.json', basename(__FILE__)), json_encode($LibreDTE->getBodyDecoded(), JSON_PRETTY_PRINT));
 }

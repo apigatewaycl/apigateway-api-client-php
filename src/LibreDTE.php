@@ -24,7 +24,7 @@ namespace sasco\LibreDTE\API;
 /**
  * Cliente de la API de LibreDTE
  * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]sasco.cl)
- * @version 2020-01-25
+ * @version 2020-01-26
  */
 class LibreDTE
 {
@@ -92,30 +92,76 @@ class LibreDTE
             }
             $this->last_response = $client->request($method, $this->last_url, $request_data);
         } catch(\GuzzleHttp\Exception\ServerException $e) {
-            $this->error($e->getResponse());
+            $this->last_response = $e->getResponse();
+            $this->throwException();
         } catch (\GuzzleHttp\Exception\ClientException $e) {
-            $this->error($e->getResponse());
+            $this->last_response = $e->getResponse();
+            $this->throwException();
         }
-        if ($this->last_response->getStatusCode() != 200) {
-            $this->error($this->last_response);
+        if ($this->getLastResponse()->getStatusCode() != 200) {
+            $this->throwException();
         }
-        if ($this->last_response->getHeader('content-type')[0] == 'application/json') {
-            return json_decode($this->last_response->getBody(), true);
-        }
-        return (string)$this->last_response->getBody();
+        return $this;
     }
 
-    private function error($response)
+    public function getBody()
     {
-        $data = json_decode($response->getBody(), true);
+        return (string)$this->getLastResponse()->getBody();
+    }
+
+    public function getBodyDecoded()
+    {
+        return json_decode($this->getBody(), true);
+    }
+
+    public function toArray()
+    {
+        $headers = $this->getLastResponse()->getHeaders();
+        foreach ($headers as &$header) {
+            if (!isset($header[1])) {
+                $header = $header[0];
+            }
+        }
+        return [
+            'status' => [
+                'protocol' => $this->getLastResponse()->getProtocolVersion(),
+                'code' => $this->getLastResponse()->getStatusCode(),
+                'message' => $this->getLastResponse()->getReasonPhrase(),
+            ],
+            'header' => $headers,
+            'body' => $this->getLastResponse()->getStatusCode() == 200 ? (
+                $this->getLastResponse()->getHeader('content-type')[0] == 'application/json' ?
+                $response['body'] = $this->getBodyDecoded() :
+                $response['body'] = $this->getBody()
+            ) : (
+                $this->getError()->message
+            ),
+        ];
+    }
+
+    private function getError()
+    {
+        $data = $this->getBodyDecoded();
         if ($data) {
             if (empty($data['code'])) {
-                $data['code'] = $response->getStatusCode();
+                $data['code'] = $this->getLastResponse()->getStatusCode();
             }
-            throw new Exception($data['message'], $data['code']);
+            return (object)[
+                'code' => $data['code'],
+                'message' => $data['message'],
+            ];
         } else {
-            throw new Exception($response->getBody(), $response->getStatusCode());
+            return (object)[
+                'code' => $this->getLastResponse()->getStatusCode(),
+                'message' => $this->getLastResponse()->getBody(),
+            ];
         }
+    }
+
+    private function throwException()
+    {
+        $error = $this->getError();
+        throw new Exception($error->message, $error->code);
     }
 
 }
