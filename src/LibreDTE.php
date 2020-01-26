@@ -122,9 +122,19 @@ class LibreDTE
                 $header = $header[0];
             }
         }
-        $body = $this->getLastResponse()->getHeader('content-type')[0] == 'application/json' ? $this->getBodyDecoded() : $this->getBody();
-        if (!$body) {
-            $body = $this->getError()->message;
+        if ($this->getLastResponse()->getHeader('content-type')[0] == 'application/json') {
+            $body = $this->getBodyDecoded();
+            if ($body === null) {
+                $body = $this->getBody();
+                if (!$body) {
+                    $body = $this->getError()->message;
+                }
+            }
+        } else {
+            $body = $this->getBody();
+            if (!$body) {
+                $body = $this->getError()->message;
+            }
         }
         if ($this->getLastResponse()->getStatusCode() != 200) {
             if (count($body)==2 and !empty($body['code']) and !empty($body['message'])) {
