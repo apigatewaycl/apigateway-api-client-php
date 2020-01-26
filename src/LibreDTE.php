@@ -146,16 +146,19 @@ class LibreDTE
             if (empty($data['code'])) {
                 $data['code'] = $this->getLastResponse()->getStatusCode();
             }
-            return (object)[
-                'code' => $data['code'],
-                'message' => $data['message'],
-            ];
+            $code = $data['code'];
+            $message = $data['message'];
         } else {
-            return (object)[
-                'code' => $this->getLastResponse()->getStatusCode(),
-                'message' => $this->getLastResponse()->getBody(),
-            ];
+            $code = $this->getLastResponse()->getStatusCode();
+            $message = $this->getBody();
         }
+        if (!$message) {
+            $message = '[LibreDTE API] Código HTTP '.$code.': '.$this->getLastResponse()->getReasonPhrase();
+        }
+        return (object)[
+            'code' => $code,
+            'message' => $message,
+        ];
     }
 
     private function throwException()
