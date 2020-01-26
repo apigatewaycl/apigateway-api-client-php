@@ -24,7 +24,7 @@ namespace sasco\LibreDTE\API;
 /**
  * Cliente de la API de LibreDTE
  * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]sasco.cl)
- * @version 2020-01-18
+ * @version 2020-01-25
  */
 class LibreDTE
 {
@@ -34,6 +34,7 @@ class LibreDTE
     private $api_version = '/v1';
     private $api_token = null;
     private $last_url = null;
+    private $last_response = null;
 
     public function __construct($token = null, $url = null)
     {
@@ -62,8 +63,14 @@ class LibreDTE
         return $this->last_url;
     }
 
+    public function getLastResponse()
+    {
+        return $this->last_response;
+    }
+
     public function consume($resource, $data = [], array $headers = [], $method = null)
     {
+        $this->last_response = null;
         if (!$this->api_token) {
             throw new Exception('Falta especificar token para autenticación', 400);
         }
@@ -73,23 +80,29 @@ class LibreDTE
         $client = new \GuzzleHttp\Client();
         $this->last_url = $this->api_url.$this->api_prefix.$this->api_version.$resource;
         try {
-            $response = $client->request($method, $this->last_url, [
+            $request_data = [
                 'headers' => array_merge([
                     'Authorization' => 'Bearer '.$this->api_token,
                     'Content-Type' => 'application/json',
                     'Accept' => 'application/json',
                 ], $headers),
-            ]);
+            ];
+            if ($data) {
+                $request_data[\GuzzleHttp\RequestOptions::JSON] = $data;
+            }
+            $this->last_response = $client->request($method, $this->last_url, $request_data);
+        } catch(\GuzzleHttp\Exception\ServerException $e) {
+            $this->error($e->getResponse());
         } catch (\GuzzleHttp\Exception\ClientException $e) {
             $this->error($e->getResponse());
         }
-        if ($response->getStatusCode() != 200) {
-            $this->error($response);
+        if ($this->last_response->getStatusCode() != 200) {
+            $this->error($this->last_response);
         }
-        if ($response->getHeader('content-type')[0] == 'application/json') {
-            return json_decode($response->getBody(), true);
+        if ($this->last_response->getHeader('content-type')[0] == 'application/json') {
+            return json_decode($this->last_response->getBody(), true);
         }
-        return $response->getBody();
+        return (string)$this->last_response->getBody();
     }
 
     private function error($response)

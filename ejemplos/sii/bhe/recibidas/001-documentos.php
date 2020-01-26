@@ -21,7 +21,7 @@
 
 /**
  * Ejemplo que muestra los pasos para:
- *  - Consultar la situación tributaria de un contribuyente
+ *  - Obtener listado de boletas de honorarios electrónicas recibidas en el SII de un contribuyente (formato CSV o JSON).
  * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]sasco.cl)
  * @version 2020-01-25
  */
@@ -29,7 +29,10 @@
 // datos a utilizar
 $url = getenv('LIBREDTE_API_URL');
 $token = getenv('LIBREDTE_API_TOKEN');
-$rut = getenv('LIBREDTE_EMPRESA_RUT');
+$receptor = getenv('LIBREDTE_EMPRESA_RUT');
+$periodo = 202001; // "Ym" o sólo "Y"
+$formato = 'csv'; // csv o json
+$contrasenia = getenv('LIBREDTE_EMPRESA_CLAVE'); // contraseña del receptor en el SII
 
 // incluir autocarga de composer
 require('../../../../vendor/autoload.php');
@@ -37,12 +40,23 @@ require('../../../../vendor/autoload.php');
 // crear cliente
 $LibreDTE = new \sasco\LibreDTE\API\LibreDTE($token, $url);
 
-// consultar situación
+// obtener boletas de honorario recibidas en el SII
 try {
-    $info = $LibreDTE->consume('/sii/contribuyentes/situacion_tributaria/tercero/'.$rut);
+    $recibidas = $LibreDTE->consume('/sii/bhe/recibidas/documentos/'.$receptor.'/'.$periodo.'?formato='.$formato, [
+        'auth' => [
+            'pass' => [
+                'rut' => $receptor,
+                'clave' => $contrasenia,
+            ],
+        ],
+    ]);
 } catch (\sasco\LibreDTE\API\Exception $e) {
     die('Error #'.$e->getCode().': '.$e->getMessage()."\n");
 }
 
-// mostrar datos
-print_r($info);
+// guardar datos en el disco
+if ($formato=='csv') {
+    file_put_contents(str_replace('.php', '.csv', basename(__FILE__)), $recibidas);
+} else {
+    file_put_contents(str_replace('.php', '.json', basename(__FILE__)), json_encode($recibidas, JSON_PRETTY_PRINT));
+}

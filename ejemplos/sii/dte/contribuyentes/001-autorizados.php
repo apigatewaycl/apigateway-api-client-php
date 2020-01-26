@@ -21,7 +21,7 @@
 
 /**
  * Ejemplo que muestra los pasos para:
- *  - Consultar la situación tributaria de un contribuyente
+ *  - Obtener listado de contribuyentes autorizados a facturar electrónicamente (formato CSV o JSON).
  * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]sasco.cl)
  * @version 2020-01-25
  */
@@ -29,7 +29,11 @@
 // datos a utilizar
 $url = getenv('LIBREDTE_API_URL');
 $token = getenv('LIBREDTE_API_TOKEN');
-$rut = getenv('LIBREDTE_EMPRESA_RUT');
+$dia = date('Y-m-d');
+$formato = 'csv'; // csv o json
+$certificacion = 0; // =1 certificación, =0 producción
+$firma_public_key =  getenv('LIBREDTE_USUARIO_FIRMA_PUBLIC_KEY');
+$firma_private_key = getenv('LIBREDTE_USUARIO_FIRMA_PRIVATE_KEY');
 
 // incluir autocarga de composer
 require('../../../../vendor/autoload.php');
@@ -37,12 +41,23 @@ require('../../../../vendor/autoload.php');
 // crear cliente
 $LibreDTE = new \sasco\LibreDTE\API\LibreDTE($token, $url);
 
-// consultar situación
+// obtener datos de contribuyentes
 try {
-    $info = $LibreDTE->consume('/sii/contribuyentes/situacion_tributaria/tercero/'.$rut);
+    $datos = $LibreDTE->consume('/sii/dte/contribuyentes/autorizados?dia='.$dia.'&formato='.$formato.'&certificacion='.$certificacion, [
+        'auth' => [
+            'cert' => [
+                'cert-data' => $firma_public_key,
+                'pkey-data' => $firma_private_key
+            ],
+        ],
+    ]);
 } catch (\sasco\LibreDTE\API\Exception $e) {
     die('Error #'.$e->getCode().': '.$e->getMessage()."\n");
 }
 
-// mostrar datos
-print_r($info);
+// guardar datos en el disco
+if ($formato=='csv') {
+    file_put_contents(str_replace('.php', '.csv', basename(__FILE__)), $datos);
+} else {
+    file_put_contents(str_replace('.php', '.json', basename(__FILE__)), json_encode($datos, JSON_PRETTY_PRINT));
+}
