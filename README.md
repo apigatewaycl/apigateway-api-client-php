@@ -1,9 +1,9 @@
 Cliente API de LibreDTE para PHP
 ================================
 
-[![Total Downloads](https://poser.pugx.org/sasco/libredte-api-client-php/downloads)](https://packagist.org/packages/sasco/libredte-api-client-php)
-[![Monthly Downloads](https://poser.pugx.org/sasco/libredte-api-client-php/d/monthly)](https://packagist.org/packages/sasco/libredte-api-client-php)
-[![License](https://poser.pugx.org/sasco/libredte-api-client-php/license)](https://packagist.org/packages/sasco/libredte-api-client-php)
+[![Total Downloads](https://poser.pugx.org/sasco/libredte-api-client/downloads)](https://packagist.org/packages/sasco/libredte-api-client)
+[![Monthly Downloads](https://poser.pugx.org/sasco/libredte-api-client/d/monthly)](https://packagist.org/packages/sasco/libredte-api-client)
+[![License](https://poser.pugx.org/sasco/libredte-api-client/license)](https://packagist.org/packages/sasco/libredte-api-client)
 
 Cliente para realizar la integración con los servicios web de la API de LibreDTE desde PHP.
 
