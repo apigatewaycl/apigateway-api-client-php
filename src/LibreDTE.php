@@ -122,6 +122,10 @@ class LibreDTE
                 $header = $header[0];
             }
         }
+        $body = $this->getLastResponse()->getHeader('content-type')[0] == 'application/json' ? $this->getBodyDecoded() : $this->getBody();
+        if (!$body) {
+            $body = $this->getError()->message;
+        }
         return [
             'status' => [
                 'protocol' => $this->getLastResponse()->getProtocolVersion(),
@@ -129,13 +133,7 @@ class LibreDTE
                 'message' => $this->getLastResponse()->getReasonPhrase(),
             ],
             'header' => $headers,
-            'body' => $this->getLastResponse()->getStatusCode() == 200 ? (
-                $this->getLastResponse()->getHeader('content-type')[0] == 'application/json' ?
-                $response['body'] = $this->getBodyDecoded() :
-                $response['body'] = $this->getBody()
-            ) : (
-                $this->getError()->message
-            ),
+            'body' => $body,
         ];
     }
 
@@ -147,7 +145,7 @@ class LibreDTE
                 $data['code'] = $this->getLastResponse()->getStatusCode();
             }
             $code = $data['code'];
-            $message = $data['message'];
+            $message = !empty($data['message']) ? $data['message'] : null;
         } else {
             $code = $this->getLastResponse()->getStatusCode();
             $message = $this->getBody();
