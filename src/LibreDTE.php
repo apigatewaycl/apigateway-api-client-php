@@ -126,6 +126,14 @@ class LibreDTE
         if (!$body) {
             $body = $this->getError()->message;
         }
+        if ($this->getLastResponse()->getStatusCode() != 200) {
+            if (count($body)==2 and !empty($body['code']) and !empty($body['message'])) {
+                $body = $body['message'];
+            }
+            else if (empty($body['message']) and !empty($body['exception'])) {
+                $body = $this->getError()->message;
+            }
+        }
         return [
             'status' => [
                 'protocol' => $this->getLastResponse()->getProtocolVersion(),
