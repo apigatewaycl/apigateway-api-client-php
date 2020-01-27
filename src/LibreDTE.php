@@ -140,8 +140,8 @@ class LibreDTE
             if (count($body)==2 and !empty($body['code']) and !empty($body['message'])) {
                 $body = $body['message'];
             }
-            else if (empty($body['message']) and !empty($body['exception'])) {
-                $body = $this->getError()->message;
+            else if (!empty($body['exception'])) {
+                $body = !empty($body['message']) ? $body['message'] : $this->getError()->message;
             }
         }
         return [
