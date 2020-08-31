@@ -137,11 +137,13 @@ class LibreDTE
             }
         }
         if ($this->getLastResponse()->getStatusCode() != 200) {
-            if (count($body)==2 and !empty($body['code']) and !empty($body['message'])) {
+            if (!empty($body['message'])) {
                 $body = $body['message'];
             }
             else if (!empty($body['exception'])) {
-                $body = !empty($body['message']) ? $body['message'] : $this->getError()->message;
+                $body = $this->getError()->message;
+            } else {
+                $body = 'Error no determinado: '.json_encode($body);
             }
         }
         return [
