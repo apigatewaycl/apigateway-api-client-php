@@ -1,9 +1,9 @@
 {
     "name": "sasco/libredte-api-client",
-    "description": "Cliente para realizar la integración con los servicios web de la API de LibreDTE",
+    "description": "Cliente para realizar la integración con los servicios web de API SII",
     "type": "library",
     "keywords": ["libredte", "dte", "sii", "facturación electrónica"],
-    "homepage": "https://api.libredte.cl",
+    "homepage": "https://apisii.cl",
     "license": "LGPL-3.0+",
     "authors": [
         {
@@ -12,13 +12,12 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/LibreDTE/libredte-api-client-php/issues",
-        "forum": "https://groups.google.com/forum/#!forum/libredte",
-        "source": "https://github.com/LibreDTE/libredte-api-client-php"
+        "issues": "https://github.com/LibreDTE/apisii-client-php/issues",
+        "source": "https://github.com/LibreDTE/apisii-client-php"
     },
     "require": {
-        "php": ">=7.3",
-        "guzzlehttp/guzzle": "7.*"
+        "php": "7.3.* || 7.4.*",
+        "guzzlehttp/guzzle": "^7"
     },
     "autoload": {
         "psr-4": {"sasco\\LibreDTE\\API\\": "src/"}

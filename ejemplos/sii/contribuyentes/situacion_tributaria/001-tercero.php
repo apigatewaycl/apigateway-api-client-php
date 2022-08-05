@@ -1,7 +1,7 @@
 <?php
 
 /**
- * LibreDTE
+ * API SII
  * Copyright (C) SASCO SpA (https://sasco.cl)
  *
  * Este programa es software libre: usted puede redistribuirlo y/o modificarlo
