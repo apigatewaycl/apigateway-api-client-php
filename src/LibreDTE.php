@@ -1,7 +1,7 @@
 <?php
 
 /**
- * API SII
+ * API Gateway
  * Copyright (C) SASCO SpA (https://sasco.cl)
  *
  * Este programa es software libre: usted puede redistribuirlo y/o modificarlo
@@ -29,7 +29,7 @@ namespace sasco\LibreDTE\API;
 class LibreDTE
 {
 
-    private $api_url = 'https://apisii.cl';
+    private $api_url = 'https://apigateway.cl';
     private $api_prefix = '/api';
     private $api_version = '/v1';
     private $api_token = null;

@@ -1,11 +1,11 @@
-Cliente API SII para PHP
-========================
+Cliente API Gateway para PHP
+============================
 
 [![Total Downloads](https://poser.pugx.org/sasco/libredte-api-client/downloads)](https://packagist.org/packages/sasco/libredte-api-client)
 [![Monthly Downloads](https://poser.pugx.org/sasco/libredte-api-client/d/monthly)](https://packagist.org/packages/sasco/libredte-api-client)
 [![License](https://poser.pugx.org/sasco/libredte-api-client/license)](https://packagist.org/packages/sasco/libredte-api-client)
 
-Cliente para realizar la integración con los servicios web de API SII (www.apisii.cl) desde PHP.
+Cliente para realizar la integración con los servicios web de API Gateway (www.apigateway.cl) desde PHP.
 
 Este código está liberado bajo licencia [LGPL](http://www.gnu.org/licenses/lgpl-3.0.en.html).
 O sea, puede ser utilizado tanto en software libre como en software privativo.

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * API SII
+ * API Gateway
  * Copyright (C) SASCO SpA (https://sasco.cl)
  *
  * Este programa es software libre: usted puede redistribuirlo y/o modificarlo
