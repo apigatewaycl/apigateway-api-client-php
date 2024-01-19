@@ -1,5 +1,5 @@
-Cliente API Gateway para PHP
-============================
+API Gateway: Cliente de API en PHP
+==================================
 
 [![Total Downloads](https://poser.pugx.org/apigatewaycl/apigateway-api-client/downloads)](https://packagist.org/packages/apigatewaycl/apigateway-api-client)
 [![Monthly Downloads](https://poser.pugx.org/apigatewaycl/apigateway-api-client/d/monthly)](https://packagist.org/packages/apigatewaycl/apigateway-api-client)
