@@ -1,8 +1,8 @@
 <?php
 
 /**
- * API Gateway
- * Copyright (C) SASCO SpA (https://sasco.cl)
+ * API Gateway: Cliente de API en PHP.
+ * Copyright (C) API Gateway <https://www.apigateway.cl>
  *
  * Este programa es software libre: usted puede redistribuirlo y/o modificarlo
  * bajo los términos de la GNU Lesser General Public License (LGPL) publicada
@@ -19,30 +19,16 @@
  * <http://www.gnu.org/licenses/lgpl.html>.
  */
 
+namespace apigatewaycl\api_client;
+
 /**
- * Ejemplo que muestra los pasos para:
- *  - Consultar la situación tributaria de un contribuyente
- * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]sasco.cl)
- * @version 2020-01-26
+ * Clase para las excepciones del cliente de la API.
+ *
+ * El ApiClient lanzará excepciones de este tipo. De esta forma, se podrá
+ * capturar una excepción propia por si en el futuro es necesario incluir
+ * alguna validación adicional.
  */
-
-// datos a utilizar
-$url = getenv('LIBREDTE_API_URL');
-$token = getenv('LIBREDTE_API_TOKEN');
-$rut = getenv('LIBREDTE_EMPRESA_RUT');
-
-// incluir autocarga de composer
-require('../../../../vendor/autoload.php');
-
-// crear cliente
-$LibreDTE = new \sasco\LibreDTE\API\LibreDTE($token, $url);
-
-// consultar situación
-try {
-    $info = $LibreDTE->consume('/sii/contribuyentes/situacion_tributaria/tercero/'.$rut)->getBodyDecoded();
-} catch (\sasco\LibreDTE\API\Exception $e) {
-    die('Error #'.$e->getCode().': '.$e->getMessage()."\n");
+class ApiException extends \Exception
+{
+    // Aquí van los métodos y propiedades de la clase
 }
-
-// mostrar datos
-print_r($info);

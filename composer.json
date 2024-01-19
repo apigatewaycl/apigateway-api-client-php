@@ -1,25 +1,35 @@
 {
-    "name": "sasco/libredte-api-client",
-    "description": "Cliente para realizar la integración con los servicios web de API Gateway",
+    "name": "apigatewaycl/apigateway-api-client",
+    "description": "Cliente para realizar la integración con los servicios web de API Gateway desde PHP.",
     "type": "library",
-    "keywords": ["api", "sii", "dte", "facturación electrónica"],
-    "homepage": "https://apigateway.cl",
+    "keywords": ["api", "sii", "dte", "facturación electrónica", "chile"],
+    "homepage": "https://www.apigateway.cl",
     "license": "LGPL-3.0+",
     "authors": [
         {
-            "name": "SASCO SpA",
-            "homepage": "https://sasco.cl"
+            "name": "API Gateway",
+            "homepage": "https://www.apigateway.cl"
         }
     ],
     "support": {
-        "issues": "https://github.com/LibreDTE/apigateway-client-php/issues",
-        "source": "https://github.com/LibreDTE/apigateway-client-php"
+        "issues": "https://github.com/apigatewaycl/apigateway-api-client-php/issues",
+        "source": "https://github.com/apigatewaycl/apigateway-api-client-php"
     },
-    "require": {
-        "php": "7.3.* || 7.4.*",
-        "guzzlehttp/guzzle": "^7"
+    "config": {
+        "platform": {
+            "php": "7.3"
+        }
     },
     "autoload": {
-        "psr-4": {"sasco\\LibreDTE\\API\\": "src/"}
+        "psr-4": {"apigatewaycl\\api_client\\": "src/"}
+    },
+    "require": {
+        "php": "^7.3 || ^8.0",
+        "guzzlehttp/guzzle": "^7"
+    },
+    "require-dev": {
+        "phpdocumentor/phpdocumentor": "^2.9",
+        "phpunit/phpunit": "^9.2",
+        "vlucas/phpdotenv": "^5.6"
     }
 }
