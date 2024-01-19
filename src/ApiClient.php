@@ -49,7 +49,7 @@ class ApiClient
      *
      * @var string
      */
-    private $api_version = '/v1';
+    private $api_version = 'v1';
 
     /**
      * El token de autenticación para la API.
@@ -307,7 +307,7 @@ class ApiClient
         }
         $method = $method ?: ($data ? 'POST' : 'GET');
         $client = new \GuzzleHttp\Client();
-        $this->last_url = $this->api_url . $this->api_prefix . $this->api_version . $resource;
+        $this->last_url = $this->api_url . $this->api_prefix . '/'. $this->api_version . $resource;
 
         // preparar cabeceras que se usarán
         $options[\GuzzleHttp\RequestOptions::HEADERS] = array_merge([
