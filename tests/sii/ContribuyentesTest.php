@@ -23,36 +23,28 @@ use PHPUnit\Framework\TestCase;
 use apigatewaycl\api_client\ApiClient;
 use apigatewaycl\api_client\ApiException;
 
-class SiiMisiiTest extends TestCase
+class ContribuyentesTest extends TestCase
 {
 
     protected static $verbose;
     protected static $client;
-    protected static $auth;
+    private static $contribuyente_rut;
 
     public static function setUpBeforeClass(): void
     {
         self::$verbose = env('TEST_VERBOSE', false);
         self::$client = new ApiClient();
-        $contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
-        $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
-        self::$auth = [
-            'pass' => [
-                'rut' => $contribuyente_rut,
-                'clave' => $contribuyente_clave,
-            ],
-        ];
+        self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
     }
 
-    public function test_contribuyentes_datos()
+    public function test_situacion_tributaria_tercero()
     {
+        $url = '/sii/contribuyentes/situacion_tributaria/tercero/' . self::$contribuyente_rut;
         try {
-            $response = self::$client->post('/sii/misii/contribuyente/datos', [
-                'auth' => self::$auth,
-            ]);
+            $response = self::$client->get($url);
             $this->assertEquals(200, $response->getStatusCode());
             if (self::$verbose) {
-                echo "\n",'test_contribuyentes_datos() datos ',$response->getBody(),"\n";
+                echo "\n",'test_situacion_tributaria_tercero() situacion_tributaria ',$response->getBody(),"\n";
             }
         } catch (ApiException $e) {
             $this->fail(sprintf('[ApiException %d] %s', $e->getCode(), $e->getMessage()));

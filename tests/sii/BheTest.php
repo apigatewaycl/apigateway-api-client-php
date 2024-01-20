@@ -23,11 +23,12 @@ use PHPUnit\Framework\TestCase;
 use apigatewaycl\api_client\ApiClient;
 use apigatewaycl\api_client\ApiException;
 
-class SiiContribuyentesTest extends TestCase
+class BheTest extends TestCase
 {
 
     protected static $verbose;
     protected static $client;
+    protected static $auth;
     private static $contribuyente_rut;
 
     public static function setUpBeforeClass(): void
@@ -35,16 +36,26 @@ class SiiContribuyentesTest extends TestCase
         self::$verbose = env('TEST_VERBOSE', false);
         self::$client = new ApiClient();
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
+        $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
+        self::$auth = [
+            'pass' => [
+                'rut' => self::$contribuyente_rut,
+                'clave' => $contribuyente_clave,
+            ],
+        ];
     }
 
-    public function test_situacion_tributaria_tercero()
+    public function test_bhe_recibidas_documentos()
     {
-        $url = '/sii/contribuyentes/situacion_tributaria/tercero/' . self::$contribuyente_rut;
+        $periodo = env('TEST_PERIODO', date('Ym'));
+        $url = '/sii/bhe/recibidas/documentos/'.self::$contribuyente_rut.'/'.$periodo;
         try {
-            $response = self::$client->get($url);
+            $response = self::$client->post($url, [
+                'auth' => self::$auth,
+            ]);
             $this->assertEquals(200, $response->getStatusCode());
             if (self::$verbose) {
-                echo "\n",'test_situacion_tributaria_tercero() situacion_tributaria ',$response->getBody(),"\n";
+                echo "\n",'test_bhe_recibidas_documentos() documentos ',$response->getBody(),"\n";
             }
         } catch (ApiException $e) {
             $this->fail(sprintf('[ApiException %d] %s', $e->getCode(), $e->getMessage()));

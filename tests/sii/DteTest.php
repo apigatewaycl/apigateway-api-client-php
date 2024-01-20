@@ -23,41 +23,52 @@ use PHPUnit\Framework\TestCase;
 use apigatewaycl\api_client\ApiClient;
 use apigatewaycl\api_client\ApiException;
 
-class SiiBheTest extends TestCase
+class DteTest extends TestCase
 {
 
     protected static $verbose;
     protected static $client;
     protected static $auth;
-    private static $contribuyente_rut;
 
     public static function setUpBeforeClass(): void
     {
         self::$verbose = env('TEST_VERBOSE', false);
         self::$client = new ApiClient();
-        self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
-        $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
+        $firma_public_key = env('TEST_USUARIO_FIRMA_PUBLIC_KEY');
+        $firma_private_key = env('TEST_USUARIO_FIRMA_PRIVATE_KEY');
         self::$auth = [
-            'pass' => [
-                'rut' => self::$contribuyente_rut,
-                'clave' => $contribuyente_clave,
+            'cert' => [
+                'cert-data' => $firma_public_key,
+                'pkey-data' => $firma_private_key
             ],
         ];
     }
 
-    public function test_bhe_recibidas_documentos()
+    public function test_dte_contribuyentes_autorizados()
     {
-        $periodo = env('TEST_PERIODO', date('Ym'));
-        $url = '/sii/bhe/recibidas/documentos/'.self::$contribuyente_rut.'/'.$periodo;
+        $dia = env('TEST_FECHA', date('Y-m-d'));
+        $certificacion = env('TEST_SII_AMBIENTE', 0); // =1 certificación, =0 producción
+        $formato = 'csv_sii'; // json, csv o csv_sii (este último es el formato más rápido)
+        $filename = __DIR__ . '/contribuyentes.csv';
+        $resource = fopen($filename, 'w');
+        $stream = \GuzzleHttp\Psr7\Utils::streamFor($resource);
+        $url = '/sii/dte/contribuyentes/autorizados?dia='.$dia.'&formato='.$formato.'&certificacion='.$certificacion;
+        $body = ['auth' => self::$auth];
+        $headers = [];
+        $options = [\GuzzleHttp\RequestOptions::SINK => $stream];
         try {
-            $response = self::$client->post($url, [
-                'auth' => self::$auth,
-            ]);
+            $response = self::$client->post($url, $body, $headers, $options);
+            $filesize = filesize($filename);
+            fclose($resource);
+            unlink($filename);
             $this->assertEquals(200, $response->getStatusCode());
             if (self::$verbose) {
-                echo "\n",'test_bhe_recibidas_documentos() documentos ',$response->getBody(),"\n";
+                echo "\n",'test_dte_contribuyentes_autorizados() filename ',$filename,"\n";
+                echo "\n",'test_dte_contribuyentes_autorizados() filesize ',$filesize,"\n";
             }
         } catch (ApiException $e) {
+            fclose($resource);
+            unlink($filename);
             $this->fail(sprintf('[ApiException %d] %s', $e->getCode(), $e->getMessage()));
         }
 
