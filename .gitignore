@@ -1,5 +1,7 @@
-vendor
-docs
+vendor/
 tests/test.env
 tests/contribuyentes.csv
 
+var/
+tools/
+build/
