@@ -7,3 +7,4 @@ Empezando
     legal
     install
     setup
+    example

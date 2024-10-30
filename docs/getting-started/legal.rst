@@ -1,15 +1,20 @@
-Términos y Condiciones de Uso [INCOMPLETO]
+Términos y Condiciones de Uso
 =============================
 
-Al utilizar este proyecto, total o parcialmente, automáticamente se acepta cumplir con los `términos y condiciones de uso <https://www.apigateway.cl/legal>`_ que rigen a API Gateway. La `Licencia Pública General Reducida de GNU (LGPL-3.0+) <https://raw.githubusercontent.com/apigatewaycl/apigateway-api-client-php/master/COPYING>`_ solo aplica para quienes respeten los términos y condiciones de uso. No existe una licencia comercial de API Gateway, por lo cual no es posible usar el proyecto si no aceptas cumplir dichos términos y condiciones.
+Este programa es software libre: usted puede redistribuirlo y/o modificarlo
+bajo los términos de la GNU Lesser General Public License (LGPL) publicada
+por la Fundación para el Software Libre, ya sea la versión 3 de la Licencia,
+o (a su elección) cualquier versión posterior de la misma.
 
-La versión resumida de los términos y condiciones de uso de API Gateway que permiten utilizar el proyecto, son los siguientes:
+Este programa se distribuye con la esperanza de que sea útil, pero SIN
+GARANTÍA ALGUNA; ni siquiera la garantía implícita MERCANTIL o de APTITUD
+PARA UN PROPÓSITO DETERMINADO. Consulte los detalles de la GNU Lesser General
+Public License (LGPL) para obtener una información más detallada.
 
-1. Tienes la libertad de: usar, estudiar, distribuir y cambiar API Gateway.
-2. Si utilizas API Gateway en tu software, el código fuente de dicho software deberá ser liberado de manera pública bajo licencia LGPL.
-3. Si haces cambios a API Gateway deberás liberar de manera pública el código fuente de dichos cambios bajo licencia LGPL.
-4. Debes hacer referencia de manera pública en tu software al proyecto y autor original de API Gateway, tanto si usas API Gateway sin modificar o realizando cambios al código.
+Debería haber recibido una copia de la GNU Lesser General Public License
+(LGPL) junto a este programa. En caso contrario, consulte
+`GNU Lesser General Public License <https://raw.githubusercontent.com/apigatewaycl/apigateway-api-client-php/master/COPYING>`_.
 
 .. important::
 
-  Es obligación de quienes quieran usar el proyecto leer y aceptar por completo los `términos y condiciones de uso <https://www.apigateway.cl/legal>`_.
+  Para utilizar el cliente de API de API Gateway, necesitará una cuenta de API Gateway. Al usar dicha cuenta, es obligatorio leer y aceptar por completo los `términos y condiciones de uso <https://www.apigateway.cl/legal>`_.

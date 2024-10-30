@@ -5,7 +5,7 @@
         xmlns="https://www.phpdoc.org"
         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/phpDocumentor/phpDocumentor/master/data/xsd/phpdoc.xsd"
 >
-    <title>API Gateway</title>
+    <title>API Gateway API Client</title>
     <paths>
         <output>build/docs</output>
         <cache>var/cache/phpdocumentor</cache>
@@ -13,7 +13,7 @@
     <version number="latest">
         <folder>latest</folder>
         <api>
-            <default-package-name>API Gateway</default-package-name>
+            <default-package-name>apigateway-api-client</default-package-name>
             <source dsn=".">
                 <path>src</path>
             </source>
