@@ -29,7 +29,6 @@ jobs:
 
       - name: Crear Archivo de Entorno
         run: |
-          echo "APIGATEWAY_API_URL=${{ secrets.APIGATEWAY_API_URL }}" >> tests/test.env
           echo "APIGATEWAY_API_TOKEN=${{ secrets.APIGATEWAY_API_TOKEN }}" >> tests/test.env
           echo "TEST_CONTRIBUYENTE_RUT=${{ secrets.TEST_CONTRIBUYENTE_RUT }}" >> tests/test.env
           echo "TEST_CONTRIBUYENTE_CLAVE=${{ secrets.TEST_CONTRIBUYENTE_CLAVE }}" >> tests/test.env
