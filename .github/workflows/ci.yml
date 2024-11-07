@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - master  # Ejecuta pruebas al hacer push en la rama 'main'
+      - master  # Ejecuta pruebas al hacer push en la rama 'master'
 
 jobs:
   test:
@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        php-version: ['7.3', '8.0', '8.3']  # Puedes cambiar las versiones según necesites
+        php-version: ['7.3', '8.0']  # Puedes cambiar las versiones según necesites
 
     steps:
       - name: Check out repository code
@@ -27,7 +27,7 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --no-progress --no-suggest
 
-      - name: Crear Archivo de Entorno
+      - name: Create temporary env file
         run: |
           echo "APIGATEWAY_API_TOKEN=${{ secrets.APIGATEWAY_API_TOKEN }}" >> tests/test.env
           echo "TEST_CONTRIBUYENTE_RUT=${{ secrets.TEST_CONTRIBUYENTE_RUT }}" >> tests/test.env
