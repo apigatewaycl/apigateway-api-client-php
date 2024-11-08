@@ -30,11 +30,9 @@ jobs:
       - name: Create temporary env file
         run: |
           echo "APIGATEWAY_API_TOKEN=${{ secrets.APIGATEWAY_API_TOKEN }}" >> tests/test.env
-          echo "TEST_CONTRIBUYENTE_RUT=${{ secrets.TEST_CONTRIBUYENTE_RUT }}" >> tests/test.env
-          echo "TEST_CONTRIBUYENTE_CLAVE=${{ secrets.TEST_CONTRIBUYENTE_CLAVE }}" >> tests/test.env
-          echo "TEST_PERIODO=${{ secrets.TEST_PERIODO }}" >> tests/test.env
+          echo 'TEST_CONTRIBUYENTE_RUT="76192083-9"' >> tests/test.env
 
-      - name: Run PHP tests
+      - name: Run PHP tests read only
         run: |
           composer tests_readonly
 
