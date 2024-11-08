@@ -35,7 +35,7 @@
     "scripts": {
         "docs": "php tools/phpdocumentor run --config=phpdoc.xml",
         "tests": "XDEBUG_MODE=coverage vendor/bin/phpunit --configuration=phpunit.xml",
-        "tests_act": "vendor/bin/phpunit --filter test_actividades_economicas_listar",
-        "test_contr": "vendor/bin/phpunit --filter test_situacion_tributaria_tercero"
+        "tests_readonly": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage --testsuite readonly",
+        "tests_authneeded": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage --testsuite authneeded"
     }
 }

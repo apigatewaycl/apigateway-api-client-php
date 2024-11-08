@@ -27,6 +27,15 @@
         <testsuite name="API Gateway: Cliente de API en PHP - Pruebas Unitarias.">
             <directory>tests</directory>
         </testsuite>
+        <testsuite name="readonly">
+            <file>tests/sii/ActividadesEconomicasTest.php</file>
+            <file>tests/sii/ContribuyentesTest.php</file>
+        </testsuite>
+        <testsuite name="authneeded">
+            <file>tests/sii/BheTest.php</file>
+            <file>tests/sii/DteTest.php</file>
+            <file>tests/sii/MiSiiTest.php</file>
+        </testsuite>
     </testsuites>
     <filter>
         <whitelist>
