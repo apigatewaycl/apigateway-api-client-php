@@ -134,8 +134,23 @@
                                         <section class="section " id="ejemplo">
             <h1>Ejemplo</h1>
 
+            <section class="section " id="ejemplo-de-listar-bhes">
+            <h2>Ejemplo de listar BHEs</h2>
+
             
     <p>El siguiente es un ejemplo básico de cómo obtener un listado de documentos BHE utilizando el cliente de API.</p>
+
+            
+    <p>Para utilizar el cliente de API de API Gateway, deberás tener definido el token de API como variable de entorno.</p>
+
+            <div class="phpdocumentor-admonition seealso">
+                        <svg class="phpdocumentor-admonition__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+        <article>
+        
+    <p>Para más información sobre este paso, referirse al la guía en Configuración.</p>
+
+    </article>
+</div>
 
             <pre><code class="language-php">&lt;?php
 
@@ -172,76 +187,6 @@ $response = $client-&gt;post($url, [
 ]);
 
 # Se despliega el resultado en consola, para confirmar.
-echo &quot;\n&quot;, $response-&gt;getStatusCode();
-echo &quot;\nBHE RECIBIDAS: \n&quot;;
-echo &quot;\n&quot;,$response-&gt;getBody(),&quot;\n&quot;;</code></pre>
-
-            <section class="section " id="desgloce-de-ejemplo">
-            <h2>Desgloce de ejemplo</h2>
-
-            
-    <p>Para utilizar el cliente de API de API Gateway, deberás tener definido el token de API como variable de entorno.</p>
-
-            <div class="phpdocumentor-admonition seealso">
-                        <svg class="phpdocumentor-admonition__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-        <article>
-        
-    <p>Para más información sobre este paso, referirse al la guía en Configuración.</p>
-
-    </article>
-</div>
-
-            
-    <p>Al momento de integrar el cliente de API con tu programa, debes importar el cliente e instanciarlo.</p>
-
-            <pre><code class="language-php"># Importaciones del cliente de API de API Gateway
-use apigatewaycl\api_client\ApiClient;
-
-# Creación de nueva instancia de cliente de API
-$cliente = new ApiClient();</code></pre>
-
-            
-    <p>Luego de crear la instancia, puedes definir otros parámetros, como la URL a llamar, una fecha, un periodo, entre otros.</p>
-
-            <div class="phpdocumentor-admonition important">
-        <svg class="phpdocumentor-admonition__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        <article>
-        
-    <p>Para hacer que la solicitud HTTP funcione, necesitas credenciales de autenticación para algunos casos.</p>
-
-    </article>
-</div>
-
-            <pre><code class="language-php"># RUT de contribuyente SII sin puntos y con Dígito Verificador.
-$contribuyente_rut = &#039;12345678-9&#039;;
-# Clave de contribuyente SII.
-$contribuyente_clave = &#039;claveSii&#039;;
-
-# Periodo, formato AAAAMM.
-$periodo = date(&#039;Ym&#039;);
-# Recurso URL a utilizar
-$url = &#039;/sii/bhe/recibidas/documentos/&#039;.$contribuyente_rut.&#039;/&#039;.$periodo;
-
-# Diccionario de autenticación. Debe contener las credenciales del SII en esta forma.
-$auth = [
-    &#039;pass&#039; =&gt; [
-        &#039;rut&#039; =&gt; $contribuyente_rut,
-        &#039;clave&#039; =&gt; $contribuyente_clave
-    ],
-];</code></pre>
-
-            
-    <p>Una vez tengas los recursos necesarios, puedes hacer una solicitud HTTP. La solicitud debe ser válida, y utiliza métodos get o post</p>
-
-            <pre><code class="language-php"># Se efectua la solicitud HTTP y se guarda la respuesta.
-$response = $client-&gt;post($url, [
-    &#039;auth&#039; =&gt; $auth,
-]);</code></pre>
-
-            
-    <p>Por último, para extraer la información de la respuesta HTTP, debes usar getBody() en la respuesta HTTP. Para comprobar el resultado, se debe imprimir.</p>
-
-            <pre><code class="language-php"># Se despliega el resultado en consola, para confirmar.
 echo &quot;\n&quot;, $response-&gt;getStatusCode();
 echo &quot;\nBHE RECIBIDAS: \n&quot;;
 echo &quot;\n&quot;,$response-&gt;getBody(),&quot;\n&quot;;</code></pre>
