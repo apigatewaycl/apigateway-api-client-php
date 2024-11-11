@@ -12,6 +12,8 @@ API Gateway: Cliente de API en PHP
 
 Cliente para realizar la integración con los servicios web de [API Gateway](https://www.apigateway.cl) desde PHP.
 
+Revisa la [documentación](https://api-client-php.docs.apigateway.cl/guide/index.html) de la biblioteca para más información, sus características y detalles de su uso.
+
 Licencia
 --------
 
