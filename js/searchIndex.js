@@ -71,11 +71,6 @@ Search.appendIndex(
             "summary": "Realiza\u0020una\u0020solicitud\u0020HTTP\u0020a\u0020la\u0020API.",
             "url": "classes/apigatewaycl-api-client-ApiClient.html#method_consume"
         },                {
-            "fqsen": "\\apigatewaycl\\api_client\\ApiClient\u003A\u003AforceUrlParams\u0028\u0029",
-            "name": "forceUrlParams",
-            "summary": "Fuerza\u0020par\u00E1metros\u0020espec\u00EDficos\u0020en\u0020la\u0020URL\u0020dada.",
-            "url": "classes/apigatewaycl-api-client-ApiClient.html#method_forceUrlParams"
-        },                {
             "fqsen": "\\apigatewaycl\\api_client\\ApiClient\u003A\u003AgetError\u0028\u0029",
             "name": "getError",
             "summary": "Extrae\u0020informaci\u00F3n\u0020detallada\u0020sobre\u0020un\u0020error\u0020a\u0020partir\u0020de\u0020la\u0020\u00FAltima\u0020respuesta\u0020HTTP.",
