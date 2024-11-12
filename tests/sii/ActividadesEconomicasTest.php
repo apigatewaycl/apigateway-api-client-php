@@ -29,7 +29,6 @@ class ActividadesEconomicasTest extends TestCase
     protected static $verbose;
     protected static $client;
     protected static $auth;
-    private static $contribuyente_rut;
 
     public static function setUpBeforeClass(): void
     {
