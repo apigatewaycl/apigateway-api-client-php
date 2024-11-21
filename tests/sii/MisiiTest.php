@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * API Gateway: Cliente de API en PHP - Pruebas Unitarias.
  * Copyright (C) API Gateway <https://www.apigateway.cl>
@@ -19,15 +21,18 @@
  * <http://www.gnu.org/licenses/lgpl.html>.
  */
 
-use PHPUnit\Framework\TestCase;
 use apigatewaycl\api_client\ApiClient;
 use apigatewaycl\api_client\ApiException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ApiClient::class)]
 class MisiiTest extends TestCase
 {
-
     protected static $verbose;
+
     protected static $client;
+
     protected static $auth;
 
     public static function setUpBeforeClass(): void
@@ -50,7 +55,7 @@ class MisiiTest extends TestCase
             $response = self::$client->post('/sii/misii/contribuyente/datos', [
                 'auth' => self::$auth,
             ]);
-            $this->assertEquals(200, $response->getStatusCode());
+            $this->assertSame(200, $response->getStatusCode());
             if (self::$verbose) {
                 echo "\n",'test_contribuyentes_datos() datos ',$response->getBody(),"\n";
             }
@@ -59,5 +64,4 @@ class MisiiTest extends TestCase
         }
 
     }
-
 }

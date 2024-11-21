@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * API Gateway: Cliente de API en PHP.
  * Copyright (C) API Gateway <https://www.apigateway.cl>
@@ -19,7 +21,7 @@
  * <http://www.gnu.org/licenses/lgpl.html>.
  */
 
- namespace apigatewaycl\api_client;
+namespace apigatewaycl\api_client;
 
 /**
  * Cliente de la API de API Gateway.
@@ -29,7 +31,6 @@
  */
 class ApiClient
 {
-
     /**
      * La URL base de la API de API Gateway.
      *
@@ -396,5 +397,4 @@ class ApiClient
     {
         return function_exists('env') ? env($name) : getenv($name);
     }
-
 }

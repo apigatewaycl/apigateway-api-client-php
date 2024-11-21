@@ -17,25 +17,36 @@
     },
     "config": {
         "platform": {
-            "php": "7.3"
+            "php": "8.2"
         }
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^7",
+        "php": "^8.2 || ^8.3"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.63",
+        "phpstan/phpstan": "^1.12",
+        "phpunit/phpunit": "^11.3",
+        "vlucas/phpdotenv": "^5.6"
     },
     "autoload": {
         "psr-4": {"apigatewaycl\\api_client\\": "src/"}
     },
-    "require": {
-        "php": "^7.3 || ^8.0",
-        "guzzlehttp/guzzle": "^7"
-    },
-    "require-dev": {
-        "phpdocumentor/phpdocumentor": "^2.9",
-        "phpunit/phpunit": "^9.2",
-        "vlucas/phpdotenv": "^5.6"
-    },
     "scripts": {
         "docs": "php tools/phpdocumentor run --config=phpdoc.xml",
-        "tests": "XDEBUG_MODE=coverage vendor/bin/phpunit --configuration=phpunit.xml",
-        "tests_readonly": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage --testsuite readonly",
-        "tests_authneeded": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage --testsuite authneeded"
+        "tests": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage",
+        "tests_cover": "XDEBUG_MODE=coverage vendor/bin/phpunit --configuration=phpunit.xml",
+        "tests_debug": "XDEBUG_MODE=debug vendor/bin/phpunit --configuration=phpunit.xml",
+        "tests_act": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage --testsuite activ",
+        "tests_bhe": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage --testsuite bhe",
+        "tests_contr": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage --testsuite contrib",
+        "tests_dte": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage --testsuite dte",
+        "tests_misii": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage --testsuite misii",
+        "tests_readonly": "XDEBUG_MODE=coverage vendor/bin/phpunit --configuration=phpunit.xml --testsuite readonly",
+        "phpcs-fix": "php-cs-fixer fix -v --config=php-cs-fixer.php .",
+        "phpcs-fix-dry-run": "php-cs-fixer fix -v --dry-run --diff --config=php-cs-fixer.php .",
+        "phpstan": "phpstan analyse --configuration=phpstan.neon --memory-limit=1G",
+        "phpstan-export": "phpstan analyse --configuration=phpstan.neon --level 9 --generate-baseline"
     }
 }

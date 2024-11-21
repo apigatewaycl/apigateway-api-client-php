@@ -6,7 +6,6 @@
     executionOrder="depends,defects"
     colors="true"
     testdox="true"
-    verbose="true"
     requireCoverageMetadata="true"
     beStrictAboutCoverageMetadata="true"
     beStrictAboutOutputDuringTests="false"
@@ -23,9 +22,29 @@
     failOnPhpunitDeprecation="true"
     failOnNotice="true"
 >
+    <source>
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+    </source>
     <testsuites>
         <testsuite name="API Gateway: Cliente de API en PHP - Pruebas Unitarias.">
             <directory>tests</directory>
+        </testsuite>
+        <testsuite name="activ">
+            <file>tests/sii/ActividadesEconomicasTest.php</file>
+        </testsuite>
+        <testsuite name="bhe">
+            <file>tests/sii/BheTest.php</file>
+        </testsuite>
+        <testsuite name="contrib">
+            <file>tests/sii/ContribuyentesTest.php</file>
+        </testsuite>
+        <testsuite name="dte">
+            <file>tests/sii/DteTest.php</file>
+        </testsuite>
+        <testsuite name="misii">
+            <file>tests/sii/MisiiTest.php</file>
         </testsuite>
         <testsuite name="readonly">
             <file>tests/sii/ActividadesEconomicasTest.php</file>
@@ -34,18 +53,27 @@
         <testsuite name="authneeded">
             <file>tests/sii/BheTest.php</file>
             <file>tests/sii/DteTest.php</file>
-            <file>tests/sii/MiSiiTest.php</file>
+            <file>tests/sii/MisiiTest.php</file>
         </testsuite>
     </testsuites>
-    <filter>
-        <whitelist>
-            <directory suffix=".php">src</directory>
-        </whitelist>
-    </filter>
+    <coverage
+        ignoreDeprecatedCodeUnits="true"
+        pathCoverage="true"
+    >
+        <report>
+            <text
+                outputFile="var/tests-coverage.txt"
+                showUncoveredFiles="true"
+            />
+            <clover outputFile="var/tests-coverage.xml" />
+        </report>
+    </coverage>
+    <logging>
+        <testdoxText outputFile="var/tests-testdox.txt"/>
+    </logging>
     <php>
         <ini name="memory_limit" value="-1" />
         <env name="APIGATEWAY_API_URL" value="https://apigateway.cl" />
         <env name="TEST_CONTRIBUYENTE_RUT" value="76192083-9" />
-        <env name="TEST_PERIODO" value="202407" />
     </php>
 </phpunit>

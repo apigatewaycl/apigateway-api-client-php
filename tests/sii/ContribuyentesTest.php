@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * API Gateway: Cliente de API en PHP - Pruebas Unitarias.
  * Copyright (C) API Gateway <https://www.apigateway.cl>
@@ -19,15 +21,18 @@
  * <http://www.gnu.org/licenses/lgpl.html>.
  */
 
-use PHPUnit\Framework\TestCase;
 use apigatewaycl\api_client\ApiClient;
 use apigatewaycl\api_client\ApiException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ApiClient::class)]
 class ContribuyentesTest extends TestCase
 {
-
     protected static $verbose;
+
     protected static $client;
+
     private static $contribuyente_rut;
 
     public static function setUpBeforeClass(): void
@@ -42,7 +47,7 @@ class ContribuyentesTest extends TestCase
         $url = '/sii/contribuyentes/situacion_tributaria/tercero/' . self::$contribuyente_rut;
         try {
             $response = self::$client->get($url);
-            $this->assertEquals(200, $response->getStatusCode());
+            $this->assertSame(200, $response->getStatusCode());
             if (self::$verbose) {
                 echo "\n",'test_situacion_tributaria_tercero() situacion_tributaria ',$response->getBody(),"\n";
             }
@@ -51,5 +56,4 @@ class ContribuyentesTest extends TestCase
         }
 
     }
-
 }

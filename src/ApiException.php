@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * API Gateway: Cliente de API en PHP.
  * Copyright (C) API Gateway <https://www.apigateway.cl>

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * API Gateway: Cliente de API en PHP - Pruebas Unitarias.
  * Copyright (C) API Gateway <https://www.apigateway.cl>
@@ -19,16 +21,20 @@
  * <http://www.gnu.org/licenses/lgpl.html>.
  */
 
-use PHPUnit\Framework\TestCase;
 use apigatewaycl\api_client\ApiClient;
 use apigatewaycl\api_client\ApiException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ApiClient::class)]
 class BheTest extends TestCase
 {
-
     protected static $verbose;
+
     protected static $client;
+
     protected static $auth;
+
     private static $contribuyente_rut;
 
     public static function setUpBeforeClass(): void
@@ -53,7 +59,7 @@ class BheTest extends TestCase
             $response = self::$client->post($url, [
                 'auth' => self::$auth,
             ]);
-            $this->assertEquals(200, $response->getStatusCode());
+            $this->assertSame(200, $response->getStatusCode());
             if (self::$verbose) {
                 echo "\n",'test_bhe_recibidas_documentos() documentos ',$response->getBody(),"\n";
             }
@@ -62,5 +68,4 @@ class BheTest extends TestCase
         }
 
     }
-
 }

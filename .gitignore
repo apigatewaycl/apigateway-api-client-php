@@ -2,6 +2,8 @@ vendor/
 tests/test.env
 tests/contribuyentes.csv
 
+.phpunit.result.cache
+.vscode/
 var/
 tools/
 build/
