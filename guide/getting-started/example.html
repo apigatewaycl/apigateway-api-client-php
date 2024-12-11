@@ -138,7 +138,7 @@
             <h2>Ejemplo de listar BHEs</h2>
 
             
-    <p>El siguiente es un ejemplo básico de cómo obtener un listado de documentos BHE utilizando el cliente de API.</p>
+    <p>El siguiente es un ejemplo básico de cómo emitir un documento BHE utilizando el cliente de API.</p>
 
             
     <p>Para utilizar el cliente de API de API Gateway, deberás tener definido el token de API como variable de entorno.</p>
@@ -163,33 +163,70 @@ use apigatewaycl\api_client\ApiClient;
 # Creación de nueva instancia de cliente de API
 $client = new ApiClient();
 
-# RUT de contribuyente SII sin puntos y con Dígito Verificador.
+# RUT de contribuyente SII, sin puntos y con Dígito Verificador.
 $contribuyente_rut = &#039;12345678-9&#039;;
 # Clave de contribuyente SII.
-$contribuyente_clave = &#039;claveSii&#039;;
+$contribuyente_clave = &#039;ClaveSii&#039;;
+# RUT del receptor del BHE a emitir, sin punto y con Dígito Verificador.
+$receptor_rut = &#039;66666666-6&#039;;
+# Fecha de emisión de la BHE.
+$fecha_emision = date(&#039;Y-m-d&#039;);
 
-# Periodo, formato AAAAMM.
-$periodo = date(&#039;Ym&#039;);
-# Recurso a consumir.
-$url = &#039;/sii/bhe/recibidas/documentos/&#039;.$contribuyente_rut.&#039;/&#039;.$periodo;
-
-# Diccionario de autenticación. Debe contener las credenciales del SII en esta forma.
+# Diccionario de autenticación.
 $auth = [
     &#039;pass&#039; =&gt; [
         &#039;rut&#039; =&gt; $contribuyente_rut,
-        &#039;clave&#039; =&gt; $contribuyente_clave
+        &#039;clave&#039; =&gt; $contribuyente_clave,
     ],
 ];
 
-# Se efectua la solicitud HTTP y se guarda la respuesta. Parámetros: url, auth
-$response = $client-&gt;post($url, [
+$datos_bhe = [
+    &#039;Encabezado&#039; =&gt; [
+        &#039;IdDoc&#039; =&gt; [
+            &#039;FchEmis&#039; =&gt; $fecha_emision,
+            &#039;TipoRetencion&#039; =&gt; 0
+        ],
+        &#039;Emisor&#039; =&gt; [
+            &#039;RUTEmisor&#039; =&gt; $contribuyente_rut
+        ],
+        &#039;Receptor&#039; =&gt; [
+            &#039;RUTRecep&#039; =&gt; $receptor_rut,
+            &#039;RznSocRecep&#039; =&gt; &#039;Receptor generico&#039;,
+            &#039;DirRecep&#039; =&gt; &#039;Santa Cruz&#039;,
+            &#039;CmnaRecep&#039; =&gt; &#039;Santa Cruz&#039;
+        ]
+    ],
+    &#039;Detalle&#039; =&gt; [
+        [
+            &#039;NmbItem&#039; =&gt; &#039;Prueba integracion API Gateway 1&#039;,
+            &#039;MontoItem&#039; =&gt; 50
+        ],
+        [
+            &#039;NmbItem&#039; =&gt; &#039;Prueba integracion API Gateway 2&#039;,
+            &#039;MontoItem&#039; =&gt; 100
+        ]
+    ]
+];
+
+# Recurso a consumir.
+$resource = &#039;/sii/bhe/emitidas/emitir&#039;;
+
+$data = [
     &#039;auth&#039; =&gt; $auth,
-]);
+    &#039;boleta&#039; =&gt; $datos_bhe
+];
+
+# Se efectua la solicitud HTTP y se guarda la respuesta.
+$response = $client-&gt;post(resource: $resource, data: $data);
+
+# Código del response
+echo &quot;Status: &quot;.$response-&gt;getStatusCode().&quot;\n&quot;;
 
 # Se despliega el resultado en consola, para confirmar.
-echo &quot;\n&quot;, $response-&gt;getStatusCode();
-echo &quot;\nBHE RECIBIDAS: \n&quot;;
-echo &quot;\n&quot;,$response-&gt;getBody(),&quot;\n&quot;;</code></pre>
+if ($response-&gt;getStatusCode() == 200) {
+    echo &quot;\nDTEs Temporales: \n&quot;;
+    echo &quot;\n&quot;,&#039;EMITIR BHE: &#039;,json_encode($response-&gt;getBody()),&quot;\n&quot;;
+}</code></pre>
 
             <div class="phpdocumentor-admonition seealso">
                         <svg class="phpdocumentor-admonition__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
