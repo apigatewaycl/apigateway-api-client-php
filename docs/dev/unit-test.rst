@@ -21,7 +21,8 @@ Para ejecutar las pruebas unitarias se necesita tener instaladas las dependencia
 También es posible ejecutar una pruebas específica indicando el test. Ejemplo:
 
 .. code-block:: shell
-    ./vendor/bin/phpunit --filter test_contribuyentes_datos
+    ./vendor/bin/phpunit --filter testListarActividadesEconomicasTest --no-coverage
+    ./vendor/bin/phpunit --filter testListarBheEmitidasSimpleTest --no-coverage
 
 Ejemplos
 --------

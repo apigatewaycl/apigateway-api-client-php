@@ -79,7 +79,7 @@ class ApiClient
      * @param string|null $token Token de autenticación para la API.
      * @param string|null $url URL base de la API.
      */
-    public function __construct($token = null, $url = null)
+    public function __construct(string $token = null, string $url = null)
     {
         $this->api_token = $token ?: $this->env('APIGATEWAY_API_TOKEN');
         if (!$this->api_token) {
@@ -95,7 +95,7 @@ class ApiClient
      * @param string $url URL base.
      * @return $this
      */
-    public function setUrl($url)
+    public function setUrl(string $url)
     {
         $this->api_url = $url;
         return $this;
@@ -107,7 +107,7 @@ class ApiClient
      * @param string $token Token de autenticación.
      * @return $this
      */
-    public function setToken($token)
+    public function setToken(string $token)
     {
         $this->api_token = $token;
         return $this;
@@ -145,7 +145,9 @@ class ApiClient
     public function getBody()
     {
         if (!$this->last_response) {
-            throw new ApiException('No hay una respuesta HTTP previa para obtener el cuerpo.');
+            throw new ApiException(
+                'No hay una respuesta HTTP previa para obtener el cuerpo.'
+            );
         }
 
         return (string)$this->last_response->getBody();
@@ -168,7 +170,9 @@ class ApiClient
         $decodedBody = json_decode($body, true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new ApiException('Error al decodificar JSON: ' . json_last_error_msg());
+            throw new ApiException(
+                'Error al decodificar JSON: ' . json_last_error_msg()
+            );
         }
 
         return $decodedBody;
@@ -187,7 +191,9 @@ class ApiClient
     public function toArray()
     {
         if (!$this->last_response) {
-            throw new ApiException('No hay una respuesta HTTP previa para procesar.');
+            throw new ApiException(
+                'No hay una respuesta HTTP previa para procesar.'
+            );
         }
 
         $headers = $this->getLastResponse()->getHeaders();
@@ -240,9 +246,19 @@ class ApiClient
      * @param array $options Arreglo con las opciones de la solicitud HTTP.
      * @return \Psr\Http\Message\ResponseInterface|null
      */
-    public function get($resource, array $headers = [], array $options = [])
+    public function get(
+        string $resource,
+        array $headers = [],
+        array $options = []
+    )
     {
-        return $this->consume($resource, [], $headers, 'GET', $options)->getLastResponse();
+        return $this->consume(
+            $resource,
+            [],
+            $headers,
+            'GET',
+            $options
+        )->getLastResponse();
     }
 
     /**
@@ -254,9 +270,20 @@ class ApiClient
      * @param array $options Arreglo con las opciones de la solicitud HTTP.
      * @return \Psr\Http\Message\ResponseInterface|null
      */
-    public function post($resource, array $data, array $headers = [], array $options = [])
+    public function post(
+        string $resource,
+        array $data,
+        array $headers = [],
+        array $options = []
+    )
     {
-        return $this->consume($resource, $data, $headers, 'POST', $options)->getLastResponse();
+        return $this->consume(
+            $resource,
+            $data,
+            $headers,
+            'POST',
+            $options
+        )->getLastResponse();
     }
 
     /**
@@ -268,9 +295,20 @@ class ApiClient
      * @param array $options Arreglo con las opciones de la solicitud HTTP.
      * @return \Psr\Http\Message\ResponseInterface|null
      */
-    public function put($resource, array $data, array $headers = [], array $options = [])
+    public function put(
+        string $resource,
+        array $data,
+        array $headers = [],
+        array $options = []
+    )
     {
-        return $this->consume($resource, $data, $headers, 'PUT', $options)->getLastResponse();
+        return $this->consume(
+            $resource,
+            $data,
+            $headers,
+            'PUT',
+            $options
+        )->getLastResponse();
     }
 
     /**
@@ -281,9 +319,19 @@ class ApiClient
      * @param array $options Arreglo con las opciones de la solicitud HTTP.
      * @return \Psr\Http\Message\ResponseInterface|null
      */
-    public function delete($resource, array $headers = [], array $options = [])
+    public function delete(
+        string $resource,
+        array $headers = [],
+        array $options = []
+    )
     {
-        return $this->consume($resource, [], $headers, 'DELETE', $options)->getLastResponse();
+        return $this->consume(
+            $resource,
+            [],
+            $headers,
+            'DELETE',
+            $options
+        )->getLastResponse();
     }
 
     /**
@@ -300,11 +348,20 @@ class ApiClient
      * @return $this Instancia actual del cliente para encadenar llamadas.
      * @throws ApiException Si se produce un error en la solicitud.
      */
-    public function consume($resource, $data = [], array $headers = [], $method = null, $options = [])
+    public function consume(
+        string $resource,
+        array $data = [],
+        array $headers = [],
+        string $method = null,
+        $options = []
+    )
     {
         $this->last_response = null;
         if (!$this->api_token) {
-            throw new ApiException('Falta especificar token para autenticación.', 400);
+            throw new ApiException(
+                'Falta especificar token para autenticación.',
+                400
+            );
         }
         $method = $method ?: ($data ? 'POST' : 'GET');
         $client = new \GuzzleHttp\Client();
@@ -324,7 +381,11 @@ class ApiClient
 
         // Ejecutar consulta al SII.
         try {
-            $this->last_response = $client->request($method, $this->last_url, $options);
+            $this->last_response = $client->request(
+                $method,
+                $this->last_url,
+                $options
+            );
         } catch (\GuzzleHttp\Exception\GuzzleException $e) {
             // Obtener la respuesta de la llamada.
             $this->last_response = $e->getResponse();
@@ -393,7 +454,7 @@ class ApiClient
      * @param string $name Nombre de la variable de entorno.
      * @return string|null Valor de la variable de entorno o null si no está definida.
      */
-    private function env($name)
+    private function env(string $name)
     {
         return function_exists('env') ? env($name) : getenv($name);
     }

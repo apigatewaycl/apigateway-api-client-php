@@ -21,13 +21,13 @@ declare(strict_types=1);
  * <http://www.gnu.org/licenses/lgpl.html>.
  */
 
-use apigatewaycl\api_client\ApiClient;
 use apigatewaycl\api_client\ApiException;
+use apigatewaycl\api_client\sii\DteContribuyentes;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(ApiClient::class)]
-class DteTest extends TestCase
+#[CoversClass(DteContribuyentes::class)]
+class VerificarAutorizacionDteTest extends TestCase
 {
     protected static $verbose;
 
@@ -35,10 +35,12 @@ class DteTest extends TestCase
 
     protected static $auth;
 
+    private static $contribuyente_rut;
+
     public static function setUpBeforeClass(): void
     {
         self::$verbose = env('TEST_VERBOSE', false);
-        self::$client = new ApiClient();
+        self::$client = new DteContribuyentes();
         $firma_public_key = env('TEST_USUARIO_FIRMA_PUBLIC_KEY');
         $firma_private_key = env('TEST_USUARIO_FIRMA_PRIVATE_KEY');
         self::$auth = [
@@ -47,22 +49,30 @@ class DteTest extends TestCase
                 'pkey-data' => $firma_private_key,
             ],
         ];
+        self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
     }
 
-    public function test_dte_contribuyentes_autorizados()
+    public function testVerificarAutorizacionDte()
     {
-        $dia = env('TEST_FECHA', date('Y-m-d'));
+        # TODO: Consultar por este test.
         $certificacion = env('TEST_SII_AMBIENTE', 0); // =1 certificación, =0 producción
-        $formato = 'csv_sii'; // json, csv o csv_sii (este último es el formato más rápido)
-        $filename = __DIR__ . '/contribuyentes.csv';
+
+        // Ruta base para el directorio actual (archivo ejecutándose en
+        // "tests/dte_facturacion")
+        $currentDir = __DIR__;
+
+        // Nueva ruta relativa para guardar el archivo PDF en "tests/archivos"
+        $targetDir = dirname(dirname($currentDir)) . '/archivos/dte_emit_mipyme_pdf';
+
+        $filename = $targetDir . '/contribuyentes.csv';
         $resource = fopen($filename, 'w');
-        $stream = \GuzzleHttp\Psr7\Utils::streamFor($resource);
-        $url = '/sii/dte/contribuyentes/autorizados?dia='.$dia.'&formato='.$formato.'&certificacion='.$certificacion;
-        $body = ['auth' => self::$auth];
-        $headers = [];
-        $options = [\GuzzleHttp\RequestOptions::SINK => $stream];
+
         try {
-            $response = self::$client->post($url, $body, $headers, $options);
+            $response = self::$client->verificarAutorizacion(
+                self::$contribuyente_rut,
+                $certificacion
+            );
+
             $filesize = filesize($filename);
             fclose($resource);
             unlink($filename);
@@ -74,7 +84,11 @@ class DteTest extends TestCase
         } catch (ApiException $e) {
             fclose($resource);
             unlink($filename);
-            $this->fail(sprintf('[ApiException %d] %s', $e->getCode(), $e->getMessage()));
+            $this->fail(sprintf(
+                '[ApiException %d] %s',
+                $e->getCode(),
+                $e->getMessage()
+            ));
         }
 
     }

@@ -1,6 +1,13 @@
 vendor/
 tests/test.env
 tests/contribuyentes.csv
+tests/archivos/bhe_emitidas_pdf/*
+tests/archivos/bhe_recibidas_pdf/*
+tests/archivos/bte_emitidas_html/*
+tests/archivos/dte_emit_mipyme_pdf/*
+tests/archivos/dte_emit_mipyme_xml/*
+tests/archivos/dte_recib_mipyme_pdf/*
+tests/archivos/dte_recib_mipyme_xml/*
 
 .phpunit.result.cache
 .vscode/

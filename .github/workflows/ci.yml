@@ -34,7 +34,7 @@ jobs:
           APIGATEWAY_API_TOKEN: ${{ secrets.APIGATEWAY_API_TOKEN }}
           TEST_CONTRIBUYENTE_RUT: ${{ vars.TEST_CONTRIBUYENTE_RUT }}
         run: |
-          composer tests_readonly
+          composer tests-readonly
 
       - name: Upload PHPUnit result report
         if: failure()

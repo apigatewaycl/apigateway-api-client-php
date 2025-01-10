@@ -31,19 +31,24 @@
         "vlucas/phpdotenv": "^5.6"
     },
     "autoload": {
-        "psr-4": {"apigatewaycl\\api_client\\": "src/"}
+        "psr-4": {
+            "apigatewaycl\\api_client\\": "src/",
+            "apigatewaycl\\api_client\\sii\\": "src/sii/"
+
+        }
     },
     "scripts": {
         "docs": "php tools/phpdocumentor run --config=phpdoc.xml",
         "tests": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage",
-        "tests_cover": "XDEBUG_MODE=coverage vendor/bin/phpunit --configuration=phpunit.xml",
-        "tests_debug": "XDEBUG_MODE=debug vendor/bin/phpunit --configuration=phpunit.xml",
-        "tests_act": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage --testsuite activ",
-        "tests_bhe": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage --testsuite bhe",
-        "tests_contr": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage --testsuite contrib",
-        "tests_dte": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage --testsuite dte",
-        "tests_misii": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage --testsuite misii",
-        "tests_readonly": "XDEBUG_MODE=coverage vendor/bin/phpunit --configuration=phpunit.xml --testsuite readonly",
+        "tests-readonly": "XDEBUG_MODE=coverage vendor/bin/phpunit --configuration=phpunit.xml --filter 'testListarActividadesEconomicas|testObtenerSituacionTributariaTercero|testListarUfAnual|testListarUfMensual|testListarUfDiario|testObtenerDatosContribMisii|testObtenerCsvCompraDetalle|testObtenerCsvVentaDetalle'",
+        "tests-cover": "XDEBUG_MODE=coverage vendor/bin/phpunit --configuration=phpunit.xml",
+        "tests-debug": "XDEBUG_MODE=debug vendor/bin/phpunit --configuration=phpunit.xml",
+        "tests-act": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage --testsuite activ",
+        "tests-bhe": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage --testsuite bhe",
+        "tests-contr": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage --testsuite contrib",
+        "tests-indic": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage --testsuite indicadores",
+        "tests-dte": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage --testsuite dte",
+        "tests-misii": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage --testsuite misii",
         "phpcs-fix": "php-cs-fixer fix -v --config=php-cs-fixer.php .",
         "phpcs-fix-dry-run": "php-cs-fixer fix -v --dry-run --diff --config=php-cs-fixer.php .",
         "phpstan": "phpstan analyse --configuration=phpstan.neon --memory-limit=1G",

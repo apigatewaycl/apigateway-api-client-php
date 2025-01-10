@@ -21,38 +21,68 @@ declare(strict_types=1);
  * <http://www.gnu.org/licenses/lgpl.html>.
  */
 
-use apigatewaycl\api_client\ApiClient;
 use apigatewaycl\api_client\ApiException;
+use apigatewaycl\api_client\sii\DteEmitidos;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(ApiClient::class)]
-class ContribuyentesTest extends TestCase
+#[CoversClass(DteEmitidos::class)]
+class VerificarDteEmitidoTest extends TestCase
 {
     protected static $verbose;
 
     protected static $client;
+
+    protected static $auth;
 
     private static $contribuyente_rut;
 
     public static function setUpBeforeClass(): void
     {
         self::$verbose = env('TEST_VERBOSE', false);
-        self::$client = new ApiClient();
+        $firma_public_key = env('TEST_USUARIO_FIRMA_PUBLIC_KEY');
+        $firma_private_key = env('TEST_USUARIO_FIRMA_PRIVATE_KEY');
+        self::$auth = [
+            'cert' => [
+                'cert-data' => $firma_public_key,
+                'pkey-data' => $firma_private_key,
+            ],
+        ];
+        self::$client = new DteEmitidos(self::$auth);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
     }
 
-    public function test_situacion_tributaria_tercero()
+    public function testVerificarDteEmitido()
     {
-        $url = '/sii/contribuyentes/situacion_tributaria/tercero/' . self::$contribuyente_rut;
+        $receptor = env('TEST_DTE_EMITIDOS_VERIFICAR_RECEPTOR_RUT', '');
+        $dte = env('TEST_DTE_EMITIDOS_VERIFICAR_DTE', '');
+        $folio = env('TEST_DTE_EMITIDOS_VERIFICAR_FOLIO', '');
+        $fecha = env('TEST_DTE_EMITIDOS_VERIFICAR_FECHA', '');
+        $total = env('TEST_DTE_EMITIDOS_VERIFICAR_TOTAL', '');
+        $firma = env('TEST_DTE_EMITIDOS_VERIFICAR_FIRMA', '');
+
         try {
-            $response = self::$client->get($url);
+            $response = self::$client->verificarDteEmitido(
+                self::$contribuyente_rut,
+                $receptor,
+                $dte,
+                $folio,
+                $fecha,
+                $total,
+                $firma != '' ? $firma : null
+            );
+
             $this->assertSame(200, $response->getStatusCode());
+
             if (self::$verbose) {
-                echo "\n",'test_situacion_tributaria_tercero() situacion_tributaria ',$response->getBody(),"\n";
+                echo "\n",'testVerificarDteEmitido() resultado: ',$response->getBody(),"\n";
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf('[ApiException %d] %s', $e->getCode(), $e->getMessage()));
+            $this->fail(sprintf(
+                '[ApiException %d] %s',
+                $e->getCode(),
+                $e->getMessage()
+            ));
         }
 
     }

@@ -28,32 +28,41 @@
         </include>
     </source>
     <testsuites>
-        <testsuite name="API Gateway: Cliente de API en PHP - Pruebas Unitarias.">
-            <directory>tests</directory>
-        </testsuite>
         <testsuite name="activ">
-            <file>tests/sii/ActividadesEconomicasTest.php</file>
+            <directory>tests/sii/actividades/</directory>
         </testsuite>
-        <testsuite name="bhe">
-            <file>tests/sii/BheTest.php</file>
+        <testsuite name="bhe-emit">
+            <directory>tests/sii/bhe_emitidas</directory>
+        </testsuite>
+        <testsuite name="bhe-recib">
+            <directory>tests/sii/bhe_recibidas</directory>
+        </testsuite>
+        <testsuite name="bte-emit">
+            <directory>tests/sii/bte_emitidas</directory>
         </testsuite>
         <testsuite name="contrib">
-            <file>tests/sii/ContribuyentesTest.php</file>
+            <directory>tests/sii/contribuyentes</directory>
         </testsuite>
         <testsuite name="dte">
-            <file>tests/sii/DteTest.php</file>
+            <directory>tests/sii/dte_emitidos</directory>
+        </testsuite>
+        <testsuite name="indicadores">
+            <directory>tests/sii/indicadores</directory>
         </testsuite>
         <testsuite name="misii">
-            <file>tests/sii/MisiiTest.php</file>
+            <directory>tests/sii/misii</directory>
         </testsuite>
-        <testsuite name="readonly">
-            <file>tests/sii/ActividadesEconomicasTest.php</file>
-            <file>tests/sii/ContribuyentesTest.php</file>
+        <testsuite name="mipyme">
+            <directory>tests/sii/portal_mipyme</directory>
         </testsuite>
-        <testsuite name="authneeded">
-            <file>tests/sii/BheTest.php</file>
-            <file>tests/sii/DteTest.php</file>
-            <file>tests/sii/MisiiTest.php</file>
+        <testsuite name="mipyme-dte-emi">
+            <directory>tests/sii/portal_mipyme_dte_emit</directory>
+        </testsuite>
+        <testsuite name="mipyme-dte-rec">
+            <directory>tests/sii/portal_mipyme_dte_recib</directory>
+        </testsuite>
+        <testsuite name="rcv">
+            <directory>tests/sii/rcv</directory>
         </testsuite>
     </testsuites>
     <coverage

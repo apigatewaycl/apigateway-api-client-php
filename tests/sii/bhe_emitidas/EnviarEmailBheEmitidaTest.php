@@ -21,13 +21,13 @@ declare(strict_types=1);
  * <http://www.gnu.org/licenses/lgpl.html>.
  */
 
-use apigatewaycl\api_client\ApiClient;
 use apigatewaycl\api_client\ApiException;
+use apigatewaycl\api_client\sii\BheEmitidas;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(ApiClient::class)]
-class MisiiTest extends TestCase
+#[CoversClass(BheEmitidas::class)]
+class EnviarEmailBheEmitidaTest extends TestCase
 {
     protected static $verbose;
 
@@ -35,33 +35,52 @@ class MisiiTest extends TestCase
 
     protected static $auth;
 
+    private static $contribuyente_rut;
+
+    private static $periodo;
+
     public static function setUpBeforeClass(): void
     {
         self::$verbose = env('TEST_VERBOSE', false);
-        self::$client = new ApiClient();
-        $contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
+        self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
         self::$auth = [
             'pass' => [
-                'rut' => $contribuyente_rut,
+                'rut' => self::$contribuyente_rut,
                 'clave' => $contribuyente_clave,
             ],
         ];
+        self::$client = new BheEmitidas(self::$auth);
+        self::$periodo = env('TEST_PERIODO');
     }
 
-    public function test_contribuyentes_datos()
+    public function testEnviarEmailBheEmitida()
     {
         try {
-            $response = self::$client->post('/sii/misii/contribuyente/datos', [
-                'auth' => self::$auth,
-            ]);
-            $this->assertSame(200, $response->getStatusCode());
+            $documentos = self::$client->listarBhesEmitidas(
+                self::$contribuyente_rut,
+                self::$periodo
+            );
+
+            $codigo = json_decode((string)$documentos->getBody(), true)[0]['codigo'];
+            $receptor_email = env('TEST_RECEPTOR_EMAIL');
+
+            $email = self::$client->enviarEmailBheEmitida(
+                $codigo,
+                $receptor_email
+            );
+
+            $this->assertSame(200, $email->getStatusCode());
+
             if (self::$verbose) {
-                echo "\n",'test_contribuyentes_datos() datos ',$response->getBody(),"\n";
+                echo "\n",'testEnviarEmailBheEmitida() email: ',$email->getBody(),"\n";
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf('[ApiException %d] %s', $e->getCode(), $e->getMessage()));
+            $this->fail(sprintf(
+                '[ApiException %d] %s',
+                $e->getCode(),
+                $e->getMessage()
+            ));
         }
-
     }
 }

@@ -21,13 +21,13 @@ declare(strict_types=1);
  * <http://www.gnu.org/licenses/lgpl.html>.
  */
 
-use apigatewaycl\api_client\ApiClient;
 use apigatewaycl\api_client\ApiException;
+use apigatewaycl\api_client\sii\BheEmitidas;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(ApiClient::class)]
-class BheTest extends TestCase
+#[CoversClass(BheEmitidas::class)]
+class EmitirBheTest extends TestCase
 {
     protected static $verbose;
 
@@ -37,10 +37,11 @@ class BheTest extends TestCase
 
     private static $contribuyente_rut;
 
+    private static $receptor_rut;
+
     public static function setUpBeforeClass(): void
     {
         self::$verbose = env('TEST_VERBOSE', false);
-        self::$client = new ApiClient();
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
         self::$auth = [
@@ -49,23 +50,57 @@ class BheTest extends TestCase
                 'clave' => $contribuyente_clave,
             ],
         ];
+        self::$client = new BheEmitidas(self::$auth);
+        self::$receptor_rut = env('TEST_EMISOR_RUT');
     }
 
-    public function test_bhe_recibidas_documentos()
+    public function testEmitirBhe()
     {
-        $periodo = env('TEST_PERIODO', date('Ym'));
-        $url = '/sii/bhe/recibidas/documentos/'.self::$contribuyente_rut.'/'.$periodo;
+        $fecha_emision = date('Y-m-d');
+        $datos_bhe = [
+            'Encabezado' => [
+                'IdDoc' => [
+                    'FchEmis' => $fecha_emision,
+                    'TipoRetencion' => self::$client::RETENCION_EMISOR,
+                ],
+                'Emisor' => [
+                    'RUTEmisor' => self::$contribuyente_rut,
+                ],
+                'Receptor' => [
+                    'RUTRecep' => self::$receptor_rut,
+                    'RznSocRecep' => 'Receptor generico',
+                    'DirRecep' => 'Santa Cruz',
+                    'CmnaRecep' => 'Santa Cruz',
+                ],
+            ],
+            'Detalle' => [
+                [
+                    'NmbItem' => 'Prueba integracion API Gateway 1',
+                    'MontoItem' => 50,
+                ],
+                [
+                    'NmbItem' => 'Prueba integracion API Gateway 2',
+                    'MontoItem' => 100,
+                ],
+            ],
+        ];
+
         try {
-            $response = self::$client->post($url, [
-                'auth' => self::$auth,
-            ]);
+            $response = self::$client->emitirBhe(
+                boleta: $datos_bhe
+            );
+
             $this->assertSame(200, $response->getStatusCode());
+
             if (self::$verbose) {
-                echo "\n",'test_bhe_recibidas_documentos() documentos ',$response->getBody(),"\n";
+                echo "\n",'testEmitirBhe() resultado: ',$response->getBody(),"\n";
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf('[ApiException %d] %s', $e->getCode(), $e->getMessage()));
+            $this->fail(sprintf(
+                '[ApiException %d] %s',
+                $e->getCode(),
+                $e->getMessage()
+            ));
         }
-
     }
 }
