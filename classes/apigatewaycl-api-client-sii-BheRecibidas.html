@@ -134,12 +134,16 @@
                                         <ul class="phpdocumentor-breadcrumbs">
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/apigatewaycl.html">apigatewaycl</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/apigatewaycl-api-client.html">api_client</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/apigatewaycl-api-client-sii.html">sii</a></li>
     </ul>
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    ApiClient
+    BheRecibidas
 
+        <span class="phpdocumentor-element__extends">
+        extends <a href="classes/apigatewaycl-api-client-ApiBase.html"><abbr title="\apigatewaycl\api_client\ApiBase">ApiBase</abbr></a>
+    </span>
     
             <div class="phpdocumentor-element__package">
             in package
@@ -159,17 +163,16 @@
 </div>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/ApiClient.php"><a href="files/src-apiclient.html"><abbr title="src/ApiClient.php">ApiClient.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/BheRecibidas.php"><a href="files/src-sii-bherecibidas.html"><abbr title="src/sii/BheRecibidas.php">BheRecibidas.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">32</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Cliente de la API de API Gateway.</p>
+            <p class="phpdocumentor-summary">Módulo para interactuar con Boletas de Honorarios Electrónicas recibidas del SII.</p>
 
 
-    <section class="phpdocumentor-description"><p>Esta clase permite interactuar con la API de API Gateway, manejando
-las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
+    <section class="phpdocumentor-description"><p>Para más información sobre la API, consulte la <code class="prettyprint">documentación completa de las BHE &lt;https://developers.apigateway.cl/#7de04cde-a3e4-4ab5-b64a-e0fec7f7a5e9&gt;</code>_.</p>
 </section>
 
 
@@ -180,7 +183,7 @@ las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
 
 <h3 id="toc">
     Table of Contents
-    <a href="classes/apigatewaycl-api-client-ApiClient.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/apigatewaycl-api-client-sii-BheRecibidas.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h3>
 
@@ -194,10 +197,17 @@ las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
 
 <h4 id="toc-properties">
     Properties
-    <a href="classes/apigatewaycl-api-client-ApiClient.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/apigatewaycl-api-client-sii-BheRecibidas.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a class="" href="classes/apigatewaycl-api-client-ApiBase.html#property_auth">$auth</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+</dt>
+<dd>Arreglo que contendrá el diccionario de autenticación.</dd>
+
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a class="" href="classes/apigatewaycl-api-client-ApiClient.html#property_api_prefix">$api_prefix</a>
     <span>
@@ -244,16 +254,16 @@ las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
 
 <h4 id="toc-methods">
     Methods
-    <a href="classes/apigatewaycl-api-client-ApiClient.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/apigatewaycl-api-client-sii-BheRecibidas.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/apigatewaycl-api-client-ApiClient.html#method___construct">__construct()</a>
+    <a class="" href="classes/apigatewaycl-api-client-sii-BheRecibidas.html#method___construct">__construct()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Constructor del cliente de la API.</dd>
+<dd>Cliente específico para gestionar Boletas de Honorarios Electrónicas (BHE) recibidas.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/apigatewaycl-api-client-ApiClient.html#method_consume">consume()</a>
@@ -268,6 +278,13 @@ las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
                                 &nbsp;: <abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr>|null    </span>
 </dt>
 <dd>Realiza una solicitud DELETE a la API.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/apigatewaycl-api-client-sii-BheRecibidas.html#method_descargarPdfBheRecibida">descargarPdfBheRecibida()</a>
+    <span>
+                                &nbsp;: <abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr>    </span>
+</dt>
+<dd>Obtiene el PDF de una BHE recibida.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/apigatewaycl-api-client-ApiClient.html#method_get">get()</a>
@@ -305,6 +322,20 @@ las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
 <dd>Obtiene la última URL utilizada en la solicitud HTTP.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/apigatewaycl-api-client-sii-BheRecibidas.html#method_listarBhesRecibidas">listarBhesRecibidas()</a>
+    <span>
+                                &nbsp;: <abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr>    </span>
+</dt>
+<dd>Obtiene los documentos de BHE recibidos por un receptor en un periodo específico.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/apigatewaycl-api-client-sii-BheRecibidas.html#method_observarBheRecibida">observarBheRecibida()</a>
+    <span>
+                                &nbsp;: <abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr>    </span>
+</dt>
+<dd>Marca una observación en una BHE recibida.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/apigatewaycl-api-client-ApiClient.html#method_post">post()</a>
     <span>
                                 &nbsp;: <abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr>|null    </span>
@@ -339,6 +370,13 @@ las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
 </dt>
 <dd>Convierte la última respuesta HTTP en un arreglo asociativo.</dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a class="" href="classes/apigatewaycl-api-client-ApiBase.html#method_getAuthPass">getAuthPass()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Obtiene la autenticación de tipo &#039;pass&#039;.</dd>
+
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/apigatewaycl-api-client-ApiClient.html#method_env">env()</a>
     <span>
@@ -352,6 +390,34 @@ las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
                                 &nbsp;: object    </span>
 </dt>
 <dd>Extrae información detallada sobre un error a partir de la última respuesta HTTP.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/apigatewaycl-api-client-ApiBase.html#method_isAuthCertData">isAuthCertData()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Valida si una cadena tiene formato PEM válido.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/apigatewaycl-api-client-ApiBase.html#method_isAuthFileData">isAuthFileData()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Verifica si una cadena es una cadena codificada en Base64 válida.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/apigatewaycl-api-client-ApiBase.html#method_isAuthPass">isAuthPass()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Valida la estructura de un RUT chileno utilizando una expresión regular.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/apigatewaycl-api-client-ApiBase.html#method_setupAuth">setupAuth()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Configura la autenticación específica para la aplicación.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/apigatewaycl-api-client-ApiClient.html#method_throwException">throwException()</a>
@@ -370,9 +436,46 @@ las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
-            <a href="classes/apigatewaycl-api-client-ApiClient.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/apigatewaycl-api-client-sii-BheRecibidas.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_auth">
+        $auth
+        <a href="classes/apigatewaycl-api-client-ApiBase.html#property_auth" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/ApiBase.php"><a href="files/src-apibase.html"><abbr title="src/ApiBase.php">ApiBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">36</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Arreglo que contendrá el diccionario de autenticación.</p>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__name">$auth</span>
+     = <span class="phpdocumentor-signature__default-value">[]</span></code>
+
+    
+    
+    
+
+    
+
+</article>
                     <article
         class="
             phpdocumentor-element
@@ -600,7 +703,7 @@ las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/apigatewaycl-api-client-ApiClient.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/apigatewaycl-api-client-sii-BheRecibidas.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -611,28 +714,39 @@ las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
 >
     <h4 class="phpdocumentor-element__name" id="method___construct">
         __construct()
-        <a href="classes/apigatewaycl-api-client-ApiClient.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/apigatewaycl-api-client-sii-BheRecibidas.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/ApiClient.php"><a href="files/src-apiclient.html"><abbr title="src/ApiClient.php">ApiClient.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/BheRecibidas.php"><a href="files/src-sii-bherecibidas.html"><abbr title="src/sii/BheRecibidas.php">BheRecibidas.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">82</span>
+    <span class="phpdocumentor-element-found-in__line">45</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Constructor del cliente de la API.</p>
+        <p class="phpdocumentor-summary">Cliente específico para gestionar Boletas de Honorarios Electrónicas (BHE) recibidas.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$token</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$url</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$credenciales</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$token</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$url</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
-    
+        <section class="phpdocumentor-description"><p>Provee métodos para obtener documentos, obtener PDF y observar BHE recibidas.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$credenciales</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Credenciales de autenticación.</p>
+</section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$token</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
@@ -647,7 +761,7 @@ las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
                 : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>URL base de la API.</p>
+                    <section class="phpdocumentor-description"><p>URL base para la API.</p>
 </section>
 
             </dd>
@@ -836,6 +950,61 @@ los parámetros especificados y manejando la autenticación y la respuesta.</p>
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr>|null</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_descargarPdfBheRecibida">
+        descargarPdfBheRecibida()
+        <a href="classes/apigatewaycl-api-client-sii-BheRecibidas.html#method_descargarPdfBheRecibida" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/BheRecibidas.php"><a href="files/src-sii-bherecibidas.html"><abbr title="src/sii/BheRecibidas.php">BheRecibidas.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">105</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Obtiene el PDF de una BHE recibida.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">descargarPdfBheRecibida</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$codigo</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$codigo</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Código único de la BHE.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Contenido del PDF de la BHE.</p>
+</section>
+
             </section>
 
 </article>
@@ -1110,6 +1279,163 @@ formato JSON a un arreglo asociativo de PHP.</p>
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string|null</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_listarBhesRecibidas">
+        listarBhesRecibidas()
+        <a href="classes/apigatewaycl-api-client-sii-BheRecibidas.html#method_listarBhesRecibidas" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/BheRecibidas.php"><a href="files/src-sii-bherecibidas.html"><abbr title="src/sii/BheRecibidas.php">BheRecibidas.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">68</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Obtiene los documentos de BHE recibidos por un receptor en un periodo específico.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">listarBhesRecibidas</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$receptor</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$periodo</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pagina</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pagina_sig_codigo</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$receptor</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>RUT del receptor de las boletas.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$periodo</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Período de tiempo de las boletas recibidas.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$pagina</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Número de página para paginación (opcional).</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$pagina_sig_codigo</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Código para la siguiente página (opcional).</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Respuesta JSON con
+los documentos de BHE.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_observarBheRecibida">
+        observarBheRecibida()
+        <a href="classes/apigatewaycl-api-client-sii-BheRecibidas.html#method_observarBheRecibida" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/BheRecibidas.php"><a href="files/src-sii-bherecibidas.html"><abbr title="src/sii/BheRecibidas.php">BheRecibidas.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">128</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Marca una observación en una BHE recibida.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">observarBheRecibida</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$emisor</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$numero</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$causa</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">1</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$emisor</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>RUT del emisor de la boleta.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$numero</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Número de la boleta.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$causa</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">1</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Motivo de la observación.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Respuesta JSON con la
+confirmación de la observación.</p>
+</section>
+
             </section>
 
 </article>
@@ -1438,6 +1764,66 @@ cuerpo de la respuesta, ya sea en formato de texto o decodificado de JSON.</p>
                     <article
         class="phpdocumentor-element
             -method
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getAuthPass">
+        getAuthPass()
+        <a href="classes/apigatewaycl-api-client-ApiBase.html#method_getAuthPass" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/ApiBase.php"><a href="files/src-apibase.html"><abbr title="src/ApiBase.php">ApiBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">184</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Obtiene la autenticación de tipo &#039;pass&#039;.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+                    <span class="phpdocumentor-signature__name">getAuthPass</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/apigatewaycl-api-client-ApiBase.html#method_getAuthPass#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/apigatewaycl-api-client-ApiException.html"><abbr title="\apigatewaycl\api_client\ApiException">ApiException</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>Si falta información de autenticación.</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Información de autenticación.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
             -private
                                                         "
 >
@@ -1543,6 +1929,269 @@ objeto con los detalles del error, incluyendo el código y el mensaje.</p>
             -private
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_isAuthCertData">
+        isAuthCertData()
+        <a href="classes/apigatewaycl-api-client-ApiBase.html#method_isAuthCertData" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/ApiBase.php"><a href="files/src-apibase.html"><abbr title="src/ApiBase.php">ApiBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">163</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Valida si una cadena tiene formato PEM válido.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">isAuthCertData</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pemStr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>El formato PEM debe cumplir con los siguientes criterios:</p>
+<pre class="prettyprint"><code class="prettyprint"> - Comienza con una línea &quot;-----BEGIN [LABEL]-----&quot;
+ - Termina con una línea &quot;-----END [LABEL]-----&quot;
+ - Contiene contenido Base64 válido entre las líneas BEGIN y END
+</code></pre>
+<p><strong>Ejemplos de PEM Válidos:</strong></p>
+<pre class="prettyprint"><code class="prettyprint"> ```
+ -----BEGIN CERTIFICATE-----
+ MIIDdzCCAl+gAwIBAgIEbGzVnzANBgkqhkiG9w0BAQsFADBvMQswCQYDVQQGEwJV
+ ...
+ -----END CERTIFICATE-----
+ ```
+</code></pre>
+<p><strong>Ejemplos de PEM Inválidos:</strong></p>
+<pre class="prettyprint"><code class="prettyprint"> - Falta la línea de inicio o fin.
+ - Contenido no codificado en Base64.
+ - Etiquetas de BEGIN y END que no coinciden.
+</code></pre>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$pemStr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>La cadena a validar.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>true si la cadena tiene formato PEM válido, false en caso contrario.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_isAuthFileData">
+        isAuthFileData()
+        <a href="classes/apigatewaycl-api-client-ApiBase.html#method_isAuthFileData" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/ApiBase.php"><a href="files/src-apibase.html"><abbr title="src/ApiBase.php">ApiBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">123</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Verifica si una cadena es una cadena codificada en Base64 válida.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">isAuthFileData</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$firmaElectronicaBase64</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$firmaElectronicaBase64</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>La cadena a verificar.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>true si la cadena es válida en Base64, false en caso contrario.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_isAuthPass">
+        isAuthPass()
+        <a href="classes/apigatewaycl-api-client-ApiBase.html#method_isAuthPass" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/ApiBase.php"><a href="files/src-apibase.html"><abbr title="src/ApiBase.php">ApiBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">107</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Valida la estructura de un RUT chileno utilizando una expresión regular.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">isAuthPass</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rut</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Este método verifica que el RUT cumpla con el formato estándar chileno, que incluye
+puntos como separadores de miles opcionales y un guion antes del dígito verificador.
+El dígito verificador puede ser un número o la letra 'K'.</p>
+<p><strong>Ejemplos de RUT válidos:</strong></p>
+<pre class="prettyprint"><code class="prettyprint">- 12.345.678-5
+- 12345678-5
+- 9.876.543-K
+- 9876543-K
+</code></pre>
+<p><strong>Ejemplos de RUT inválidos:</strong></p>
+<pre class="prettyprint"><code class="prettyprint">- 12.345.678-9 (dígito verificador incorrecto)
+- 12345678- (falta dígito verificador)
+- 12345-6 (formato incorrecto)
+- 12.345.6785 (falta guion)
+- abcdefgh-i (caracteres no permitidos)
+</code></pre>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$rut</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>El RUT a validar.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>true si el RUT tiene un formato válido,false en caso contrario.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setupAuth">
+        setupAuth()
+        <a href="classes/apigatewaycl-api-client-ApiBase.html#method_setupAuth" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/ApiBase.php"><a href="files/src-apibase.html"><abbr title="src/ApiBase.php">ApiBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">61</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Configura la autenticación específica para la aplicación.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">setupAuth</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$credenciales</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$credenciales</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Parámetros de autenticación. Puede ser 'pass' o 'cert'.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/apigatewaycl-api-client-ApiBase.html#method_setupAuth#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/apigatewaycl-api-client-ApiException.html"><abbr title="\apigatewaycl\api_client\ApiException">ApiException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
+                                            </dl>
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_throwException">
         throwException()
         <a href="classes/apigatewaycl-api-client-ApiClient.html#method_throwException" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1600,7 +2249,7 @@ uniforme en toda la clase.</p>
     <div class="phpdocumentor-modal-bg" data-exit-button></div>
     <div class="phpdocumentor-modal-container">
         <div class="phpdocumentor-modal-content">
-            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/ApiClient.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/sii/BheRecibidas.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
         </div>
         <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
     </div>
@@ -1699,14 +2348,15 @@ uniforme en toda la clase.</p>
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                                            <li><a href="classes/apigatewaycl-api-client-ApiClient.html#toc-properties">Properties</a></li>
-                                                            <li><a href="classes/apigatewaycl-api-client-ApiClient.html#toc-methods">Methods</a></li>
+                                                            <li><a href="classes/apigatewaycl-api-client-sii-BheRecibidas.html#toc-properties">Properties</a></li>
+                                                            <li><a href="classes/apigatewaycl-api-client-sii-BheRecibidas.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
             
                             <li class="phpdocumentor-on-this-page-section__title">Properties</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
+                                                    <li class=""><a href="classes/apigatewaycl-api-client-ApiBase.html#property_auth">$auth</a></li>
                                                     <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#property_api_prefix">$api_prefix</a></li>
                                                     <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#property_api_token">$api_token</a></li>
                                                     <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#property_api_url">$api_url</a></li>
@@ -1719,21 +2369,29 @@ uniforme en toda la clase.</p>
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method___construct">__construct()</a></li>
+                                            <li class=""><a href="classes/apigatewaycl-api-client-sii-BheRecibidas.html#method___construct">__construct()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_consume">consume()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_delete">delete()</a></li>
+                                            <li class=""><a href="classes/apigatewaycl-api-client-sii-BheRecibidas.html#method_descargarPdfBheRecibida">descargarPdfBheRecibida()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_get">get()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_getBody">getBody()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_getBodyDecoded">getBodyDecoded()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_getLastResponse">getLastResponse()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_getLastUrl">getLastUrl()</a></li>
+                                            <li class=""><a href="classes/apigatewaycl-api-client-sii-BheRecibidas.html#method_listarBhesRecibidas">listarBhesRecibidas()</a></li>
+                                            <li class=""><a href="classes/apigatewaycl-api-client-sii-BheRecibidas.html#method_observarBheRecibida">observarBheRecibida()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_post">post()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_put">put()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_setToken">setToken()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_setUrl">setUrl()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_toArray">toArray()</a></li>
+                                            <li class=""><a href="classes/apigatewaycl-api-client-ApiBase.html#method_getAuthPass">getAuthPass()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_env">env()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_getError">getError()</a></li>
+                                            <li class=""><a href="classes/apigatewaycl-api-client-ApiBase.html#method_isAuthCertData">isAuthCertData()</a></li>
+                                            <li class=""><a href="classes/apigatewaycl-api-client-ApiBase.html#method_isAuthFileData">isAuthFileData()</a></li>
+                                            <li class=""><a href="classes/apigatewaycl-api-client-ApiBase.html#method_isAuthPass">isAuthPass()</a></li>
+                                            <li class=""><a href="classes/apigatewaycl-api-client-ApiBase.html#method_setupAuth">setupAuth()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_throwException">throwException()</a></li>
                                     </ul>
             </li>
@@ -1754,7 +2412,7 @@ uniforme en toda la clase.</p>
     </section>
 </section>
         </div>
-        <a href="classes/apigatewaycl-api-client-ApiClient.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/apigatewaycl-api-client-sii-BheRecibidas.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 

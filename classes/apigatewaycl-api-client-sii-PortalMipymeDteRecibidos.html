@@ -134,12 +134,16 @@
                                         <ul class="phpdocumentor-breadcrumbs">
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/apigatewaycl.html">apigatewaycl</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/apigatewaycl-api-client.html">api_client</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/apigatewaycl-api-client-sii.html">sii</a></li>
     </ul>
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    ApiClient
+    PortalMipymeDteRecibidos
 
+        <span class="phpdocumentor-element__extends">
+        extends <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html"><abbr title="\apigatewaycl\api_client\sii\PortalMipymeDte">PortalMipymeDte</abbr></a>
+    </span>
     
             <div class="phpdocumentor-element__package">
             in package
@@ -159,17 +163,18 @@
 </div>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/ApiClient.php"><a href="files/src-apiclient.html"><abbr title="src/ApiClient.php">ApiClient.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/PortalMipymeDteRecibidos.php"><a href="files/src-sii-portalmipymedterecibidos.html"><abbr title="src/sii/PortalMipymeDteRecibidos.php">PortalMipymeDteRecibidos.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">32</span>
+    <span class="phpdocumentor-element-found-in__line">37</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Cliente de la API de API Gateway.</p>
+            <p class="phpdocumentor-summary">Módulo para consultas de DTEs recibidos al Portal MIPYME del SII.</p>
 
 
-    <section class="phpdocumentor-description"><p>Esta clase permite interactuar con la API de API Gateway, manejando
-las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
+    <section class="phpdocumentor-description"><p>Para más información sobre la API, consulte la <code class="prettyprint">documentación completa de DTEs recibidos en el Portal MIPYME &lt;https://developers.apigateway.cl/#24456c78-2c1d-4e91-a0b3-450eab612e7e&gt;</code>_.</p>
+<p>Cliente específico para gestionar DTE recibidos en el Portal Mipyme.
+Proporciona métodos para obtener documentos, PDF y XML de DTE recibidos.</p>
 </section>
 
 
@@ -180,7 +185,7 @@ las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
 
 <h3 id="toc">
     Table of Contents
-    <a href="classes/apigatewaycl-api-client-ApiClient.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDteRecibidos.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h3>
 
@@ -190,14 +195,154 @@ las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
 
 
 
+<h4 id="toc-constants">
+    Constants
+    <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDteRecibidos.html#toc-constants" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -constant -protected">
+    <a class="" href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_ACEPTADO">ESTADO_ACEPTADO</a>
+    <span>
+        &nbsp;= &#039;RAC&#039;                            </span>
+</dt>
+<dd>Abreviatura: DTE aceptado por receptor</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -protected">
+    <a class="" href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_ACEPTADO_LEY_19983">ESTADO_ACEPTADO_LEY_19983</a>
+    <span>
+        &nbsp;= &#039;RAL&#039;                            </span>
+</dt>
+<dd>Abreviatura: DTE aceptado Ley 19.983</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -protected">
+    <a class="" href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_BORRADOR">ESTADO_BORRADOR</a>
+    <span>
+        &nbsp;= &#039;PRV&#039;                            </span>
+</dt>
+<dd>Abreviatura: Borrador (pre-view) de documento</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -protected">
+    <a class="" href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_CERTIFICADO_RECHAZADO">ESTADO_CERTIFICADO_RECHAZADO</a>
+    <span>
+        &nbsp;= &#039;DCD&#039;                            </span>
+</dt>
+<dd>Abreviatura: Certificado rechazado</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -protected">
+    <a class="" href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_DISCREPANCIAS">ESTADO_DISCREPANCIAS</a>
+    <span>
+        &nbsp;= &#039;RAD&#039;                            </span>
+</dt>
+<dd>Abreviatura: DTE aceptado con discrepancias</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -protected">
+    <a class="" href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_EMISOR_INVALIDO">ESTADO_EMISOR_INVALIDO</a>
+    <span>
+        &nbsp;= &#039;DEI&#039;                            </span>
+</dt>
+<dd>Abreviatura: RUT emisor inválido</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -protected">
+    <a class="" href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_EMITIDO">ESTADO_EMITIDO</a>
+    <span>
+        &nbsp;= &#039;EMI&#039;                            </span>
+</dt>
+<dd>Abreviatura: Documento emitido</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -protected">
+    <a class="" href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_FIRMA_RECHAZADA">ESTADO_FIRMA_RECHAZADA</a>
+    <span>
+        &nbsp;= &#039;DRF&#039;                            </span>
+</dt>
+<dd>Abreviatura: DTE rechazado por firma</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -protected">
+    <a class="" href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_FIRMA_SIN_PERMISO">ESTADO_FIRMA_SIN_PERMISO</a>
+    <span>
+        &nbsp;= &#039;DPF&#039;                            </span>
+</dt>
+<dd>Abreviatura: Sin permiso de firma</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -protected">
+    <a class="" href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_FOLIO_INVALIDO">ESTADO_FOLIO_INVALIDO</a>
+    <span>
+        &nbsp;= &#039;DFI&#039;                            </span>
+</dt>
+<dd>Abreviatura: Folio DTE inválido</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -protected">
+    <a class="" href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_INCOMPLETO">ESTADO_INCOMPLETO</a>
+    <span>
+        &nbsp;= &#039;DIN&#039;                            </span>
+</dt>
+<dd>Abreviatura: Incompleto</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -protected">
+    <a class="" href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_INICIALIZADO">ESTADO_INICIALIZADO</a>
+    <span>
+        &nbsp;= &#039;INI&#039;                            </span>
+</dt>
+<dd>Abreviatura: DTE inicializado</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -protected">
+    <a class="" href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_NO_RECIBIDO">ESTADO_NO_RECIBIDO</a>
+    <span>
+        &nbsp;= &#039;RNR&#039;                            </span>
+</dt>
+<dd>Abreviatura: DTE no recibido por receptor</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -protected">
+    <a class="" href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_RECEPTOR_INVALIDO">ESTADO_RECEPTOR_INVALIDO</a>
+    <span>
+        &nbsp;= &#039;DRI&#039;                            </span>
+</dt>
+<dd>Abreviatura: RUT receptor inválido</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -protected">
+    <a class="" href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_RECHAZADO_RECEPTOR">ESTADO_RECHAZADO_RECEPTOR</a>
+    <span>
+        &nbsp;= &#039;RRH&#039;                            </span>
+</dt>
+<dd>Abreviatura: DTE rechazado por receptor</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -protected">
+    <a class="" href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_RECIBIDO">ESTADO_RECIBIDO</a>
+    <span>
+        &nbsp;= &#039;RRC&#039;                            </span>
+</dt>
+<dd>Abreviatura: DTE recibido por receptor</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -protected">
+    <a class="" href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_REPETIDO">ESTADO_REPETIDO</a>
+    <span>
+        &nbsp;= &#039;DRR&#039;                            </span>
+</dt>
+<dd>Abreviatura: Rechazado por repetido</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -protected">
+    <a class="" href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_SIN_REPAROS">ESTADO_SIN_REPAROS</a>
+    <span>
+        &nbsp;= &#039;RSR&#039;                            </span>
+</dt>
+<dd>Abreviatura: Recibido sin reparos</dd>
+
+    </dl>
 
 
 <h4 id="toc-properties">
     Properties
-    <a href="classes/apigatewaycl-api-client-ApiClient.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDteRecibidos.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a class="" href="classes/apigatewaycl-api-client-ApiBase.html#property_auth">$auth</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+</dt>
+<dd>Arreglo que contendrá el diccionario de autenticación.</dd>
+
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a class="" href="classes/apigatewaycl-api-client-ApiClient.html#property_api_prefix">$api_prefix</a>
     <span>
@@ -244,16 +389,16 @@ las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
 
 <h4 id="toc-methods">
     Methods
-    <a href="classes/apigatewaycl-api-client-ApiClient.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDteRecibidos.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/apigatewaycl-api-client-ApiClient.html#method___construct">__construct()</a>
+    <a class="" href="classes/apigatewaycl-api-client-sii-PortalMipyme.html#method___construct">__construct()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Constructor del cliente de la API.</dd>
+<dd>Base para los clientes específicos del Portal Mipyme.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/apigatewaycl-api-client-ApiClient.html#method_consume">consume()</a>
@@ -268,6 +413,20 @@ las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
                                 &nbsp;: <abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr>|null    </span>
 </dt>
 <dd>Realiza una solicitud DELETE a la API.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/apigatewaycl-api-client-sii-PortalMipymeDteRecibidos.html#method_descargarPdfDteRecibido">descargarPdfDteRecibido()</a>
+    <span>
+                                &nbsp;: <abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr>    </span>
+</dt>
+<dd>Obtiene el PDF de un DTE recibido.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/apigatewaycl-api-client-sii-PortalMipymeDteRecibidos.html#method_descargarXmlDteRecibido">descargarXmlDteRecibido()</a>
+    <span>
+                                &nbsp;: <abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr>    </span>
+</dt>
+<dd>Obtiene el XML de un DTE recibido.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/apigatewaycl-api-client-ApiClient.html#method_get">get()</a>
@@ -291,6 +450,13 @@ las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
 <dd>Obtiene el cuerpo de la última respuesta HTTP y lo decodifica de JSON.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#method_getCodigoDte">getCodigoDte()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Obtiene el código correspondiente al tipo de DTE.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/apigatewaycl-api-client-ApiClient.html#method_getLastResponse">getLastResponse()</a>
     <span>
                                 &nbsp;: <abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr>|null    </span>
@@ -303,6 +469,13 @@ las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
                                 &nbsp;: string|null    </span>
 </dt>
 <dd>Obtiene la última URL utilizada en la solicitud HTTP.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/apigatewaycl-api-client-sii-PortalMipymeDteRecibidos.html#method_obtenerDtesRecibidos">obtenerDtesRecibidos()</a>
+    <span>
+                                &nbsp;: <abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr>    </span>
+</dt>
+<dd>Obtiene documentos de DTE recibidos por un receptor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/apigatewaycl-api-client-ApiClient.html#method_post">post()</a>
@@ -339,6 +512,13 @@ las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
 </dt>
 <dd>Convierte la última respuesta HTTP en un arreglo asociativo.</dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a class="" href="classes/apigatewaycl-api-client-ApiBase.html#method_getAuthPass">getAuthPass()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Obtiene la autenticación de tipo &#039;pass&#039;.</dd>
+
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/apigatewaycl-api-client-ApiClient.html#method_env">env()</a>
     <span>
@@ -354,6 +534,34 @@ las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
 <dd>Extrae información detallada sobre un error a partir de la última respuesta HTTP.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/apigatewaycl-api-client-ApiBase.html#method_isAuthCertData">isAuthCertData()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Valida si una cadena tiene formato PEM válido.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/apigatewaycl-api-client-ApiBase.html#method_isAuthFileData">isAuthFileData()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Verifica si una cadena es una cadena codificada en Base64 válida.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/apigatewaycl-api-client-ApiBase.html#method_isAuthPass">isAuthPass()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Valida la estructura de un RUT chileno utilizando una expresión regular.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/apigatewaycl-api-client-ApiBase.html#method_setupAuth">setupAuth()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Configura la autenticación específica para la aplicación.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/apigatewaycl-api-client-ApiClient.html#method_throwException">throwException()</a>
     <span>
                                 &nbsp;: mixed    </span>
@@ -365,14 +573,634 @@ las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
 
 
         
+    <section class="phpdocumentor-constants">
+        <h3 class="phpdocumentor-elements__header" id="constants">
+            Constants
+            <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDteRecibidos.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
+
+        </h3>
+                    <article class="phpdocumentor-element -constant -protected ">
+    <h4 class="phpdocumentor-element__name" id="constant_ESTADO_ACEPTADO">
+        ESTADO_ACEPTADO
+        <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_ACEPTADO" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/PortalMipymeDte.php"><a href="files/src-sii-portalmipymedte.html"><abbr title="src/sii/PortalMipymeDte.php">PortalMipymeDte.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">109</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Abreviatura: DTE aceptado por receptor</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">ESTADO_ACEPTADO</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;RAC&#039;</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -protected ">
+    <h4 class="phpdocumentor-element__name" id="constant_ESTADO_ACEPTADO_LEY_19983">
+        ESTADO_ACEPTADO_LEY_19983
+        <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_ACEPTADO_LEY_19983" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/PortalMipymeDte.php"><a href="files/src-sii-portalmipymedte.html"><abbr title="src/sii/PortalMipymeDte.php">PortalMipymeDte.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">133</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Abreviatura: DTE aceptado Ley 19.983</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">ESTADO_ACEPTADO_LEY_19983</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;RAL&#039;</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -protected ">
+    <h4 class="phpdocumentor-element__name" id="constant_ESTADO_BORRADOR">
+        ESTADO_BORRADOR
+        <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_BORRADOR" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/PortalMipymeDte.php"><a href="files/src-sii-portalmipymedte.html"><abbr title="src/sii/PortalMipymeDte.php">PortalMipymeDte.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">49</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Abreviatura: Borrador (pre-view) de documento</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">ESTADO_BORRADOR</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;PRV&#039;</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -protected ">
+    <h4 class="phpdocumentor-element__name" id="constant_ESTADO_CERTIFICADO_RECHAZADO">
+        ESTADO_CERTIFICADO_RECHAZADO
+        <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_CERTIFICADO_RECHAZADO" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/PortalMipymeDte.php"><a href="files/src-sii-portalmipymedte.html"><abbr title="src/sii/PortalMipymeDte.php">PortalMipymeDte.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">55</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Abreviatura: Certificado rechazado</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">ESTADO_CERTIFICADO_RECHAZADO</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;DCD&#039;</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -protected ">
+    <h4 class="phpdocumentor-element__name" id="constant_ESTADO_DISCREPANCIAS">
+        ESTADO_DISCREPANCIAS
+        <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_DISCREPANCIAS" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/PortalMipymeDte.php"><a href="files/src-sii-portalmipymedte.html"><abbr title="src/sii/PortalMipymeDte.php">PortalMipymeDte.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">115</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Abreviatura: DTE aceptado con discrepancias</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">ESTADO_DISCREPANCIAS</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;RAD&#039;</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -protected ">
+    <h4 class="phpdocumentor-element__name" id="constant_ESTADO_EMISOR_INVALIDO">
+        ESTADO_EMISOR_INVALIDO
+        <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_EMISOR_INVALIDO" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/PortalMipymeDte.php"><a href="files/src-sii-portalmipymedte.html"><abbr title="src/sii/PortalMipymeDte.php">PortalMipymeDte.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">61</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Abreviatura: RUT emisor inválido</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">ESTADO_EMISOR_INVALIDO</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;DEI&#039;</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -protected ">
+    <h4 class="phpdocumentor-element__name" id="constant_ESTADO_EMITIDO">
+        ESTADO_EMITIDO
+        <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_EMITIDO" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/PortalMipymeDte.php"><a href="files/src-sii-portalmipymedte.html"><abbr title="src/sii/PortalMipymeDte.php">PortalMipymeDte.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">43</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Abreviatura: Documento emitido</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">ESTADO_EMITIDO</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;EMI&#039;</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -protected ">
+    <h4 class="phpdocumentor-element__name" id="constant_ESTADO_FIRMA_RECHAZADA">
+        ESTADO_FIRMA_RECHAZADA
+        <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_FIRMA_RECHAZADA" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/PortalMipymeDte.php"><a href="files/src-sii-portalmipymedte.html"><abbr title="src/sii/PortalMipymeDte.php">PortalMipymeDte.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">85</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Abreviatura: DTE rechazado por firma</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">ESTADO_FIRMA_RECHAZADA</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;DRF&#039;</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -protected ">
+    <h4 class="phpdocumentor-element__name" id="constant_ESTADO_FIRMA_SIN_PERMISO">
+        ESTADO_FIRMA_SIN_PERMISO
+        <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_FIRMA_SIN_PERMISO" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/PortalMipymeDte.php"><a href="files/src-sii-portalmipymedte.html"><abbr title="src/sii/PortalMipymeDte.php">PortalMipymeDte.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">79</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Abreviatura: Sin permiso de firma</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">ESTADO_FIRMA_SIN_PERMISO</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;DPF&#039;</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -protected ">
+    <h4 class="phpdocumentor-element__name" id="constant_ESTADO_FOLIO_INVALIDO">
+        ESTADO_FOLIO_INVALIDO
+        <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_FOLIO_INVALIDO" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/PortalMipymeDte.php"><a href="files/src-sii-portalmipymedte.html"><abbr title="src/sii/PortalMipymeDte.php">PortalMipymeDte.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">67</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Abreviatura: Folio DTE inválido</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">ESTADO_FOLIO_INVALIDO</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;DFI&#039;</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -protected ">
+    <h4 class="phpdocumentor-element__name" id="constant_ESTADO_INCOMPLETO">
+        ESTADO_INCOMPLETO
+        <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_INCOMPLETO" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/PortalMipymeDte.php"><a href="files/src-sii-portalmipymedte.html"><abbr title="src/sii/PortalMipymeDte.php">PortalMipymeDte.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">73</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Abreviatura: Incompleto</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">ESTADO_INCOMPLETO</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;DIN&#039;</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -protected ">
+    <h4 class="phpdocumentor-element__name" id="constant_ESTADO_INICIALIZADO">
+        ESTADO_INICIALIZADO
+        <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_INICIALIZADO" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/PortalMipymeDte.php"><a href="files/src-sii-portalmipymedte.html"><abbr title="src/sii/PortalMipymeDte.php">PortalMipymeDte.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">103</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Abreviatura: DTE inicializado</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">ESTADO_INICIALIZADO</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;INI&#039;</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -protected ">
+    <h4 class="phpdocumentor-element__name" id="constant_ESTADO_NO_RECIBIDO">
+        ESTADO_NO_RECIBIDO
+        <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_NO_RECIBIDO" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/PortalMipymeDte.php"><a href="files/src-sii-portalmipymedte.html"><abbr title="src/sii/PortalMipymeDte.php">PortalMipymeDte.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">121</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Abreviatura: DTE no recibido por receptor</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">ESTADO_NO_RECIBIDO</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;RNR&#039;</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -protected ">
+    <h4 class="phpdocumentor-element__name" id="constant_ESTADO_RECEPTOR_INVALIDO">
+        ESTADO_RECEPTOR_INVALIDO
+        <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_RECEPTOR_INVALIDO" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/PortalMipymeDte.php"><a href="files/src-sii-portalmipymedte.html"><abbr title="src/sii/PortalMipymeDte.php">PortalMipymeDte.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">91</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Abreviatura: RUT receptor inválido</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">ESTADO_RECEPTOR_INVALIDO</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;DRI&#039;</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -protected ">
+    <h4 class="phpdocumentor-element__name" id="constant_ESTADO_RECHAZADO_RECEPTOR">
+        ESTADO_RECHAZADO_RECEPTOR
+        <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_RECHAZADO_RECEPTOR" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/PortalMipymeDte.php"><a href="files/src-sii-portalmipymedte.html"><abbr title="src/sii/PortalMipymeDte.php">PortalMipymeDte.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">139</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Abreviatura: DTE rechazado por receptor</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">ESTADO_RECHAZADO_RECEPTOR</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;RRH&#039;</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -protected ">
+    <h4 class="phpdocumentor-element__name" id="constant_ESTADO_RECIBIDO">
+        ESTADO_RECIBIDO
+        <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_RECIBIDO" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/PortalMipymeDte.php"><a href="files/src-sii-portalmipymedte.html"><abbr title="src/sii/PortalMipymeDte.php">PortalMipymeDte.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">127</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Abreviatura: DTE recibido por receptor</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">ESTADO_RECIBIDO</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;RRC&#039;</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -protected ">
+    <h4 class="phpdocumentor-element__name" id="constant_ESTADO_REPETIDO">
+        ESTADO_REPETIDO
+        <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_REPETIDO" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/PortalMipymeDte.php"><a href="files/src-sii-portalmipymedte.html"><abbr title="src/sii/PortalMipymeDte.php">PortalMipymeDte.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">97</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Abreviatura: Rechazado por repetido</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">ESTADO_REPETIDO</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;DRR&#039;</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -protected ">
+    <h4 class="phpdocumentor-element__name" id="constant_ESTADO_SIN_REPAROS">
+        ESTADO_SIN_REPAROS
+        <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_SIN_REPAROS" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/PortalMipymeDte.php"><a href="files/src-sii-portalmipymedte.html"><abbr title="src/sii/PortalMipymeDte.php">PortalMipymeDte.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">145</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Abreviatura: Recibido sin reparos</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">ESTADO_SIN_REPAROS</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;RSR&#039;</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+            </section>
 
         
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
-            <a href="classes/apigatewaycl-api-client-ApiClient.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDteRecibidos.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_auth">
+        $auth
+        <a href="classes/apigatewaycl-api-client-ApiBase.html#property_auth" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/ApiBase.php"><a href="files/src-apibase.html"><abbr title="src/ApiBase.php">ApiBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">36</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Arreglo que contendrá el diccionario de autenticación.</p>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__name">$auth</span>
+     = <span class="phpdocumentor-signature__default-value">[]</span></code>
+
+    
+    
+    
+
+    
+
+</article>
                     <article
         class="
             phpdocumentor-element
@@ -600,7 +1428,7 @@ las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/apigatewaycl-api-client-ApiClient.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDteRecibidos.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -611,21 +1439,21 @@ las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
 >
     <h4 class="phpdocumentor-element__name" id="method___construct">
         __construct()
-        <a href="classes/apigatewaycl-api-client-ApiClient.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/apigatewaycl-api-client-sii-PortalMipyme.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/ApiClient.php"><a href="files/src-apiclient.html"><abbr title="src/ApiClient.php">ApiClient.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/PortalMipyme.php"><a href="files/src-sii-portalmipyme.html"><abbr title="src/sii/PortalMipyme.php">PortalMipyme.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">82</span>
+    <span class="phpdocumentor-element-found-in__line">43</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Constructor del cliente de la API.</p>
+        <p class="phpdocumentor-summary">Base para los clientes específicos del Portal Mipyme.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$token</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$url</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$credenciales</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$token</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$url</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -633,6 +1461,15 @@ las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$credenciales</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Credenciales de autenticación.</p>
+</section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$token</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
@@ -647,7 +1484,7 @@ las solicitudes HTTP, la autenticación y el manejo de respuestas.</p>
                 : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>URL base de la API.</p>
+                    <section class="phpdocumentor-description"><p>URL base para la API.</p>
 </section>
 
             </dd>
@@ -836,6 +1673,171 @@ los parámetros especificados y manejando la autenticación y la respuesta.</p>
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr>|null</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_descargarPdfDteRecibido">
+        descargarPdfDteRecibido()
+        <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDteRecibidos.html#method_descargarPdfDteRecibido" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/PortalMipymeDteRecibidos.php"><a href="files/src-sii-portalmipymedterecibidos.html"><abbr title="src/sii/PortalMipymeDteRecibidos.php">PortalMipymeDteRecibidos.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">70</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Obtiene el PDF de un DTE recibido.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">descargarPdfDteRecibido</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$receptor</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$emisor</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dte</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$folio</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$receptor</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>RUT del receptor.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$emisor</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>RUT del emisor.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$dte</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Tipo de DTE o código del DTE recibido si no se pasa folio.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$folio</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Número de folio del DTE (opcional).</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Contenido del PDF del DTE recibido.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_descargarXmlDteRecibido">
+        descargarXmlDteRecibido()
+        <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDteRecibidos.html#method_descargarXmlDteRecibido" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/PortalMipymeDteRecibidos.php"><a href="files/src-sii-portalmipymedterecibidos.html"><abbr title="src/sii/PortalMipymeDteRecibidos.php">PortalMipymeDteRecibidos.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">107</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Obtiene el XML de un DTE recibido.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">descargarXmlDteRecibido</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$receptor</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$emisor</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dte</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$folio</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$receptor</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>RUT del receptor.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$emisor</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>RUT del emisor.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$dte</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Tipo de DTE.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$folio</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Número de folio del DTE.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Contenido del XML del
+DTE recibido.</p>
+</section>
+
             </section>
 
 </article>
@@ -1041,6 +2043,61 @@ formato JSON a un arreglo asociativo de PHP.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getCodigoDte">
+        getCodigoDte()
+        <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#method_getCodigoDte" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/PortalMipymeDte.php"><a href="files/src-sii-portalmipymedte.html"><abbr title="src/sii/PortalMipymeDte.php">PortalMipymeDte.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">153</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Obtiene el código correspondiente al tipo de DTE.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getCodigoDte</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$tipo</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$tipo</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Tipo de DTE.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Código del DTE.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getLastResponse">
         getLastResponse()
         <a href="classes/apigatewaycl-api-client-ApiClient.html#method_getLastResponse" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1110,6 +2167,70 @@ formato JSON a un arreglo asociativo de PHP.</p>
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string|null</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_obtenerDtesRecibidos">
+        obtenerDtesRecibidos()
+        <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDteRecibidos.html#method_obtenerDtesRecibidos" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/sii/PortalMipymeDteRecibidos.php"><a href="files/src-sii-portalmipymedterecibidos.html"><abbr title="src/sii/PortalMipymeDteRecibidos.php">PortalMipymeDteRecibidos.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">46</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Obtiene documentos de DTE recibidos por un receptor.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">obtenerDtesRecibidos</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$receptor</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filtros</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$receptor</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>RUT del receptor.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$filtros</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Filtros adicionales para la consulta.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Documentos de DTE recibidos.</p>
+</section>
+
             </section>
 
 </article>
@@ -1438,6 +2559,66 @@ cuerpo de la respuesta, ya sea en formato de texto o decodificado de JSON.</p>
                     <article
         class="phpdocumentor-element
             -method
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getAuthPass">
+        getAuthPass()
+        <a href="classes/apigatewaycl-api-client-ApiBase.html#method_getAuthPass" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/ApiBase.php"><a href="files/src-apibase.html"><abbr title="src/ApiBase.php">ApiBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">184</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Obtiene la autenticación de tipo &#039;pass&#039;.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+                    <span class="phpdocumentor-signature__name">getAuthPass</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/apigatewaycl-api-client-ApiBase.html#method_getAuthPass#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/apigatewaycl-api-client-ApiException.html"><abbr title="\apigatewaycl\api_client\ApiException">ApiException</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>Si falta información de autenticación.</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Información de autenticación.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
             -private
                                                         "
 >
@@ -1543,6 +2724,269 @@ objeto con los detalles del error, incluyendo el código y el mensaje.</p>
             -private
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_isAuthCertData">
+        isAuthCertData()
+        <a href="classes/apigatewaycl-api-client-ApiBase.html#method_isAuthCertData" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/ApiBase.php"><a href="files/src-apibase.html"><abbr title="src/ApiBase.php">ApiBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">163</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Valida si una cadena tiene formato PEM válido.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">isAuthCertData</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pemStr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>El formato PEM debe cumplir con los siguientes criterios:</p>
+<pre class="prettyprint"><code class="prettyprint"> - Comienza con una línea &quot;-----BEGIN [LABEL]-----&quot;
+ - Termina con una línea &quot;-----END [LABEL]-----&quot;
+ - Contiene contenido Base64 válido entre las líneas BEGIN y END
+</code></pre>
+<p><strong>Ejemplos de PEM Válidos:</strong></p>
+<pre class="prettyprint"><code class="prettyprint"> ```
+ -----BEGIN CERTIFICATE-----
+ MIIDdzCCAl+gAwIBAgIEbGzVnzANBgkqhkiG9w0BAQsFADBvMQswCQYDVQQGEwJV
+ ...
+ -----END CERTIFICATE-----
+ ```
+</code></pre>
+<p><strong>Ejemplos de PEM Inválidos:</strong></p>
+<pre class="prettyprint"><code class="prettyprint"> - Falta la línea de inicio o fin.
+ - Contenido no codificado en Base64.
+ - Etiquetas de BEGIN y END que no coinciden.
+</code></pre>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$pemStr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>La cadena a validar.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>true si la cadena tiene formato PEM válido, false en caso contrario.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_isAuthFileData">
+        isAuthFileData()
+        <a href="classes/apigatewaycl-api-client-ApiBase.html#method_isAuthFileData" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/ApiBase.php"><a href="files/src-apibase.html"><abbr title="src/ApiBase.php">ApiBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">123</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Verifica si una cadena es una cadena codificada en Base64 válida.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">isAuthFileData</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$firmaElectronicaBase64</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$firmaElectronicaBase64</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>La cadena a verificar.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>true si la cadena es válida en Base64, false en caso contrario.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_isAuthPass">
+        isAuthPass()
+        <a href="classes/apigatewaycl-api-client-ApiBase.html#method_isAuthPass" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/ApiBase.php"><a href="files/src-apibase.html"><abbr title="src/ApiBase.php">ApiBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">107</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Valida la estructura de un RUT chileno utilizando una expresión regular.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">isAuthPass</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rut</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Este método verifica que el RUT cumpla con el formato estándar chileno, que incluye
+puntos como separadores de miles opcionales y un guion antes del dígito verificador.
+El dígito verificador puede ser un número o la letra 'K'.</p>
+<p><strong>Ejemplos de RUT válidos:</strong></p>
+<pre class="prettyprint"><code class="prettyprint">- 12.345.678-5
+- 12345678-5
+- 9.876.543-K
+- 9876543-K
+</code></pre>
+<p><strong>Ejemplos de RUT inválidos:</strong></p>
+<pre class="prettyprint"><code class="prettyprint">- 12.345.678-9 (dígito verificador incorrecto)
+- 12345678- (falta dígito verificador)
+- 12345-6 (formato incorrecto)
+- 12.345.6785 (falta guion)
+- abcdefgh-i (caracteres no permitidos)
+</code></pre>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$rut</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>El RUT a validar.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>true si el RUT tiene un formato válido,false en caso contrario.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setupAuth">
+        setupAuth()
+        <a href="classes/apigatewaycl-api-client-ApiBase.html#method_setupAuth" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/ApiBase.php"><a href="files/src-apibase.html"><abbr title="src/ApiBase.php">ApiBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">61</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Configura la autenticación específica para la aplicación.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">setupAuth</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$credenciales</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$credenciales</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Parámetros de autenticación. Puede ser 'pass' o 'cert'.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/apigatewaycl-api-client-ApiBase.html#method_setupAuth#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/apigatewaycl-api-client-ApiException.html"><abbr title="\apigatewaycl\api_client\ApiException">ApiException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
+                                            </dl>
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_throwException">
         throwException()
         <a href="classes/apigatewaycl-api-client-ApiClient.html#method_throwException" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1600,7 +3044,7 @@ uniforme en toda la clase.</p>
     <div class="phpdocumentor-modal-bg" data-exit-button></div>
     <div class="phpdocumentor-modal-container">
         <div class="phpdocumentor-modal-content">
-            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/ApiClient.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/sii/PortalMipymeDteRecibidos.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
         </div>
         <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
     </div>
@@ -1699,14 +3143,39 @@ uniforme en toda la clase.</p>
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                                            <li><a href="classes/apigatewaycl-api-client-ApiClient.html#toc-properties">Properties</a></li>
-                                                            <li><a href="classes/apigatewaycl-api-client-ApiClient.html#toc-methods">Methods</a></li>
+                                        <li><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDteRecibidos.html#toc-constants">Constants</a></li>
+                                                            <li><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDteRecibidos.html#toc-properties">Properties</a></li>
+                                                            <li><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDteRecibidos.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
+                            <li class="phpdocumentor-on-this-page-section__title">Constants</li>
+                <li>
+                    <ul class="phpdocumentor-list -clean">
+                                                    <li class=""><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_ACEPTADO">ESTADO_ACEPTADO</a></li>
+                                                    <li class=""><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_ACEPTADO_LEY_19983">ESTADO_ACEPTADO_LEY_19983</a></li>
+                                                    <li class=""><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_BORRADOR">ESTADO_BORRADOR</a></li>
+                                                    <li class=""><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_CERTIFICADO_RECHAZADO">ESTADO_CERTIFICADO_RECHAZADO</a></li>
+                                                    <li class=""><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_DISCREPANCIAS">ESTADO_DISCREPANCIAS</a></li>
+                                                    <li class=""><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_EMISOR_INVALIDO">ESTADO_EMISOR_INVALIDO</a></li>
+                                                    <li class=""><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_EMITIDO">ESTADO_EMITIDO</a></li>
+                                                    <li class=""><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_FIRMA_RECHAZADA">ESTADO_FIRMA_RECHAZADA</a></li>
+                                                    <li class=""><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_FIRMA_SIN_PERMISO">ESTADO_FIRMA_SIN_PERMISO</a></li>
+                                                    <li class=""><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_FOLIO_INVALIDO">ESTADO_FOLIO_INVALIDO</a></li>
+                                                    <li class=""><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_INCOMPLETO">ESTADO_INCOMPLETO</a></li>
+                                                    <li class=""><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_INICIALIZADO">ESTADO_INICIALIZADO</a></li>
+                                                    <li class=""><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_NO_RECIBIDO">ESTADO_NO_RECIBIDO</a></li>
+                                                    <li class=""><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_RECEPTOR_INVALIDO">ESTADO_RECEPTOR_INVALIDO</a></li>
+                                                    <li class=""><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_RECHAZADO_RECEPTOR">ESTADO_RECHAZADO_RECEPTOR</a></li>
+                                                    <li class=""><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_RECIBIDO">ESTADO_RECIBIDO</a></li>
+                                                    <li class=""><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_REPETIDO">ESTADO_REPETIDO</a></li>
+                                                    <li class=""><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#constant_ESTADO_SIN_REPAROS">ESTADO_SIN_REPAROS</a></li>
+                                            </ul>
+                </li>
             
                             <li class="phpdocumentor-on-this-page-section__title">Properties</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
+                                                    <li class=""><a href="classes/apigatewaycl-api-client-ApiBase.html#property_auth">$auth</a></li>
                                                     <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#property_api_prefix">$api_prefix</a></li>
                                                     <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#property_api_token">$api_token</a></li>
                                                     <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#property_api_url">$api_url</a></li>
@@ -1719,21 +3188,30 @@ uniforme en toda la clase.</p>
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method___construct">__construct()</a></li>
+                                            <li class=""><a href="classes/apigatewaycl-api-client-sii-PortalMipyme.html#method___construct">__construct()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_consume">consume()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_delete">delete()</a></li>
+                                            <li class=""><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDteRecibidos.html#method_descargarPdfDteRecibido">descargarPdfDteRecibido()</a></li>
+                                            <li class=""><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDteRecibidos.html#method_descargarXmlDteRecibido">descargarXmlDteRecibido()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_get">get()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_getBody">getBody()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_getBodyDecoded">getBodyDecoded()</a></li>
+                                            <li class=""><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDte.html#method_getCodigoDte">getCodigoDte()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_getLastResponse">getLastResponse()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_getLastUrl">getLastUrl()</a></li>
+                                            <li class=""><a href="classes/apigatewaycl-api-client-sii-PortalMipymeDteRecibidos.html#method_obtenerDtesRecibidos">obtenerDtesRecibidos()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_post">post()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_put">put()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_setToken">setToken()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_setUrl">setUrl()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_toArray">toArray()</a></li>
+                                            <li class=""><a href="classes/apigatewaycl-api-client-ApiBase.html#method_getAuthPass">getAuthPass()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_env">env()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_getError">getError()</a></li>
+                                            <li class=""><a href="classes/apigatewaycl-api-client-ApiBase.html#method_isAuthCertData">isAuthCertData()</a></li>
+                                            <li class=""><a href="classes/apigatewaycl-api-client-ApiBase.html#method_isAuthFileData">isAuthFileData()</a></li>
+                                            <li class=""><a href="classes/apigatewaycl-api-client-ApiBase.html#method_isAuthPass">isAuthPass()</a></li>
+                                            <li class=""><a href="classes/apigatewaycl-api-client-ApiBase.html#method_setupAuth">setupAuth()</a></li>
                                             <li class=""><a href="classes/apigatewaycl-api-client-ApiClient.html#method_throwException">throwException()</a></li>
                                     </ul>
             </li>
@@ -1754,7 +3232,7 @@ uniforme en toda la clase.</p>
     </section>
 </section>
         </div>
-        <a href="classes/apigatewaycl-api-client-ApiClient.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/apigatewaycl-api-client-sii-PortalMipymeDteRecibidos.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 
