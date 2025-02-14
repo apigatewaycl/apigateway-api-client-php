@@ -46,7 +46,7 @@ class ObtenerCsvCompraDetalleTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$verbose = env('TEST_VERBOSE', false);
+        self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
         self::$auth = [
@@ -56,14 +56,17 @@ class ObtenerCsvCompraDetalleTest extends TestCase
             ],
         ];
         self::$client = new Rcv(self::$auth);
-        self::$periodo = env('TEST_PERIODO', date('Y-m-d'));
+        self::$periodo = env(
+            varname: 'TEST_PERIODO',
+            default: date('Y-m-d')
+        );
     }
 
     /**
      * Método de test para obtener el detalle de una compra del RCV, tipo "rcv_csv".
      * @return void
      */
-    public function testObtenerCsvCompraDetalle()
+    public function testObtenerCsvCompraDetalle(): void
     {
         try {
             $compras_detalle = self::$client->obtenerDetalleCompras(
@@ -72,10 +75,13 @@ class ObtenerCsvCompraDetalleTest extends TestCase
             );
             $this->assertSame(200, $compras_detalle->getStatusCode());
             if (self::$verbose) {
-                echo "\n",'testObtenerCsvCompraDetalle() compra_detalle: ',$compras_detalle->getBody(),"\n";
+                echo "\n",
+                'testObtenerCsvCompraDetalle() compra_detalle: ',
+                $compras_detalle->getBody(),
+                "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf(
+            $this->fail(message: sprintf(
                 '[ApiException %d] %s',
                 $e->getCode(),
                 $e->getMessage()

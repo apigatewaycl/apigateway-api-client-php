@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace apigatewaycl\api_client\sii;
 
-use apigatewaycl\api_client\sii\PortalMipyme;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Módulo para consultar info de contribuyente al Portal MIPYME del SII.
@@ -47,7 +47,7 @@ class PortalMipymeContrib extends PortalMiPyme
         $contribuyente,
         $emisor,
         $dte = 33
-    ) {
+    ): ResponseInterface {
         $url = sprintf(
             '/sii/mipyme/contribuyentes/info/%s/%s/%d',
             $contribuyente,
@@ -58,7 +58,7 @@ class PortalMipymeContrib extends PortalMiPyme
         $body = [
             'auth' => $this->getAuthPass(),
         ];
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
         return $response;
     }
 }

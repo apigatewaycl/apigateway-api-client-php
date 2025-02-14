@@ -41,7 +41,7 @@ class DescargarHtmlBteEmitidaTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$verbose = env('TEST_VERBOSE', false);
+        self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
         self::$auth = [
@@ -54,7 +54,7 @@ class DescargarHtmlBteEmitidaTest extends TestCase
         self::$periodo = env('TEST_PERIODO');
     }
 
-    public function testDescargarHtmlBteEmitida()
+    public function testDescargarHtmlBteEmitida(): void
     {
         try {
             $documentos = self::$client->listarBtesEmitidas(
@@ -62,13 +62,20 @@ class DescargarHtmlBteEmitidaTest extends TestCase
                 periodo: self::$periodo
             );
 
-            $documentos_array = json_decode((string)$documentos->getBody(), true);
+            $documentosArray = json_decode(
+                json: (string)$documentos->getBody(),
+                associative: true
+            );
 
-            if (count($documentos_array) <= 0) {
-                $this->markTestSkipped("\n"."No hay BTEs emitidas para esta prueba."."\n");
+            if (count($documentosArray) <= 0) {
+                $this->markTestSkipped(
+                    "\n".
+                    "No hay BTEs emitidas para esta prueba.".
+                    "\n"
+                );
             }
 
-            $codigo = $documentos_array[0]['codigo'];
+            $codigo = $documentosArray[0]['codigo'];
 
             $response = self::$client->obtenerHtmlBteEmitida($codigo);
 
@@ -79,7 +86,8 @@ class DescargarHtmlBteEmitidaTest extends TestCase
             $currentDir = __DIR__;
 
             // Nueva ruta relativa para guardar el archivo PDF en "tests/archivos"
-            $targetDir = dirname(dirname($currentDir)) . '/archivos/bte_emitidas_html';
+            $targetDir = dirname(dirname($currentDir)) .
+            '/archivos/bte_emitidas_html';
 
             // Define el nombre del archivo PDF en el nuevo directorio
             $filename = $targetDir . '/' . sprintf(
@@ -89,17 +97,20 @@ class DescargarHtmlBteEmitidaTest extends TestCase
 
             // Verifica si el directorio existe, si no, créalo
             if (!is_dir($targetDir)) {
-                mkdir($targetDir, 0777, true);
+                mkdir(directory: $targetDir, permissions: 0777, recursive: true);
             }
 
             // Se genera el archivo PDF.
             file_put_contents($filename, $response->getBody());
 
             if (self::$verbose) {
-                echo "\n",'testDescargarHtmlBteEmitida() Archivo: ',$filename,"\n";
+                echo "\n",
+                'testDescargarHtmlBteEmitida() Archivo: ',
+                $filename,
+                "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf(
+            $this->fail(message: sprintf(
                 '[ApiException %d] %s',
                 $e->getCode(),
                 $e->getMessage()

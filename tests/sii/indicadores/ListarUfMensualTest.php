@@ -40,24 +40,34 @@ class ListarUfMensualTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$verbose = env('TEST_VERBOSE', false);
+        self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$client = new Indicadores();
         self::$fecha = date('Y-m-d');
     }
 
-    public function testListarUfMensual()
+    public function testListarUfMensual(): void
     {
-        $periodo = date('Ym', strtotime(self::$fecha));
+        $periodo = date(
+            format: 'Ym',
+            timestamp: strtotime(self::$fecha)
+        );
         try {
             $response = self::$client->mensual($periodo);
 
             $this->assertSame(200, $response->getStatusCode());
 
             if (self::$verbose) {
-                echo "\n",'test_indicadores_uf() uf_mes: ',$response->getBody(),"\n";
+                echo "\n",
+                'test_indicadores_uf() uf_mes: ',
+                $response->getBody(),
+                "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf('[ApiException %d] %s', $e->getCode(), $e->getMessage()));
+            $this->fail(message: sprintf(
+                '[ApiException %d] %s',
+                $e->getCode(),
+                $e->getMessage()
+            ));
         }
     }
 }

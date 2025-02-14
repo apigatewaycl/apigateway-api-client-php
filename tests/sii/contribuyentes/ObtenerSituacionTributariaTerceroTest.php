@@ -37,12 +37,12 @@ class ObtenerSituacionTributariaTerceroTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$verbose = env('TEST_VERBOSE', false);
+        self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$client = new Contribuyentes();
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
     }
 
-    public function testObtenerSituacionTributariaTercero()
+    public function testObtenerSituacionTributariaTercero(): void
     {
         try {
             $response = self::$client->obtenerSituacionTributaria(
@@ -53,11 +53,14 @@ class ObtenerSituacionTributariaTerceroTest extends TestCase
                 $response->getStatusCode()
             );
             if (self::$verbose) {
-                echo "\n",'testObtenerSituacionTributariaTercero() situacion_tributaria ',$response->getBody(),"\n";
+                echo "\n",
+                'testObtenerSituacionTributariaTercero() situacion_tributaria ',
+                $response->getBody(),
+                "\n";
             }
         } catch (ApiException $e) {
             $this->fail(
-                sprintf(
+                message: sprintf(
                     '[ApiException %d] %s',
                     $e->getCode(),
                     $e->getMessage()

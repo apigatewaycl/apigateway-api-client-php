@@ -38,11 +38,11 @@ class ListarActividadesEconomicasTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$verbose = env('TEST_VERBOSE', false);
+        self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$client = new ActividadesEconomicas();
     }
 
-    public function testListarActividadesEconomicas()
+    public function testListarActividadesEconomicas(): void
     {
         echo "test_listar_actividades_economicas(): ";
         try {
@@ -51,10 +51,17 @@ class ListarActividadesEconomicasTest extends TestCase
             $this->assertSame(200, $response->getStatusCode());
 
             if (self::$verbose) {
-                echo "\n",'test_actividades_economicas_listar() actividades ',$response->getBody(),"\n";
+                echo "\n",
+                'test_actividades_economicas_listar() actividades ',
+                $response->getBody(),
+                "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf('[ApiException %d] %s', $e->getCode(), $e->getMessage()));
+            $this->fail(sprintf(
+                '[ApiException %d] %s',
+                $e->getCode(),
+                $e->getMessage()
+            ));
         }
     }
 }

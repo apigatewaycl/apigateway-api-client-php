@@ -39,7 +39,7 @@ class DescargarXmlDteRecibMipymeTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$verbose = env('TEST_VERBOSE', false);
+        self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
         self::$auth = [
@@ -51,27 +51,41 @@ class DescargarXmlDteRecibMipymeTest extends TestCase
         self::$client = new PortalMipymeDteRecibidos(self::$auth);
     }
 
-    public function testDescargarXmlDteRecibMipyme()
+    public function testDescargarXmlDteRecibMipyme(): void
     {
         $filtros = [
-            'FEC_DESDE' => date('Y-m-d', strtotime('-30 days')),
+            'FEC_DESDE' => date(
+                format: 'Y-m-d',
+                timestamp: strtotime('-30 days')
+            ),
             'FEC_HASTA' => date('Y-m-d'),
         ];
         try {
             $documentos = self::$client->obtenerDtesRecibidos(
-                self::$contribuyente_rut,
-                $filtros
+                receptor: self::$contribuyente_rut,
+                filtros: $filtros
             );
 
-            $documentos_array = json_decode((string)$documentos->getBody(), true);
+            $documentosArray = json_decode(
+                json: (string)$documentos->getBody(),
+                associative: true
+            );
 
-            if (count($documentos_array) <= 0) {
-                $this->markTestSkipped("\n"."No hay DTEs recibidos para esta prueba."."\n");
+            if (count($documentosArray) <= 0) {
+                $this->markTestSkipped(
+                    "\n".
+                    "No hay DTEs recibidos para esta prueba.".
+                    "\n"
+                );
             }
 
-            $emisor = $documentos_array[0]['rut'].'-'.$documentos_array[0]['dv'];
-            $dte = $documentos_array[0]['dte'];
-            $folio = $documentos_array[0]['folio'];
+            $emisor = sprintf(
+                '%s-%s',
+                $documentosArray[0]['rut'],
+                $documentosArray[0]['dv']
+            );
+            $dte = $documentosArray[0]['dte'];
+            $folio = $documentosArray[0]['folio'];
 
             $response = self::$client->descargarXmlDteRecibido(
                 self::$contribuyente_rut,
@@ -87,7 +101,8 @@ class DescargarXmlDteRecibMipymeTest extends TestCase
             $currentDir = __DIR__;
 
             // Nueva ruta relativa para guardar el archivo PDF en "tests/archivos"
-            $targetDir = dirname(dirname($currentDir)) . '/archivos/dte_recib_mipyme_xml';
+            $targetDir = dirname(dirname($currentDir)) .
+            '/archivos/dte_recib_mipyme_xml';
 
             // Define el nombre del archivo PDF en el nuevo directorio
             $filename = $targetDir . '/' . sprintf(
@@ -100,17 +115,20 @@ class DescargarXmlDteRecibMipymeTest extends TestCase
 
             // Verifica si el directorio existe, si no, créalo
             if (!is_dir($targetDir)) {
-                mkdir($targetDir, 0777, true);
+                mkdir(directory: $targetDir, permissions: 0777, recursive: true);
             }
 
             // Se genera el archivo PDF.
             file_put_contents($filename, $response->getBody());
 
             if (self::$verbose) {
-                echo "\n",'testDescargarXmlDteEmitMipyme() XML: ',$filename,"\n";
+                echo "\n",
+                'testDescargarXmlDteEmitMipyme() XML: ',
+                $filename,
+                "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf(
+            $this->fail(message: sprintf(
                 '[ApiException %d] %s',
                 $e->getCode(),
                 $e->getMessage()

@@ -39,7 +39,7 @@ class ObtenerDatosContribMisiiTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$verbose = env('TEST_VERBOSE', false);
+        self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
         self::$auth = [
@@ -51,7 +51,7 @@ class ObtenerDatosContribMisiiTest extends TestCase
         self::$client = new Misii(self::$auth);
     }
 
-    public function testObtenerDatosContribMisii()
+    public function testObtenerDatosContribMisii(): void
     {
         try {
             $response = self::$client->obtenerDatosContribuyenteMisii();
@@ -59,10 +59,13 @@ class ObtenerDatosContribMisiiTest extends TestCase
             $this->assertSame(200, $response->getStatusCode());
 
             if (self::$verbose) {
-                echo "\n",'testObtenerDatosContribMisii() datos ',$response->getBody(),"\n";
+                echo "\n",
+                'testObtenerDatosContribMisii() datos ',
+                $response->getBody(),
+                "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf(
+            $this->fail(message: sprintf(
                 '[ApiException %d] %s',
                 $e->getCode(),
                 $e->getMessage()

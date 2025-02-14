@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace apigatewaycl\api_client\sii;
 
 use apigatewaycl\api_client\ApiBase;
+use Psr\Http\Message\ResponseInterface;
 
 /*
  * Módulo para interactuar con Boletas de Honorarios Electrónicas emitidas del SII.
@@ -66,9 +67,11 @@ class BheEmitidas extends ApiBase
     public const ANULACION_CAUSA_ERROR_DIGITACION = 3;
 
     /**
-     * Cliente específico para gestionar Boletas de Honorarios Electrónicas (BHE) emitidas.
+     * Cliente específico para gestionar Boletas de Honorarios Electrónicas
+     * (BHE) emitidas.
      *
-     * Provee métodos para emitir, anular, y consultar información relacionada con BHEs.
+     * Provee métodos para emitir, anular, y consultar información relacionada
+     * con BHEs.
      *
      * @param array $credenciales Credenciales de autenticación.
      * @param string|null $token Token de autenticación para la API.
@@ -78,8 +81,7 @@ class BheEmitidas extends ApiBase
         array $credenciales,
         string $token = null,
         string $url = null
-    )
-    {
+    ) {
         parent::__construct(
             credenciales: $credenciales,
             token: $token,
@@ -93,15 +95,17 @@ class BheEmitidas extends ApiBase
      * @param string $emisor RUT del emisor de las boletas.
      * @param string $periodo Período de tiempo de las boletas emitidas.
      * @param int|null $pagina Número de página para paginación (opcional).
-     * @param string|null $pagina_sig_codigo Código para la siguiente página (opcional).
-     * @return \Psr\Http\Message\ResponseInterface Respuesta JSON con los documentos de BHE.
+     * @param string|null $pagina_sig_codigo Código para la siguiente
+     * página (opcional).
+     * @return \Psr\Http\Message\ResponseInterface Respuesta JSON con los
+     * documentos de BHE.
      */
     public function listarBhesEmitidas(
         string $emisor,
         string $periodo,
         int $pagina = null,
         string $pagina_sig_codigo = null
-    ) {
+    ): ResponseInterface {
         $url = sprintf(
             '/sii/bhe/emitidas/documentos/%s/%s',
             $emisor,
@@ -122,7 +126,7 @@ class BheEmitidas extends ApiBase
         $body = [
             'auth' => $this->getAuthPass(),
         ];
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
         return $response;
     }
 
@@ -133,7 +137,7 @@ class BheEmitidas extends ApiBase
      * @return \Psr\Http\Message\ResponseInterface Respuesta JSON con la
      * confirmación de la emisión de la BHE.
      */
-    public function emitirBhe(array $boleta)
+    public function emitirBhe(array $boleta): ResponseInterface
     {
         $url = '/sii/bhe/emitidas/emitir';
         $body = [
@@ -141,7 +145,7 @@ class BheEmitidas extends ApiBase
             'boleta' => $boleta,
         ];
 
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
 
         return $response;
     }
@@ -152,7 +156,7 @@ class BheEmitidas extends ApiBase
      * @param string $codigo Código único de la BHE.
      * @return \Psr\Http\Message\ResponseInterface Contenido del PDF de la BHE.
      */
-    public function descargarPdfBheEmitida(string $codigo)
+    public function descargarPdfBheEmitida(string $codigo): ResponseInterface
     {
         $url = sprintf(
             '/sii/bhe/emitidas/pdf/%s',
@@ -161,7 +165,7 @@ class BheEmitidas extends ApiBase
         $body = [
             'auth' => $this->getAuthPass(),
         ];
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
 
         return $response;
     }
@@ -174,8 +178,10 @@ class BheEmitidas extends ApiBase
      * @return \Psr\Http\Message\ResponseInterface Respuesta JSON con la
      * confirmación del envío del email.
      */
-    public function enviarEmailBheEmitida(string $codigo, string $email)
-    {
+    public function enviarEmailBheEmitida(
+        string $codigo,
+        string $email
+    ): ResponseInterface {
         $url = sprintf(
             '/sii/bhe/emitidas/email/%s',
             $codigo
@@ -184,7 +190,7 @@ class BheEmitidas extends ApiBase
             'auth' => $this->getAuthPass(),
             'destinatario' => ['email' => $email],
         ];
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
 
         return $response;
     }
@@ -212,7 +218,7 @@ class BheEmitidas extends ApiBase
         $body = [
             'auth' => $this->getAuthPass(),
         ];
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
 
         return $response;
     }

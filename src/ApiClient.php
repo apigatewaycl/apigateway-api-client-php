@@ -23,6 +23,8 @@ declare(strict_types=1);
 
 namespace apigatewaycl\api_client;
 
+use Psr\Http\Message\ResponseInterface;
+
 /**
  * Cliente de la API de API Gateway.
  *
@@ -83,10 +85,12 @@ class ApiClient
     {
         $this->api_token = $token ?: $this->env('APIGATEWAY_API_TOKEN');
         if (!$this->api_token) {
-            throw new ApiException('APIGATEWAY_API_TOKEN missing');
+            throw new ApiException(message: 'APIGATEWAY_API_TOKEN missing');
         }
 
-        $this->api_url = $url ?: $this->env('APIGATEWAY_API_URL') ?: $this->api_url;
+        $this->api_url = $url ?: $this->env(
+            'APIGATEWAY_API_URL'
+        ) ?: $this->api_url;
     }
 
     /**
@@ -95,7 +99,7 @@ class ApiClient
      * @param string $url URL base.
      * @return $this
      */
-    public function setUrl(string $url)
+    public function setUrl(string $url): static
     {
         $this->api_url = $url;
         return $this;
@@ -107,7 +111,7 @@ class ApiClient
      * @param string $token Token de autenticación.
      * @return $this
      */
-    public function setToken(string $token)
+    public function setToken(string $token): static
     {
         $this->api_token = $token;
         return $this;
@@ -118,7 +122,7 @@ class ApiClient
      *
      * @return string|null
      */
-    public function getLastUrl()
+    public function getLastUrl(): string|null
     {
         return $this->last_url;
     }
@@ -128,7 +132,7 @@ class ApiClient
      *
      * @return \Psr\Http\Message\ResponseInterface|null
      */
-    public function getLastResponse()
+    public function getLastResponse(): ResponseInterface|null
     {
         return $this->last_response;
     }
@@ -142,11 +146,11 @@ class ApiClient
      * @return string El cuerpo de la respuesta HTTP.
      * @throws ApiException Si no hay respuesta previa o el cuerpo no se puede obtener.
      */
-    public function getBody()
+    public function getBody(): string
     {
         if (!$this->last_response) {
             throw new ApiException(
-                'No hay una respuesta HTTP previa para obtener el cuerpo.'
+                message: 'No hay una respuesta HTTP previa para obtener el cuerpo.'
             );
         }
 
@@ -161,17 +165,18 @@ class ApiClient
      * formato JSON a un arreglo asociativo de PHP.
      *
      * @return array El cuerpo de la respuesta HTTP decodificado como un arreglo.
-     * @throws ApiException Si no hay respuesta previa o el cuerpo no se puede decodificar.
+     * @throws ApiException Si no hay respuesta previa o el cuerpo no se
+     * puede decodificar.
      */
-    public function getBodyDecoded()
+    public function getBodyDecoded(): mixed
     {
         $body = $this->getBody();
 
-        $decodedBody = json_decode($body, true);
+        $decodedBody = json_decode(json: $body, associative: true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new ApiException(
-                'Error al decodificar JSON: ' . json_last_error_msg()
+                message: 'Error al decodificar JSON: ' . json_last_error_msg()
             );
         }
 
@@ -188,11 +193,11 @@ class ApiClient
      * @return array Arreglo asociativo con la información de la respuesta.
      * @throws ApiException Si se encuentra un error en el proceso.
      */
-    public function toArray()
+    public function toArray(): array
     {
         if (!$this->last_response) {
             throw new ApiException(
-                'No hay una respuesta HTTP previa para procesar.'
+                message: 'No hay una respuesta HTTP previa para procesar.'
             );
         }
 
@@ -250,14 +255,13 @@ class ApiClient
         string $resource,
         array $headers = [],
         array $options = []
-    )
-    {
+    ): ResponseInterface|null {
         return $this->consume(
-            $resource,
-            [],
-            $headers,
-            'GET',
-            $options
+            resource: $resource,
+            data: [],
+            headers: $headers,
+            method: 'GET',
+            options: $options
         )->getLastResponse();
     }
 
@@ -275,14 +279,13 @@ class ApiClient
         array $data,
         array $headers = [],
         array $options = []
-    )
-    {
+    ): ResponseInterface|null {
         return $this->consume(
-            $resource,
-            $data,
-            $headers,
-            'POST',
-            $options
+            resource: $resource,
+            data: $data,
+            headers: $headers,
+            method: 'POST',
+            options: $options
         )->getLastResponse();
     }
 
@@ -300,14 +303,13 @@ class ApiClient
         array $data,
         array $headers = [],
         array $options = []
-    )
-    {
+    ): ResponseInterface|null {
         return $this->consume(
-            $resource,
-            $data,
-            $headers,
-            'PUT',
-            $options
+            resource: $resource,
+            data: $data,
+            headers: $headers,
+            method: 'PUT',
+            options: $options
         )->getLastResponse();
     }
 
@@ -323,14 +325,13 @@ class ApiClient
         string $resource,
         array $headers = [],
         array $options = []
-    )
-    {
+    ): ResponseInterface|null {
         return $this->consume(
-            $resource,
-            [],
-            $headers,
-            'DELETE',
-            $options
+            resource: $resource,
+            data: [],
+            headers: $headers,
+            method: 'DELETE',
+            options: $options
         )->getLastResponse();
     }
 
@@ -354,18 +355,21 @@ class ApiClient
         array $headers = [],
         string $method = null,
         $options = []
-    )
-    {
+    ): static {
         $this->last_response = null;
         if (!$this->api_token) {
             throw new ApiException(
-                'Falta especificar token para autenticación.',
-                400
+                message: 'Falta especificar token para autenticación.',
+                code: 400
             );
         }
         $method = $method ?: ($data ? 'POST' : 'GET');
         $client = new \GuzzleHttp\Client();
-        $this->last_url = $this->api_url . $this->api_prefix . '/'. $this->api_version . $resource;
+        $this->last_url = $this->api_url .
+        $this->api_prefix .
+        '/'.
+        $this->api_version .
+        $resource;
 
         // preparar cabeceras que se usarán
         $options[\GuzzleHttp\RequestOptions::HEADERS] = array_merge([
@@ -382,9 +386,9 @@ class ApiClient
         // Ejecutar consulta al SII.
         try {
             $this->last_response = $client->request(
-                $method,
-                $this->last_url,
-                $options
+                method: $method,
+                uri: $this->last_url,
+                options: $options
             );
         } catch (\GuzzleHttp\Exception\GuzzleException $e) {
             // Obtener la respuesta de la llamada.
@@ -406,7 +410,7 @@ class ApiClient
      *
      * @return object Detalles del error con propiedades 'code' y 'message'.
      */
-    private function getError()
+    private function getError(): object
     {
         $data = $this->getBodyDecoded();
         $response = $this->getLastResponse();
@@ -442,17 +446,18 @@ class ApiClient
      *
      * @throws ApiException Lanza una excepción con detalles del error.
      */
-    private function throwException()
+    private function throwException(): ApiException
     {
         $error = $this->getError();
-        throw new ApiException($error->message, $error->code);
+        throw new ApiException(message: $error->message, code: $error->code);
     }
 
     /**
      * Obtiene el valor de una variable de entorno.
      *
      * @param string $name Nombre de la variable de entorno.
-     * @return string|null Valor de la variable de entorno o null si no está definida.
+     * @return string|null Valor de la variable de entorno o null si
+     * no está definida.
      */
     private function env(string $name)
     {

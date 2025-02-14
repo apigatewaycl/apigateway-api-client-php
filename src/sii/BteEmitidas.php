@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace apigatewaycl\api_client\sii;
 
 use apigatewaycl\api_client\ApiBase;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Módulo para la emisión de Boletas de Terceros Electrónicas del SII.
@@ -46,8 +47,7 @@ class BteEmitidas extends ApiBase
         array $credenciales,
         string $token = null,
         string $url = null
-    )
-    {
+    ) {
         parent::__construct(
             credenciales: $credenciales,
             token: $token,
@@ -68,8 +68,7 @@ class BteEmitidas extends ApiBase
         string $emisor,
         string $periodo,
         int $pagina = null
-    )
-    {
+    ): ResponseInterface {
         $url = sprintf(
             '/sii/bte/emitidas/documentos/%s/%s',
             $emisor,
@@ -84,7 +83,7 @@ class BteEmitidas extends ApiBase
         $body = [
             'auth' => $this->getAuthPass(),
         ];
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
         return $response;
     }
 
@@ -94,7 +93,7 @@ class BteEmitidas extends ApiBase
      * @param string $codigo Código único de la BTE.
      * @return \Psr\Http\Message\ResponseInterface Contenido HTML de la BTE.
      */
-    public function obtenerHtmlBteEmitida(string $codigo)
+    public function obtenerHtmlBteEmitida(string $codigo): ResponseInterface
     {
         $url = sprintf(
             '/sii/bte/emitidas/html/%s',
@@ -103,7 +102,7 @@ class BteEmitidas extends ApiBase
         $body = [
             'auth' => $this->getAuthPass(),
         ];
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
         return $response;
     }
 
@@ -114,7 +113,7 @@ class BteEmitidas extends ApiBase
      * @return \Psr\Http\Message\ResponseInterface Respuesta JSON con la
      * confirmación de la emisión de la BTE.
      */
-    public function emitirBte(array $datos)
+    public function emitirBte(array $datos): ResponseInterface
     {
         $url = '/sii/bte/emitidas/emitir';
         $body = [
@@ -122,7 +121,7 @@ class BteEmitidas extends ApiBase
             'boleta' => $datos,
         ];
 
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
         return $response;
     }
 
@@ -141,8 +140,7 @@ class BteEmitidas extends ApiBase
         string $numero,
         int $causa = 3,
         string $periodo = null
-    )
-    {
+    ): ResponseInterface {
         $url = sprintf(
             '/sii/bhe/emitidas/anular/%s/%s?causa=%d',
             $emisor,
@@ -156,7 +154,7 @@ class BteEmitidas extends ApiBase
             'auth' => $this->getAuthPass(),
         ];
 
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
         return $response;
     }
 
@@ -172,8 +170,7 @@ class BteEmitidas extends ApiBase
         string $emisor,
         string $receptor,
         string $periodo = null
-    )
-    {
+    ): ResponseInterface {
         $url = sprintf(
             '/sii/bte/emitidas/receptor_tasa/%s/%s',
             $emisor,
@@ -186,7 +183,7 @@ class BteEmitidas extends ApiBase
             'auth' => $this->getAuthPass(),
         ];
 
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
         return $response;
     }
 }

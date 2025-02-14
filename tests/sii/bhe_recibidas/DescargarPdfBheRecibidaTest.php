@@ -41,7 +41,7 @@ class DescargarPdfBheRecibidaTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$verbose = env('TEST_VERBOSE', false);
+        self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
         self::$auth = [
@@ -54,22 +54,29 @@ class DescargarPdfBheRecibidaTest extends TestCase
         self::$periodo = env('TEST_PERIODO');
     }
 
-    public function testDescargarPdfBheRecibida()
+    public function testDescargarPdfBheRecibida(): void
     {
-        $receptor = env('TEST_RECEPTOR_RUT', '12345678-9');
+        $receptor = env(varname: 'TEST_RECEPTOR_RUT', default: '12345678-9');
         try {
             $documentos = self::$client->listarBhesRecibidas(
                 $receptor,
                 self::$periodo
             );
 
-            $documentos_array = json_decode((string)$documentos->getBody(), true);
+            $documentosArray = json_decode(
+                json: (string)$documentos->getBody(),
+                associative: true
+            );
 
-            if (count($documentos_array) <= 0) {
-                $this->markTestSkipped("\n"."No hay BHEs recibidas para esta prueba."."\n");
+            if (count($documentosArray) <= 0) {
+                $this->markTestSkipped(
+                    "\n".
+                    "No hay BHEs recibidas para esta prueba.".
+                    "\n"
+                );
             }
 
-            $codigo = $documentos_array[0]['codigo'];
+            $codigo = $documentosArray[0]['codigo'];
 
             $response = self::$client->descargarPdfBheRecibida(
                 codigo: $codigo
@@ -82,7 +89,8 @@ class DescargarPdfBheRecibidaTest extends TestCase
             $currentDir = __DIR__;
 
             // Nueva ruta relativa para guardar el archivo PDF en "tests/archivos"
-            $targetDir = dirname(dirname($currentDir)) . '/archivos/bhe_recibidas_pdf';
+            $targetDir = dirname(dirname($currentDir)) .
+            '/archivos/bhe_recibidas_pdf';
 
             // Define el nombre del archivo PDF en el nuevo directorio
             $filename = $targetDir . '/' . sprintf(
@@ -92,17 +100,20 @@ class DescargarPdfBheRecibidaTest extends TestCase
 
             // Verifica si el directorio existe, si no, créalo
             if (!is_dir($targetDir)) {
-                mkdir($targetDir, 0777, true);
+                mkdir(directory: $targetDir, permissions: 0777, recursive: true);
             }
 
             // Se genera el archivo PDF.
             file_put_contents($filename, $response->getBody());
 
             if (self::$verbose) {
-                echo "\n",'testDescargarPdfBheRecibida() PDF: ',$filename,"\n";
+                echo "\n",
+                'testDescargarPdfBheRecibida() PDF: ',
+                $filename,
+                "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf(
+            $this->fail(message: sprintf(
                 '[ApiException %d] %s',
                 $e->getCode(),
                 $e->getMessage()

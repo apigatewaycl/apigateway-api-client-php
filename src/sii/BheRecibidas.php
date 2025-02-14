@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace apigatewaycl\api_client\sii;
 
 use apigatewaycl\api_client\ApiBase;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Módulo para interactuar con Boletas de Honorarios Electrónicas recibidas del SII.
@@ -34,9 +35,11 @@ use apigatewaycl\api_client\ApiBase;
 class BheRecibidas extends ApiBase
 {
     /**
-     * Cliente específico para gestionar Boletas de Honorarios Electrónicas (BHE) recibidas.
+     * Cliente específico para gestionar Boletas de Honorarios Electrónicas
+     * (BHE) recibidas.
      *
-     * Provee métodos para obtener documentos, obtener PDF y observar BHE recibidas.
+     * Provee métodos para obtener documentos, obtener PDF y observar
+     * BHE recibidas.
      *
      * @param array $credenciales Credenciales de autenticación.
      * @param string|null $token Token de autenticación para la API.
@@ -46,8 +49,7 @@ class BheRecibidas extends ApiBase
         array $credenciales,
         string $token = null,
         string $url = null
-    )
-    {
+    ) {
         parent::__construct(
             credenciales: $credenciales,
             token: $token,
@@ -70,8 +72,7 @@ class BheRecibidas extends ApiBase
         string $periodo,
         int $pagina = null,
         string $pagina_sig_codigo = null
-    )
-    {
+    ): ResponseInterface {
         $url = sprintf(
             '/sii/bhe/recibidas/documentos/%s/%s',
             $receptor,
@@ -92,7 +93,7 @@ class BheRecibidas extends ApiBase
         $body = [
             'auth' => $this->getAuthPass(),
         ];
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
         return $response;
     }
 
@@ -102,7 +103,7 @@ class BheRecibidas extends ApiBase
      * @param string $codigo Código único de la BHE.
      * @return \Psr\Http\Message\ResponseInterface Contenido del PDF de la BHE.
      */
-    public function descargarPdfBheRecibida(string $codigo)
+    public function descargarPdfBheRecibida(string $codigo): ResponseInterface
     {
         $url = sprintf(
             '/sii/bhe/recibidas/pdf/%s',
@@ -111,7 +112,7 @@ class BheRecibidas extends ApiBase
         $body = [
             'auth' => $this->getAuthPass(),
         ];
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
 
         return $response;
     }
@@ -129,8 +130,7 @@ class BheRecibidas extends ApiBase
         string $emisor,
         string $numero,
         int $causa = 1
-    )
-    {
+    ): ResponseInterface {
         $url = sprintf(
             '/sii/bhe/recibidas/observar/%s/%s/%d',
             $emisor,
@@ -140,7 +140,7 @@ class BheRecibidas extends ApiBase
         $body = [
             'auth' => $this->getAuthPass(),
         ];
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
 
         return $response;
     }

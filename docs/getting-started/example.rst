@@ -1,7 +1,7 @@
 Ejemplo
 =======
 
-Ejemplo de listar BHEs
+Ejemplo de emitir BHEs
 ----------------------
 
 El siguiente es un ejemplo básico de cómo emitir un documento BHE utilizando el cliente de API.
@@ -18,10 +18,7 @@ Para utilizar el cliente de API de API Gateway, deberás tener definido el token
     require_once __DIR__ . '/vendor/autoload.php';
 
     # Importaciones del cliente de API de API Gateway
-    use apigatewaycl\api_client\ApiClient;
-
-    # Creación de nueva instancia de cliente de API
-    $client = new ApiClient();
+    use apigatewaycl\api_client\sii\BheEmitidas;
 
     # RUT de contribuyente SII, sin puntos y con Dígito Verificador.
     $contribuyente_rut = '12345678-9';
@@ -39,6 +36,9 @@ Para utilizar el cliente de API de API Gateway, deberás tener definido el token
             'clave' => $contribuyente_clave,
         ],
     ];
+
+    # Creación de nueva instancia de cliente de API
+    $client = new BheEmitidas($auth);
 
     $datos_bhe = [
         'Encabezado' => [
@@ -68,16 +68,8 @@ Para utilizar el cliente de API de API Gateway, deberás tener definido el token
         ]
     ];
 
-    # Recurso a consumir.
-    $resource = '/sii/bhe/emitidas/emitir';
-
-    $data = [
-        'auth' => $auth,
-        'boleta' => $datos_bhe
-    ];
-
     # Se efectua la solicitud HTTP y se guarda la respuesta.
-    $response = $client->post(resource: $resource, data: $data);
+    $response = $client->emitirBhe($datos_bhe);
 
     # Código del response
     echo "Status: ".$response->getStatusCode()."\n";

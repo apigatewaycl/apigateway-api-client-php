@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace apigatewaycl\api_client\sii;
 
-use apigatewaycl\api_client\sii\PortalMipymeDte;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Módulo para consultas de DTEs recibidos al Portal MIPYME del SII.
@@ -43,8 +43,10 @@ class PortalMipymeDteRecibidos extends PortalMiPymeDte
      * @param array $filtros Filtros adicionales para la consulta.
      * @return \Psr\Http\Message\ResponseInterface Documentos de DTE recibidos.
      */
-    public function obtenerDtesRecibidos(string $receptor, array $filtros = [])
-    {
+    public function obtenerDtesRecibidos(
+        string $receptor,
+        array $filtros = []
+    ): ResponseInterface {
         $url = sprintf(
             '/sii/mipyme/recibidos/documentos/%s',
             $receptor
@@ -54,7 +56,7 @@ class PortalMipymeDteRecibidos extends PortalMiPymeDte
             'auth' => $this->getAuthPass(),
             'filtros' => $filtros,
         ];
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
         return $response;
     }
 
@@ -72,8 +74,7 @@ class PortalMipymeDteRecibidos extends PortalMiPymeDte
         string $emisor,
         string $dte,
         string $folio = null
-    )
-    {
+    ): ResponseInterface {
         $url = $folio != null ? sprintf(
             '/sii/mipyme/recibidos/pdf/%s/%s/%s/%s',
             $receptor,
@@ -90,7 +91,7 @@ class PortalMipymeDteRecibidos extends PortalMiPymeDte
         $body = [
             'auth' => $this->getAuthPass(),
         ];
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
         return $response;
     }
 
@@ -109,8 +110,7 @@ class PortalMipymeDteRecibidos extends PortalMiPymeDte
         string $emisor,
         string $dte,
         string $folio
-    )
-    {
+    ): ResponseInterface {
         $url = sprintf(
             '/sii/mipyme/recibidos/xml/%s/%s/%s/%s',
             $receptor,
@@ -122,7 +122,7 @@ class PortalMipymeDteRecibidos extends PortalMiPymeDte
         $body = [
             'auth' => $this->getAuthPass(),
         ];
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
         return $response;
     }
 }

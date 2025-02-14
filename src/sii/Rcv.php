@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace apigatewaycl\api_client\sii;
 
 use apigatewaycl\api_client\ApiBase;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Módulo para interactuar con el Registro de Compra y Venta del SII.
@@ -40,15 +41,14 @@ class Rcv extends ApiBase
      * Proporciona métodos para obtener resúmenes y detalles de compras y ventas.
      *
      * @param array $credenciales Credenciales de autenticación.
-     * @param string $token Token de autenticación para la API.
-     * @param string $url URL base para la API.
+     * @param string|null $token Token de autenticación para la API.
+     * @param string|null $url URL base para la API.
      */
     public function __construct(
         array $credenciales,
         string $token = null,
         string $url = null
-    )
-    {
+    ) {
         parent::__construct(
             credenciales: $credenciales,
             token: $token,
@@ -57,7 +57,8 @@ class Rcv extends ApiBase
     }
 
     /**
-     * Obtiene un resumen de las compras registradas para un receptor en un periodo específico.
+     * Obtiene un resumen de las compras registradas para un receptor en un
+     * periodo específico.
      *
      * @param string $receptor RUT del receptor de las compras.
      * @param string $periodo Período de tiempo de las compras.
@@ -69,8 +70,8 @@ class Rcv extends ApiBase
     public function obtenerResumenCompras(
         string $receptor,
         string $periodo,
-        string $estado = 'REGISTRO')
-    {
+        string $estado = 'REGISTRO'
+    ): ResponseInterface {
         $url = sprintf(
             '/sii/rcv/compras/resumen/%s/%s/%s',
             $receptor,
@@ -81,7 +82,7 @@ class Rcv extends ApiBase
         $body = [
             'auth' => $this->getAuthPass(),
         ];
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
         return $response;
     }
 
@@ -91,9 +92,11 @@ class Rcv extends ApiBase
      * @param string $receptor RUT del receptor de las compras.
      * @param string $periodo Período de tiempo de las compras.
      * @param int $dte Tipo de DTE.
-     * @param string $estado Estado de las compras ('REGISTRO', 'PENDIENTE', 'NO_INCLUIR', 'RECLAMADO').
+     * @param string $estado Estado de las compras ('REGISTRO', 'PENDIENTE',
+     * 'NO_INCLUIR', 'RECLAMADO').
      * @param string|null $tipo Tipo de formato de respuesta ('rcv_csv' o 'rcv').
-     * @return \Psr\Http\Message\ResponseInterface Respuesta JSON con detalles de las compras.
+     * @return \Psr\Http\Message\ResponseInterface Respuesta JSON con
+     * detalles de las compras.
      */
     public function obtenerDetalleCompras(
         string $receptor,
@@ -101,8 +104,11 @@ class Rcv extends ApiBase
         int $dte = 0,
         string $estado = 'REGISTRO',
         string $tipo = null
-    ) {
-        $tipo = ($dte == 0 && $estado == 'REGISTRO') ? 'rcv_csv' : ($tipo ?? 'rcv');
+    ): ResponseInterface {
+        $tipo = (
+            $dte == 0 &&
+            $estado == 'REGISTRO'
+        ) ? 'rcv_csv' : ($tipo ?? 'rcv');
         $url = sprintf(
             '/sii/rcv/compras/detalle/%s/%s/%d/%s?tipo=%s',
             $receptor,
@@ -114,20 +120,23 @@ class Rcv extends ApiBase
         $body = [
             'auth' => $this->getAuthPass(),
         ];
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
         return $response;
     }
 
     /**
-     * Obtiene un resumen de las ventas registradas para un emisor en un periodo específico.
+     * Obtiene un resumen de las ventas registradas para un emisor en un
+     * periodo específico.
      *
      * @param string $emisor RUT del emisor de las ventas.
      * @param string $periodo Período de tiempo de las ventas.
      * @return \Psr\Http\Message\ResponseInterface Respuesta JSON con
      * el resumen de ventas.
      */
-    public function obtenerResumenVentas(string $emisor, string $periodo)
-    {
+    public function obtenerResumenVentas(
+        string $emisor,
+        string $periodo
+    ): ResponseInterface {
         $url = sprintf(
             '/sii/rcv/ventas/resumen/%s/%s',
             $emisor,
@@ -137,7 +146,7 @@ class Rcv extends ApiBase
         $body = [
             'auth' => $this->getAuthPass(),
         ];
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
         return $response;
     }
 
@@ -156,7 +165,7 @@ class Rcv extends ApiBase
         string $periodo,
         int $dte = 0,
         string $tipo = null
-    ) {
+    ): ResponseInterface {
         $tipo = $dte == 0 ? 'rcv_csv' : ($tipo ?? 'rcv');
         $url = sprintf(
             '/sii/rcv/ventas/detalle/%s/%s/%d?tipo=%s',
@@ -168,7 +177,7 @@ class Rcv extends ApiBase
         $body = [
             'auth' => $this->getAuthPass(),
         ];
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
         return $response;
     }
 }

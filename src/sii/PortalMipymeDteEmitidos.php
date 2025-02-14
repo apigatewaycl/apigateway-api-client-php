@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace apigatewaycl\api_client\sii;
 
-use apigatewaycl\api_client\sii\PortalMipymeDte;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Módulo para consultas de DTEs emitidos al Portal MIPYME del SII.
@@ -42,8 +42,10 @@ class PortalMipymeDteEmitidos extends PortalMiPymeDte
      * @param array $filtros Filtros adicionales para la consulta.
      * @return \Psr\Http\Message\ResponseInterface Documentos de DTE emitidos.
      */
-    public function obtenerDtesEmitidos(string $emisor, array $filtros = [])
-    {
+    public function obtenerDtesEmitidos(
+        string $emisor,
+        array $filtros = []
+    ): ResponseInterface {
         $url = sprintf(
             '/sii/mipyme/emitidos/documentos/%s',
             $emisor
@@ -53,7 +55,7 @@ class PortalMipymeDteEmitidos extends PortalMiPymeDte
             'auth' => $this->getAuthPass(),
             'filtros' => $filtros,
         ];
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
         return $response;
     }
 
@@ -69,8 +71,7 @@ class PortalMipymeDteEmitidos extends PortalMiPymeDte
         string $emisor,
         string $dte,
         string $folio = null
-    )
-    {
+    ): ResponseInterface {
         $url = $folio != null ? sprintf(
             '/sii/mipyme/emitidos/pdf/%s/%s/%s',
             $emisor,
@@ -85,7 +86,7 @@ class PortalMipymeDteEmitidos extends PortalMiPymeDte
         $body = [
             'auth' => $this->getAuthPass(),
         ];
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
         return $response;
     }
 
@@ -101,8 +102,7 @@ class PortalMipymeDteEmitidos extends PortalMiPymeDte
         string $emisor,
         string $dte,
         string $folio
-    )
-    {
+    ): ResponseInterface {
         $url = sprintf(
             '/sii/mipyme/emitidos/xml/%s/%s/%s',
             $emisor,
@@ -113,7 +113,7 @@ class PortalMipymeDteEmitidos extends PortalMiPymeDte
         $body = [
             'auth' => $this->getAuthPass(),
         ];
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
         return $response;
     }
 }

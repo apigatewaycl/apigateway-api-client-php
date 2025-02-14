@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace apigatewaycl\api_client\sii;
 
 use apigatewaycl\api_client\ApiBase;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Módulo para interactuar con las opciones de Documentos Tributarios
@@ -40,15 +41,14 @@ class DteEmitidos extends ApiBase
      * Permite verificar la validez y autenticidad de un DTE emitido.
      *
      * @param array $credenciales Credenciales de autenticación.
-     * @param string $token Token de autenticación para la API.
-     * @param string $url URL base para la API.
+     * @param string|null $token Token de autenticación para la API.
+     * @param string|null $url URL base para la API.
      */
     public function __construct(
         array $credenciales,
         string $token = null,
         string $url = null
-    )
-    {
+    ) {
         parent::__construct(
             credenciales: $credenciales,
             token: $token,
@@ -80,7 +80,7 @@ class DteEmitidos extends ApiBase
         int $total,
         string $firma = null,
         bool $certificacion = null
-    ) {
+    ): ResponseInterface {
         $certificacion_flag = $certificacion ? 1 : 0;
         $url = sprintf(
             '/sii/dte/emitidos/verificar?certificacion=%d',
@@ -98,7 +98,7 @@ class DteEmitidos extends ApiBase
                 'firma' => $firma,
             ],
         ];
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
 
         return $response;
     }

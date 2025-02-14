@@ -39,7 +39,7 @@ class VerificarDteEmitidoTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$verbose = env('TEST_VERBOSE', false);
+        self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         $firma_public_key = env('TEST_USUARIO_FIRMA_PUBLIC_KEY');
         $firma_private_key = env('TEST_USUARIO_FIRMA_PRIVATE_KEY');
         self::$auth = [
@@ -54,36 +54,56 @@ class VerificarDteEmitidoTest extends TestCase
 
     public function testVerificarDteEmitido()
     {
-        $receptor = env('TEST_DTE_EMITIDOS_VERIFICAR_RECEPTOR_RUT', '');
-        $dte = env('TEST_DTE_EMITIDOS_VERIFICAR_DTE', '');
-        $folio = env('TEST_DTE_EMITIDOS_VERIFICAR_FOLIO', '');
-        $fecha = env('TEST_DTE_EMITIDOS_VERIFICAR_FECHA', '');
-        $total = env('TEST_DTE_EMITIDOS_VERIFICAR_TOTAL', '');
-        $firma = env('TEST_DTE_EMITIDOS_VERIFICAR_FIRMA', '');
+        $receptor = env(
+            varname: 'TEST_DTE_EMITIDOS_VERIFICAR_RECEPTOR_RUT',
+            default: ''
+        );
+        $dte = env(
+            varname: 'TEST_DTE_EMITIDOS_VERIFICAR_DTE',
+            default: ''
+        );
+        $folio = env(
+            varname: 'TEST_DTE_EMITIDOS_VERIFICAR_FOLIO',
+            default: ''
+        );
+        $fecha = env(
+            varname: 'TEST_DTE_EMITIDOS_VERIFICAR_FECHA',
+            default: ''
+        );
+        $total = env(
+            varname: 'TEST_DTE_EMITIDOS_VERIFICAR_TOTAL',
+            default: ''
+        );
+        $firma = env(
+            varname: 'TEST_DTE_EMITIDOS_VERIFICAR_FIRMA',
+            default: ''
+        );
 
         try {
             $response = self::$client->verificarDteEmitido(
-                self::$contribuyente_rut,
-                $receptor,
-                $dte,
-                $folio,
-                $fecha,
-                $total,
-                $firma != '' ? $firma : null
+                emisor: self::$contribuyente_rut,
+                receptor: $receptor,
+                dte: $dte,
+                folio: $folio,
+                fecha: $fecha,
+                total: $total,
+                firma: $firma != '' ? $firma : null
             );
 
             $this->assertSame(200, $response->getStatusCode());
 
             if (self::$verbose) {
-                echo "\n",'testVerificarDteEmitido() resultado: ',$response->getBody(),"\n";
+                echo "\n",
+                'testVerificarDteEmitido() resultado: ',
+                $response->getBody(),
+                "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf(
+            $this->fail(message: sprintf(
                 '[ApiException %d] %s',
                 $e->getCode(),
                 $e->getMessage()
             ));
         }
-
     }
 }

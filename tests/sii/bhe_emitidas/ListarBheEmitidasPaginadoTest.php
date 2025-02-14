@@ -41,7 +41,7 @@ class ListarBheEmitidasPaginadoTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$verbose = env('TEST_VERBOSE', false);
+        self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
         self::$auth = [
@@ -54,7 +54,7 @@ class ListarBheEmitidasPaginadoTest extends TestCase
         self::$periodo = env('TEST_PERIODO');
     }
 
-    public function testListarBheEmitidasPaginado()
+    public function testListarBheEmitidasPaginado(): void
     {
         $pagina = 1;
         try {
@@ -67,17 +67,25 @@ class ListarBheEmitidasPaginadoTest extends TestCase
 
                 $this->assertSame(200, $response->getStatusCode());
 
-                $documentos_array = json_decode((string)$response->getBody(), true);
+                $responsePaginado = $response->getBody();
+
+                $documentos_array = json_decode(
+                    json: (string)$responsePaginado,
+                    associative: true
+                );
 
                 if (count($documentos_array) <= 0) {
-                    echo "n",'testListarBheEmitidasPaginado() Lista de BHEs emitidas vacía.',"\n";
+                    echo "n",
+                    'testListarBheEmitidasPaginado() Lista de BHEs emitidas vacía.',
+                    "\n";
                     break;
                 }
 
                 $n_paginas = $documentos_array['n_paginas'];
 
                 if (self::$verbose) {
-                    echo "\n",'testListarBheEmitidasPaginado() pagina: '.$pagina.'; documentos: ',$response->getBody(),"\n";
+                    echo "\n",
+                    'testListarBheEmitidasPaginado() pagina: ',$pagina,'; documentos: ',$responsePaginado,"\n";
                 }
 
                 $pagina += 1;
@@ -87,7 +95,7 @@ class ListarBheEmitidasPaginadoTest extends TestCase
                 }
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf(
+            $this->fail(message: sprintf(
                 '[ApiException %d] %s',
                 $e->getCode(),
                 $e->getMessage()

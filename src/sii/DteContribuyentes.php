@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace apigatewaycl\api_client\sii;
 
 use apigatewaycl\api_client\ApiBase;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Módulo para interactuar con las opciones de Documentos Tributarios
@@ -44,14 +45,15 @@ class DteContribuyentes extends ApiBase
      * Verifica si un contribuyente está autorizado para emitir DTE.
      *
      * @param string $rut RUT del contribuyente a verificar.
-     * @param bool|null $certificacion Indica si se consulta en ambiente de certificación (opcional).
-     * @return \Psr\Http\Message\ResponseInterface Respuesta JSON con el estado de autorización del contribuyente.
+     * @param bool|null $certificacion Indica si se consulta en ambiente
+     * de certificación (opcional).
+     * @return \Psr\Http\Message\ResponseInterface Respuesta JSON con el
+     * estado de autorización del contribuyente.
      */
     public function verificarAutorizacion(
         string $rut,
         bool $certificacion = null
-    )
-    {
+    ): ResponseInterface {
         $certificacion_flag = $certificacion ? 1 : 0;
         $url = sprintf(
             '/sii/dte/contribuyentes/autorizado/%s?certificacion=%d',
@@ -61,7 +63,7 @@ class DteContribuyentes extends ApiBase
         $body = [
             'auth' => $this->getAuthPass(),
         ];
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
 
         return $response;
     }

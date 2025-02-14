@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace apigatewaycl\api_client\sii;
 
 use apigatewaycl\api_client\ApiBase;
+use Psr\Http\Message\ResponseInterface;
 
 /*
  * Módulo para obtener indicadores desde el SII.
@@ -45,13 +46,13 @@ class Indicadores extends ApiBase
      * @return \Psr\Http\Message\ResponseInterface Respuesta JSON con los
      * valores de la UF del año especificado.
      */
-    public function anual(int $anio)
+    public function anual(int $anio): ResponseInterface
     {
         $url = sprintf(
             '/sii/indicadores/uf/anual/%d',
             $anio
         );
-        $response = $this->get($url);
+        $response = $this->get(resource: $url);
         return $response;
     }
 
@@ -62,16 +63,16 @@ class Indicadores extends ApiBase
      * @return \Psr\Http\Message\ResponseInterface Respuesta JSON con los
      * valores de la UF del mes especificado.
      */
-    public function mensual(string $periodo)
+    public function mensual(string $periodo): ResponseInterface
     {
-        $anio = substr($periodo, 0, 4);
-        $mes = substr($periodo, 4, 2);
+        $anio = substr(string: $periodo, offset: 0, length: 4);
+        $mes = substr(string: $periodo, offset: 4, length: 2);
         $url = sprintf(
             '/sii/indicadores/uf/anual/%s/%s',
             $anio,
             $mes
         );
-        $response = $this->get($url);
+        $response = $this->get(resource: $url);
         return $response;
     }
 
@@ -82,7 +83,7 @@ class Indicadores extends ApiBase
      * @return \Psr\Http\Message\ResponseInterface Valor de la UF para
      * el día especificado.
      */
-    public function diario(string $fecha)
+    public function diario(string $fecha): ResponseInterface
     {
         $partes = explode('-', $fecha);
         $anio = $partes[0];
@@ -95,7 +96,7 @@ class Indicadores extends ApiBase
             $mes,
             $dia
         );
-        $response = $this->get($url);
+        $response = $this->get(resource: $url);
         return $response;
     }
 }

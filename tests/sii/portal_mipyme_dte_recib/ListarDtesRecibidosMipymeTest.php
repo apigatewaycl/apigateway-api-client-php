@@ -39,7 +39,7 @@ class ListarDtesRecibidosMipymeTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$verbose = env('TEST_VERBOSE', false);
+        self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
         self::$auth = [
@@ -51,25 +51,31 @@ class ListarDtesRecibidosMipymeTest extends TestCase
         self::$client = new PortalMipymeDteRecibidos(self::$auth);
     }
 
-    public function testListarDtesRecibidosMipyme()
+    public function testListarDtesRecibidosMipyme(): void
     {
         $filtros = [
-            'FEC_DESDE' => date('Y-m-d', strtotime('-30 days')),
+            'FEC_DESDE' => date(
+                format: 'Y-m-d',
+                timestamp: strtotime('-30 days')
+            ),
             'FEC_HASTA' => date('Y-m-d'),
         ];
         try {
             $response = self::$client->obtenerDtesRecibidos(
-                self::$contribuyente_rut,
-                $filtros
+                receptor: self::$contribuyente_rut,
+                filtros: $filtros
             );
 
             $this->assertSame(200, $response->getStatusCode());
 
             if (self::$verbose) {
-                echo "\n",'testListarDtesRecibidosMipyme() DTES: ',$response->getBody(),"\n";
+                echo "\n",
+                'testListarDtesRecibidosMipyme() DTEs: ',
+                $response->getBody(),
+                "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf(
+            $this->fail(message: sprintf(
                 '[ApiException %d] %s',
                 $e->getCode(),
                 $e->getMessage()

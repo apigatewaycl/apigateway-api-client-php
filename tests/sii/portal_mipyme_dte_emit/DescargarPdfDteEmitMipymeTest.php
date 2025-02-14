@@ -51,27 +51,37 @@ class DescargarPdfDteEmitMipymeTest extends TestCase
         self::$client = new PortalMipymeDteEmitidos(self::$auth);
     }
 
-    public function testDescargarPdfDteEmitMipyme()
+    public function testDescargarPdfDteEmitMipyme(): void
     {
         $filtros = [
-            'FEC_DESDE' => date('Y-m-d', strtotime('-30 days')),
+            'FEC_DESDE' => date(
+                format: 'Y-m-d',
+                timestamp: strtotime('-30 days')
+            ),
             'FEC_HASTA' => date('Y-m-d'),
         ];
         try {
             $documentos = self::$client->obtenerDtesEmitidos(
-                self::$contribuyente_rut,
-                $filtros
+                emisor: self::$contribuyente_rut,
+                filtros: $filtros
             );
 
-            $documentos_array = json_decode((string)$documentos->getBody(), true);
+            $documentosArray = json_decode(
+                json: (string)$documentos->getBody(),
+                associative: true
+            );
 
-            if (count($documentos_array) <= 0) {
-                $this->markTestSkipped("\n"."No hay DTEs emitidos para esta prueba."."\n");
+            if (count($documentosArray) <= 0) {
+                $this->markTestSkipped(
+                    "\n".
+                    "No hay DTEs emitidos para esta prueba.".
+                    "\n"
+                );
             }
 
-            $dte = $documentos_array[0]['dte'];
-            $folio = $documentos_array[0]['folio'];
-            $codigo = $documentos_array[0]['codigo'];
+            $dte = $documentosArray[0]['dte'];
+            $folio = $documentosArray[0]['folio'];
+            $codigo = $documentosArray[0]['codigo'];
 
             $response = self::$client->descargarPdfDteEmitido(
                 self::$contribuyente_rut,
@@ -85,7 +95,8 @@ class DescargarPdfDteEmitMipymeTest extends TestCase
             $currentDir = __DIR__;
 
             // Nueva ruta relativa para guardar el archivo PDF en "tests/archivos"
-            $targetDir = dirname(dirname($currentDir)) . '/archivos/dte_emit_mipyme_pdf';
+            $targetDir = dirname(dirname($currentDir)) .
+            '/archivos/dte_emit_mipyme_pdf';
 
             // Define el nombre del archivo PDF en el nuevo directorio
             $filename = $targetDir . '/' . sprintf(
@@ -97,22 +108,24 @@ class DescargarPdfDteEmitMipymeTest extends TestCase
 
             // Verifica si el directorio existe, si no, créalo
             if (!is_dir($targetDir)) {
-                mkdir($targetDir, 0777, true);
+                mkdir(directory: $targetDir, permissions: 0777, recursive: true);
             }
 
             // Se genera el archivo PDF.
             file_put_contents($filename, $response->getBody());
 
             if (self::$verbose) {
-                echo "\n",'testDescargarPdfDteEmitMipyme() PDF: ',$filename,"\n";
+                echo "\n",
+                'testDescargarPdfDteEmitMipyme() PDF: ',
+                $filename,
+                "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf(
+            $this->fail(message: sprintf(
                 '[ApiException %d] %s',
                 $e->getCode(),
                 $e->getMessage()
             ));
         }
-
     }
 }

@@ -40,12 +40,12 @@ class ListarUfDiarioTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$verbose = env('TEST_VERBOSE', false);
+        self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$client = new Indicadores();
         self::$fecha = date('Y-m-d');
     }
 
-    public function testListarUfDiario()
+    public function testListarUfDiario(): void
     {
         try {
             $response = self::$client->diario(self::$fecha);
@@ -53,10 +53,17 @@ class ListarUfDiarioTest extends TestCase
             $this->assertSame(200, $response->getStatusCode());
 
             if (self::$verbose) {
-                echo "\n",'test_indicadores_uf() uf_dia: ',$response->getBody(),"\n";
+                echo "\n",
+                'test_indicadores_uf() uf_dia: ',
+                $response->getBody(),
+                "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf('[ApiException %d] %s', $e->getCode(), $e->getMessage()));
+            $this->fail(message: sprintf(
+                '[ApiException %d] %s',
+                $e->getCode(),
+                $e->getMessage()
+            ));
         }
     }
 }

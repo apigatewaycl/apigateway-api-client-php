@@ -41,7 +41,7 @@ class DescargarPdfBheEmitidaTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$verbose = env('TEST_VERBOSE', false);
+        self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
         self::$auth = [
@@ -54,7 +54,7 @@ class DescargarPdfBheEmitidaTest extends TestCase
         self::$periodo = env('TEST_PERIODO');
     }
 
-    public function testDescargarPdfBheEmitida()
+    public function testDescargarPdfBheEmitida(): void
     {
         try {
             $documentos = self::$client->listarBhesEmitidas(
@@ -62,10 +62,17 @@ class DescargarPdfBheEmitidaTest extends TestCase
                 self::$periodo
             );
 
-            $documentos_array = json_decode((string)$documentos->getBody(), true);
+            $documentos_array = json_decode(
+                json: (string)$documentos->getBody(),
+                associative: true
+            );
 
             if (count($documentos_array) <= 0) {
-                $this->markTestSkipped("\n"."No hay BHEs emitidas para esta prueba."."\n");
+                $this->markTestSkipped(
+                    "\n".
+                    "No hay BHEs emitidas para esta prueba.".
+                    "\n"
+                );
             }
 
             $codigo = $documentos_array[0]['codigo'];
@@ -81,7 +88,8 @@ class DescargarPdfBheEmitidaTest extends TestCase
             $currentDir = __DIR__;
 
             // Nueva ruta relativa para guardar el archivo PDF en "tests/archivos"
-            $targetDir = dirname(dirname($currentDir)) . '/archivos/bhe_emitidas_pdf';
+            $targetDir = dirname(dirname($currentDir)) .
+            '/archivos/bhe_emitidas_pdf';
 
             // Define el nombre del archivo PDF en el nuevo directorio
             $filename = $targetDir . '/' . sprintf(
@@ -91,14 +99,17 @@ class DescargarPdfBheEmitidaTest extends TestCase
 
             // Verifica si el directorio existe, si no, créalo
             if (!is_dir($targetDir)) {
-                mkdir($targetDir, 0777, true);
+                mkdir(directory: $targetDir, permissions: 0777, recursive: true);
             }
 
             // Se genera el archivo PDF.
             file_put_contents($filename, $response->getBody());
 
             if (self::$verbose) {
-                echo "\n",'testDescargarPdfBheEmitida() PDF: ',$filename,"\n";
+                echo "\n",
+                'testDescargarPdfBheEmitida() PDF: ',
+                $filename,
+                "\n";
             }
         } catch (ApiException $e) {
             $this->fail(sprintf(

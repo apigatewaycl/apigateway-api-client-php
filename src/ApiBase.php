@@ -54,27 +54,51 @@ class ApiBase extends ApiClient
     /**
      * Configura la autenticación específica para la aplicación.
      *
-     * @param array $credenciales Parámetros de autenticación. Puede ser 'pass' o 'cert'.
+     * @param array $credenciales Parámetros de autenticación. Puede ser
+     * 'pass' o 'cert'.
      * @throws \apigatewaycl\api_client\ApiException
      * @return void
      */
-    private function setupAuth(array $credenciales)
+    private function setupAuth(array $credenciales): void
     {
         $tipo = key($credenciales); // Detecta si es 'pass' o 'cert'
         $datos = $credenciales[$tipo] ?? [];
 
-        $identificador = $datos['rut'] ?? $datos['cert-data'] ?? $datos['file-data'] ?? null;
-        $clave = $datos['clave'] ?? $datos['pkey-data'] ?? $datos['file-pass'] ?? null;
+        $identificador = $datos['rut'] ??
+        $datos['cert-data'] ??
+        $datos['file-data'] ??
+        null;
+        $clave = $datos['clave'] ??
+        $datos['pkey-data'] ??
+        $datos['file-pass'] ??
+        null;
 
         if ($identificador && $clave) {
             if ($this->isAuthPass($identificador)) {
-                $this->auth = ['pass' => ['rut' => $identificador, 'clave' => $clave]];
+                $this->auth = [
+                    'pass' => [
+                        'rut' => $identificador,
+                        'clave' => $clave,
+                    ],
+                ];
             } elseif ($this->isAuthCertData($identificador)) {
-                $this->auth = ['cert' => ['cert-data' => $identificador, 'pkey-data' => $clave]];
+                $this->auth = [
+                    'cert' => [
+                        'cert-data' => $identificador,
+                        'pkey-data' => $clave,
+                    ],
+                ];
             } elseif ($this->isAuthFileData($identificador)) {
-                $this->auth = ['cert' => ['file-data' => $identificador, 'file-pass' => $clave]];
+                $this->auth = [
+                    'cert' => [
+                        'file-data' => $identificador,
+                        'file-pass' => $clave,
+                    ],
+                ];
             } else {
-                throw new ApiException('No se han proporcionado las credenciales de autentificación.');
+                throw new ApiException(
+                    message: 'No se han proporcionado las credenciales de autentificación.'
+                );
             }
         }
     }
@@ -102,9 +126,10 @@ class ApiBase extends ApiClient
      *     - abcdefgh-i (caracteres no permitidos)
      *
      * @param string $rut El RUT a validar.
-     * @return bool true si el RUT tiene un formato válido,false en caso contrario.
+     * @return bool true si el RUT tiene un formato válido,false en caso
+     * contrario.
      */
-    private function isAuthPass(string $rut)
+    private function isAuthPass(string $rut): bool
     {
         if (is_null($rut)) {
             return false;
@@ -118,9 +143,10 @@ class ApiBase extends ApiClient
      * Verifica si una cadena es una cadena codificada en Base64 válida.
      *
      * @param string $firmaElectronicaBase64 La cadena a verificar.
-     * @return bool true si la cadena es válida en Base64, false en caso contrario.
+     * @return bool true si la cadena es válida en Base64, false en caso
+     * contrario.
      */
-    private function isAuthFileData(string $firmaElectronicaBase64)
+    private function isAuthFileData(string $firmaElectronicaBase64): bool
     {
         if (is_null($firmaElectronicaBase64)) {
             return false;
@@ -130,7 +156,10 @@ class ApiBase extends ApiClient
             return false;
         }
         // Validar Base64
-        return base64_decode($firmaElectronicaBase64, true) !== false;
+        return base64_decode(
+            string: $firmaElectronicaBase64,
+            strict: true
+        ) !== false;
     }
 
     /**
@@ -160,51 +189,73 @@ class ApiBase extends ApiClient
      * @param string $pemStr La cadena a validar.
      * @return bool true si la cadena tiene formato PEM válido, false en caso contrario.
      */
-    private function isAuthCertData(string $pemStr)
+    private function isAuthCertData(string $pemStr): bool
     {
         if (is_null($pemStr)) {
             return false;
         }
         // Expresión regular para validar el formato PEM
         $pattern = '/-----BEGIN ([A-Z ]+)-----\s+([A-Za-z0-9+\/=\s]+)-----END \1-----$/m';
-        if (!preg_match($pattern, trim($pemStr), $matches)) {
+        if (!preg_match(
+            $pattern,
+            trim($pemStr),
+            $matches
+        )
+        ) {
             return false;
         }
         // Validar contenido Base64
-        $base64Content = preg_replace('/\s+/', '', $matches[2]);
+        $base64Content = preg_replace(
+            '/\s+/',
+            '',
+            $matches[2]
+        );
         return base64_decode($base64Content, true) !== false;
     }
 
     /**
      * Obtiene la autenticación de tipo 'pass'.
      *
-     * @throws \apigatewaycl\api_client\ApiException Si falta información de autenticación.
+     * @throws \apigatewaycl\api_client\ApiException Si falta información
+     * de autenticación.
      * @return array Información de autenticación.
      */
-    protected function getAuthPass()
+    protected function getAuthPass(): array
     {
         if (isset($this->auth['pass'])) {
             if (empty($this->auth['pass']['rut'])) {
-                throw new ApiException('auth.pass.rut empty.');
+                throw new ApiException(message: 'auth.pass.rut empty.');
             }
             if (empty($this->auth['pass']['clave'])) {
-                throw new ApiException('auth.pass.clave empty.');
+                throw new ApiException(message: 'auth.pass.clave empty.');
             }
         } elseif (isset($this->auth['cert'])) {
-            if (isset($this->auth['cert']['cert-data']) && empty($this->auth['cert']['cert-data'])) {
-                throw new ApiException('auth.cert.cert-data empty.');
+            if (
+                isset($this->auth['cert']['cert-data']) &&
+                empty($this->auth['cert']['cert-data'])
+            ) {
+                throw new ApiException(message: 'auth.cert.cert-data empty.');
             }
-            if (isset($this->auth['cert']['pkey-data']) && empty($this->auth['cert']['pkey-data'])) {
-                throw new ApiException('auth.cert.pkey-data empty.');
+            if (
+                isset($this->auth['cert']['pkey-data']) &&
+                empty($this->auth['cert']['pkey-data'])
+            ) {
+                throw new ApiException(message: 'auth.cert.pkey-data empty.');
             }
-            if (isset($this->auth['cert']['file-data']) && empty($this->auth['cert']['file-data'])) {
-                throw new ApiException('auth.cert.file-data empty.');
+            if (
+                isset($this->auth['cert']['file-data']) &&
+                empty($this->auth['cert']['file-data'])
+            ) {
+                throw new ApiException(message: 'auth.cert.file-data empty.');
             }
-            if (isset($this->auth['cert']['file-pass']) && empty($this->auth['cert']['file-pass'])) {
-                throw new ApiException('auth.cert.file-pass empty.');
+            if (
+                isset($this->auth['cert']['file-pass']) &&
+                empty($this->auth['cert']['file-pass'])
+            ) {
+                throw new ApiException(message: 'auth.cert.file-pass empty.');
             }
         } else {
-            throw new ApiException('auth.pass or auth.cert missing.');
+            throw new ApiException(message: 'auth.pass or auth.cert missing.');
         }
 
         return $this->auth;

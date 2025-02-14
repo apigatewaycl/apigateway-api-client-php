@@ -44,8 +44,7 @@ class PortalMipyme extends ApiBase
         array $credenciales,
         string $token = null,
         string $url = null
-    )
-    {
+    ) {
         parent::__construct(
             credenciales: $credenciales,
             token: $token,

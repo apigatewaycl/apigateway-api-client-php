@@ -46,7 +46,7 @@ class ObtenerCompraDetalleTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$verbose = env('TEST_VERBOSE', false);
+        self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
         self::$auth = [
@@ -56,52 +56,75 @@ class ObtenerCompraDetalleTest extends TestCase
             ],
         ];
         self::$client = new Rcv(self::$auth);
-        self::$periodo = env('TEST_PERIODO', date('Y-m-d'));
+        self::$periodo = env(
+            varname: 'TEST_PERIODO',
+            default: date('Y-m-d')
+        );
     }
 
     /**
      * Método de test para obtener el resumen y además detalle de ventas del RCV.
      * @return void
      */
-    public function testObtenerCompraDetalle()
+    public function testObtenerCompraDetalle(): void
     {
         try {
             foreach (self::$estados as $estado) {
                 $compras_resumen = self::$client->obtenerResumenCompras(
-                    self::$contribuyente_rut,
-                    self::$periodo,
-                    $estado
+                    receptor: self::$contribuyente_rut,
+                    periodo: self::$periodo,
+                    estado: $estado
                 );
 
-                $this->assertSame(200, $compras_resumen->getStatusCode());
+                $this->assertSame(
+                    200,
+                    $compras_resumen->getStatusCode()
+                );
                 if (self::$verbose) {
-                    echo "\n",'testObtenerCompraDetalle() compra_resumen: ',$compras_resumen->getBody(),"\n";
+                    echo "\n",
+                    'testObtenerCompraDetalle() compra_resumen: ',
+                    $compras_resumen->getBody(),
+                    "\n";
                 }
 
-                $compras_resumen_array = json_decode((string)$compras_resumen->getBody(), true);
+                $compras_resumen_array = json_decode(
+                    json: (string)$compras_resumen->getBody(),
+                    associative: true
+                );
 
                 if ($compras_resumen_array['data'] != null) {
                     foreach ($compras_resumen_array as $resumen) {
-                        if ($resumen['dcvTipoIngresoDoc'] != 'DET_ELE' || $resumen['rsmnTotDoc'] == 0) {
+                        if (
+                            $resumen['dcvTipoIngresoDoc'] != 'DET_ELE' ||
+                            $resumen['rsmnTotDoc'] == 0
+                        ) {
                             continue;
                         }
                         $compras_detalle = self::$client->obtenerDetalleCompras(
-                            self::$contribuyente_rut,
-                            self::$periodo,
-                            $resumen['rsmnTipoDocInteger'],
-                            $estado
+                            receptor: self::$contribuyente_rut,
+                            periodo: self::$periodo,
+                            dte: $resumen['rsmnTipoDocInteger'],
+                            estado: $estado
                         );
-                        $this->assertSame(200, $compras_detalle->getStatusCode());
+                        $this->assertSame(
+                            200,
+                            $compras_detalle->getStatusCode()
+                        );
                         if (self::$verbose) {
-                            echo "\n",'testObtenerCompraDetalle() compra_detalle: ',$compras_detalle->getBody(),"\n";
+                            echo "\n",
+                            'testObtenerCompraDetalle() compra_detalle: ',
+                            $compras_detalle->getBody(),
+                            "\n";
                         }
                     }
                 } else {
-                    echo "\n",'testObtenerDetalleCompra() Libro compras RCV vacío.',"\n";
+                    echo "\n",
+                    'testObtenerDetalleCompra() Libro compras RCV vacío.',
+                    "\n";
                 }
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf(
+            $this->fail(message: sprintf(
                 '[ApiException %d] %s',
                 $e->getCode(),
                 $e->getMessage()

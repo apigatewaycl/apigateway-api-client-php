@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace apigatewaycl\api_client\sii;
 
 use apigatewaycl\api_client\ApiBase;
+use Psr\Http\Message\ResponseInterface;
 
 /*
  * Módulo para obtener datos de los contribuyentes a través del SII.
@@ -45,13 +46,13 @@ class Contribuyentes extends ApiBase
      * @return \Psr\Http\Message\ResponseInterface Respuesta JSON con la
      * situación tributaria del contribuyente.
      */
-    public function obtenerSituacionTributaria(string $rut)
+    public function obtenerSituacionTributaria(string $rut): ResponseInterface
     {
         $url = sprintf(
             '/sii/contribuyentes/situacion_tributaria/tercero/%s',
             $rut
         );
-        $response = $this->get($url);
+        $response = $this->get(resource: $url);
 
         return $response;
     }
@@ -63,13 +64,13 @@ class Contribuyentes extends ApiBase
      * @return \Psr\Http\Message\ResponseInterface Respuesta JSON con la
      * verificación del RUT.
      */
-    public function verificarRut(string $serie)
+    public function verificarRut(string $serie): ResponseInterface
     {
         $url = sprintf(
             '/sii/contribuyentes/rut/verificar/%s',
             $serie
         );
-        $response = $this->get($url);
+        $response = $this->get(resource: $url);
 
         return $response;
     }

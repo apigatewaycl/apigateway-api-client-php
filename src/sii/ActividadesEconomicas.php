@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace apigatewaycl\api_client\sii;
 
 use apigatewaycl\api_client\ApiBase;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Módulo para obtener las actividades económicas del SII.
@@ -46,8 +47,9 @@ class ActividadesEconomicas extends ApiBase
      * @return \Psr\Http\Message\ResponseInterface Respuesta JSON con el
      * listado de actividades económicas.
      */
-    public function listarActividades(int $categoria = null)
-    {
+    public function listarActividades(
+        int $categoria = null
+    ): ResponseInterface {
         $url = '/sii/contribuyentes/actividades_economicas';
         if ($categoria != null) {
             $url = $url.sprintf(
@@ -55,7 +57,7 @@ class ActividadesEconomicas extends ApiBase
                 $categoria
             );
         }
-        $response = $this->get($url);
+        $response = $this->get(resource: $url);
 
         return $response;
     }
@@ -66,9 +68,9 @@ class ActividadesEconomicas extends ApiBase
      * @return \Psr\Http\Message\ResponseInterface Respuesta JSON con el
      * listado de actividades económicas de primera categoría.
      */
-    public function listado_primera_categoria()
+    public function listado_primera_categoria(): ResponseInterface
     {
-        $response = $this->listarActividades(1);
+        $response = $this->listarActividades(categoria: 1);
 
         return $response;
     }
@@ -79,9 +81,9 @@ class ActividadesEconomicas extends ApiBase
      * @return \Psr\Http\Message\ResponseInterface Respuesta JSON con el
      * listado de actividades económicas de segunda categoría.
      */
-    public function listado_segunda_categoria()
+    public function listado_segunda_categoria(): ResponseInterface
     {
-        $response = $this->listarActividades(2);
+        $response = $this->listarActividades(categoria: 2);
 
         return $response;
     }

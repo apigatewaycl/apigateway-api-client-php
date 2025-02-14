@@ -39,7 +39,7 @@ class VerificarAutorizacionDteTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$verbose = env('TEST_VERBOSE', false);
+        self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$client = new DteContribuyentes();
         $firma_public_key = env('TEST_USUARIO_FIRMA_PUBLIC_KEY');
         $firma_private_key = env('TEST_USUARIO_FIRMA_PRIVATE_KEY');
@@ -52,17 +52,18 @@ class VerificarAutorizacionDteTest extends TestCase
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
     }
 
-    public function testVerificarAutorizacionDte()
+    public function testVerificarAutorizacionDte(): void
     {
         # TODO: Consultar por este test.
-        $certificacion = env('TEST_SII_AMBIENTE', 0); // =1 certificación, =0 producción
+        $certificacion = env(varname: 'TEST_SII_AMBIENTE', default: 0); // =1 certificación, =0 producción
 
         // Ruta base para el directorio actual (archivo ejecutándose en
         // "tests/dte_facturacion")
         $currentDir = __DIR__;
 
         // Nueva ruta relativa para guardar el archivo PDF en "tests/archivos"
-        $targetDir = dirname(dirname($currentDir)) . '/archivos/dte_emit_mipyme_pdf';
+        $targetDir = dirname(dirname($currentDir)) .
+        '/archivos/dte_emit_mipyme_pdf';
 
         $filename = $targetDir . '/contribuyentes.csv';
         $resource = fopen($filename, 'w');
@@ -78,13 +79,19 @@ class VerificarAutorizacionDteTest extends TestCase
             unlink($filename);
             $this->assertSame(200, $response->getStatusCode());
             if (self::$verbose) {
-                echo "\n",'test_dte_contribuyentes_autorizados() filename ',$filename,"\n";
-                echo "\n",'test_dte_contribuyentes_autorizados() filesize ',$filesize,"\n";
+                echo "\n",
+                'test_dte_contribuyentes_autorizados() filename ',
+                $filename,
+                "\n";
+                echo "\n",
+                'test_dte_contribuyentes_autorizados() filesize ',
+                $filesize,
+                "\n";
             }
         } catch (ApiException $e) {
             fclose($resource);
             unlink($filename);
-            $this->fail(sprintf(
+            $this->fail(message: sprintf(
                 '[ApiException %d] %s',
                 $e->getCode(),
                 $e->getMessage()

@@ -40,24 +40,34 @@ class ListarUfAnualTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$verbose = env('TEST_VERBOSE', false);
+        self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$client = new Indicadores();
         self::$fecha = date('Y-m-d');
     }
 
-    public function testListarUfAnual()
+    public function testListarUfAnual(): void
     {
-        $anio = date('Y', strtotime(self::$fecha));
+        $anio = date(
+            format: 'Y',
+            timestamp: strtotime(self::$fecha)
+        );
         try {
             $response = self::$client->anual((int)$anio);
 
             $this->assertSame(200, $response->getStatusCode());
 
             if (self::$verbose) {
-                echo "\n",'test_indicadores_uf() uf_anual: ',$response->getBody(),"\n";
+                echo "\n",
+                'test_indicadores_uf() uf_anual: ',
+                $response->getBody(),
+                "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf('[ApiException %d] %s', $e->getCode(), $e->getMessage()));
+            $this->fail(message: sprintf(
+                '[ApiException %d] %s',
+                $e->getCode(),
+                $e->getMessage()
+            ));
         }
     }
 }

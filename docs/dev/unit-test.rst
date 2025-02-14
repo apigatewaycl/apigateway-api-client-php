@@ -29,6 +29,6 @@ Ejemplos
 
 Para revisar más ejemplos de cómo consumir los servicios web, dependiendo de la forma de autenticación que requieras usar, revisa las siguientes pruebas:
 
-- Sin autenticación en SII: SiiContribuyentesTest.php.
-- Autenticación con RUT y clave tributaria: SiiMisiiTest.php o SiiBheTest.php.
-- Autenticación con firma electrónica: SiiDteTest.php.
+- Sin autenticación en SII: carpeta ``tests/sii/contribuyentes/``, ``tests/sii/actividades`` o ``tests/sii/indicadores/``.
+- Autenticación con RUT y clave tributaria: carpeta ``tests/sii/bhe_emitidas/`` o ``tests/sii/misii/``.
+- Autenticación con firma electrónica: carpeta ``tests/sii/dte_emitidos/``.

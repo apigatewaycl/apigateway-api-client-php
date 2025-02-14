@@ -24,9 +24,11 @@ declare(strict_types=1);
 namespace apigatewaycl\api_client\sii;
 
 use apigatewaycl\api_client\ApiBase;
+use Psr\Http\Message\ResponseInterface;
 
 /**
- * Módulo para interactuar con la sección MiSii de un contribuyente en el sitio web del SII.
+ * Módulo para interactuar con la sección MiSii de un contribuyente en el
+ * sitio web del SII.
  *
  * Para más información sobre la API, consulte la `documentación completa de
  * MiSii <https://developers.apigateway.cl/#b585f374-f106-46a9-9f47-666d478b8ac8>`_.
@@ -34,9 +36,11 @@ use apigatewaycl\api_client\ApiBase;
 class Misii extends ApiBase
 {
     /**
-     * Cliente específico para interactuar con los endpoints de un Contribuyente de MiSii de la API de API Gateway.
+     * Cliente específico para interactuar con los endpoints de un Contribuyente
+     * de MiSii de la API de API Gateway.
      *
-     * Hereda de ApiBase y utiliza su funcionalidad para realizar solicitudes a la API.
+     * Hereda de ApiBase y utiliza su funcionalidad para realizar solicitudes
+     * a la API.
      *
      * @param array $credenciales Credenciales de autenticación.
      * @param string|null $token Token de autenticación para la API.
@@ -45,8 +49,8 @@ class Misii extends ApiBase
     public function __construct(
         array $credenciales,
         string $token = null,
-        string $url = null)
-    {
+        string $url = null
+    ) {
         parent::__construct(
             credenciales: $credenciales,
             token: $token,
@@ -57,13 +61,15 @@ class Misii extends ApiBase
     /**
      * Obtiene los datos de MiSii del contribuyente autenticado en el SII.
      *
-     * @param mixed $auth_cache Parámetro de caché de autenticación. Si es 0,
-     * se refrescará la caché. Si se obtiene "Too many requests", no usar este parámetro.
+     * @param mixed|null $auth_cache Parámetro de caché de autenticación. Si es 0,
+     * se refrescará la caché. Si se obtiene "Too many requests", no
+     * usar este parámetro.
      * @return \Psr\Http\Message\ResponseInterface Respuesta JSON con los
      * datos del contribuyente.
      */
-    public function obtenerDatosContribuyenteMisii(mixed $auth_cache = null)
-    {
+    public function obtenerDatosContribuyenteMisii(
+        mixed $auth_cache = null
+    ): ResponseInterface {
         $url = '/sii/misii/contribuyente/datos';
         if ($auth_cache != null) {
             $url = $url.'?auth_cache=0';
@@ -72,7 +78,7 @@ class Misii extends ApiBase
         $body = [
             'auth' => $this->getAuthPass(),
         ];
-        $response = $this->post($url, $body);
+        $response = $this->post(resource: $url, data: $body);
         return $response;
     }
 }

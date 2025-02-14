@@ -41,7 +41,7 @@ class EnviarEmailBheEmitidaTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$verbose = env('TEST_VERBOSE', false);
+        self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
         self::$auth = [
@@ -54,7 +54,7 @@ class EnviarEmailBheEmitidaTest extends TestCase
         self::$periodo = env('TEST_PERIODO');
     }
 
-    public function testEnviarEmailBheEmitida()
+    public function testEnviarEmailBheEmitida(): void
     {
         try {
             $documentos = self::$client->listarBhesEmitidas(
@@ -62,7 +62,10 @@ class EnviarEmailBheEmitidaTest extends TestCase
                 self::$periodo
             );
 
-            $codigo = json_decode((string)$documentos->getBody(), true)[0]['codigo'];
+            $codigo = json_decode(
+                json: (string)$documentos->getBody(),
+                associative: true
+            )[0]['codigo'];
             $receptor_email = env('TEST_RECEPTOR_EMAIL');
 
             $email = self::$client->enviarEmailBheEmitida(
@@ -73,10 +76,13 @@ class EnviarEmailBheEmitidaTest extends TestCase
             $this->assertSame(200, $email->getStatusCode());
 
             if (self::$verbose) {
-                echo "\n",'testEnviarEmailBheEmitida() email: ',$email->getBody(),"\n";
+                echo "\n",
+                'testEnviarEmailBheEmitida() email: ',
+                $email->getBody(),
+                "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf(
+            $this->fail(message: sprintf(
                 '[ApiException %d] %s',
                 $e->getCode(),
                 $e->getMessage()

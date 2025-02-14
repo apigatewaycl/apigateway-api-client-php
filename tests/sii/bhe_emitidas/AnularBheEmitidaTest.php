@@ -39,7 +39,7 @@ class AnularBheEmitidaTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$verbose = env('TEST_VERBOSE', false);
+        self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
         self::$auth = [
@@ -51,7 +51,7 @@ class AnularBheEmitidaTest extends TestCase
         self::$client = new BheEmitidas(self::$auth);
     }
 
-    public function testAnularBheEmitida()
+    public function testAnularBheEmitida(): void
     {
         $numero = env('TEST_BHE_EMITIDO_FOLIO');
         try {
@@ -63,7 +63,10 @@ class AnularBheEmitidaTest extends TestCase
             $this->assertSame(200, $response->getStatusCode());
 
             if (self::$verbose) {
-                echo "\n",'testAnularBheEmitida() resultado: ',$response->getBody(),"\n";
+                echo "\n",
+                'testAnularBheEmitida() resultado: ',
+                $response->getBody(),
+                "\n";
             }
         } catch (ApiException $e) {
             $this->fail(sprintf(

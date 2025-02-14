@@ -39,7 +39,7 @@ class AnularBteEmitidaTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$verbose = env('TEST_VERBOSE', false);
+        self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
         self::$auth = [
@@ -51,7 +51,7 @@ class AnularBteEmitidaTest extends TestCase
         self::$client = new BteEmitidas(self::$auth);
     }
 
-    public function testAnularBteEmitida()
+    public function testAnularBteEmitida(): void
     {
         $numero = env('TEST_BTE_EMITIDO_NUMERO');
         try {
@@ -63,10 +63,13 @@ class AnularBteEmitidaTest extends TestCase
             $this->assertSame(200, $response->getStatusCode());
 
             if (self::$verbose) {
-                echo "\n",'testAnularBteEmitida() resultado: ',$response->getBody(),"\n";
+                echo "\n",
+                'testAnularBteEmitida() resultado: ',
+                $response->getBody(),
+                "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf(
+            $this->fail(message: sprintf(
                 '[ApiException %d] %s',
                 $e->getCode(),
                 $e->getMessage()

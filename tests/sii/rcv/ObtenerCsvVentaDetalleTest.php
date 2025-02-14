@@ -42,8 +42,6 @@ class ObtenerCsvVentaDetalleTest extends TestCase
 
     private static $periodo;
 
-    private static $estados = ['REGISTRO', 'PENDIENTE', 'NO_INCLUIR', 'RECLAMADO'];
-
     public static function setUpBeforeClass(): void
     {
         self::$verbose = env('TEST_VERBOSE', false);
@@ -56,14 +54,17 @@ class ObtenerCsvVentaDetalleTest extends TestCase
             ],
         ];
         self::$client = new Rcv(self::$auth);
-        self::$periodo = env('TEST_PERIODO', date('Y-m-d'));
+        self::$periodo = env(
+            varname: 'TEST_PERIODO',
+            default: date('Y-m-d')
+        );
     }
 
     /**
      * Método de test para obtener el detalle de una venta del RCV, tipo "rcv_csv".
      * @return void
      */
-    public function testObtenerCsvVentaDetalle()
+    public function testObtenerCsvVentaDetalle(): void
     {
         try {
             $ventas_detalle = self::$client->obtenerDetalleVentas(
@@ -72,10 +73,13 @@ class ObtenerCsvVentaDetalleTest extends TestCase
             );
             $this->assertSame(200, $ventas_detalle->getStatusCode());
             if (self::$verbose) {
-                echo "\n",'testObtenerCsvVentaDetalle() venta_detalle: ',$ventas_detalle->getBody(),"\n";
+                echo "\n",
+                'testObtenerCsvVentaDetalle() venta_detalle: ',
+                $ventas_detalle->getBody(),
+                "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf(
+            $this->fail(message: sprintf(
                 '[ApiException %d] %s',
                 $e->getCode(),
                 $e->getMessage()

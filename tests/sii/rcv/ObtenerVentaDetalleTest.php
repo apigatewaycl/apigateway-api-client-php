@@ -46,7 +46,7 @@ class ObtenerVentaDetalleTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$verbose = env('TEST_VERBOSE', false);
+        self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
         self::$auth = [
@@ -56,14 +56,17 @@ class ObtenerVentaDetalleTest extends TestCase
             ],
         ];
         self::$client = new Rcv(self::$auth);
-        self::$periodo = env('TEST_PERIODO', date('Y-m-d'));
+        self::$periodo = env(
+            varname: 'TEST_PERIODO',
+            default: date('Y-m-d')
+        );
     }
 
     /**
      * Método de test para obtener el resumen y además detalle de ventas del RCV.
      * @return void
      */
-    public function testObtenerVentaDetalle()
+    public function testObtenerVentaDetalle(): void
     {
         try {
             $ventas_resumen = self::$client->obtenerResumenVentas(
@@ -74,31 +77,45 @@ class ObtenerVentaDetalleTest extends TestCase
 
             $this->assertSame(200, $ventas_resumen->getStatusCode());
             if (self::$verbose) {
-                echo "\n",'testObtenerVentaDetalle() ventas_resumen: ',$ventas_resumen->getBody(),"\n";
+                echo "\n",
+                'testObtenerVentaDetalle() ventas_resumen: ',
+                $ventas_resumen->getBody(),
+                "\n";
             }
 
-            $ventas_resumen_array = json_decode((string)$ventas_resumen->getBody(), true);
+            $ventas_resumen_array = json_decode(
+                json: (string)$ventas_resumen->getBody(),
+                associative: true
+            );
 
             if ($ventas_resumen_array['data'] != null) {
                 foreach ($ventas_resumen_array as $resumen) {
-                    if ($resumen['dcvTipoIngresoDoc'] != 'DET_ELE' || $resumen['rsmnTotDoc'] == 0) {
+                    if (
+                        $resumen['dcvTipoIngresoDoc'] != 'DET_ELE' ||
+                        $resumen['rsmnTotDoc'] == 0
+                    ) {
                         continue;
                     }
                     $ventas_detalle = self::$client->obtenerDetalleVentas(
-                        self::$contribuyente_rut,
-                        self::$periodo,
-                        $resumen['rsmnTipoDocInteger']
+                        emisor: self::$contribuyente_rut,
+                        periodo: self::$periodo,
+                        dte: $resumen['rsmnTipoDocInteger']
                     );
                     $this->assertSame(200, $ventas_detalle->getStatusCode());
                     if (self::$verbose) {
-                        echo "\n",'testObtenerVentaDetalle() ventas_detalle: ',$ventas_detalle->getBody(),"\n";
+                        echo "\n",
+                        'testObtenerVentaDetalle() ventas_detalle: ',
+                        $ventas_detalle->getBody(),
+                        "\n";
                     }
                 }
             } else {
-                echo "\n",'testObtenerVentaDetalle() Libro ventas RCV vacío.',"\n";
+                echo "\n",
+                'testObtenerVentaDetalle() Libro ventas RCV vacío.',
+                "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf(
+            $this->fail(message: sprintf(
                 '[ApiException %d] %s',
                 $e->getCode(),
                 $e->getMessage()

@@ -23,8 +23,6 @@ declare(strict_types=1);
 
 namespace apigatewaycl\api_client\sii;
 
-use apigatewaycl\api_client\sii\PortalMipyme;
-
 /**
  * Módulo para consultas de DTEs al Portal MIPYME del SII.
  *
@@ -150,9 +148,9 @@ class PortalMipymeDte extends PortalMiPyme
      * @param string $tipo Tipo de DTE.
      * @return string Código del DTE.
      */
-    public function getCodigoDte(string $tipo)
+    public function getCodigoDte(string $tipo): string
     {
-        # TODO: Resolver este fragmento de código
+        # TODO: Resolver este fragmento de código: ¿¿QUÉ ES "DTE_TIPOS"??
         return isset($this->DTE_TIPOS[$tipo]) ? $this->DTE_TIPOS[$tipo] : str_replace(' ', '-', $tipo);
     }
 }
