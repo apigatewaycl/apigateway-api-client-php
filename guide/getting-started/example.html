@@ -134,8 +134,8 @@
                                         <section class="section " id="ejemplo">
             <h1>Ejemplo</h1>
 
-            <section class="section " id="ejemplo-de-listar-bhes">
-            <h2>Ejemplo de listar BHEs</h2>
+            <section class="section " id="ejemplo-de-emitir-bhes">
+            <h2>Ejemplo de emitir BHEs</h2>
 
             
     <p>El siguiente es un ejemplo básico de cómo emitir un documento BHE utilizando el cliente de API.</p>
@@ -158,10 +158,7 @@
 require_once __DIR__ . &#039;/vendor/autoload.php&#039;;
 
 # Importaciones del cliente de API de API Gateway
-use apigatewaycl\api_client\ApiClient;
-
-# Creación de nueva instancia de cliente de API
-$client = new ApiClient();
+use apigatewaycl\api_client\sii\BheEmitidas;
 
 # RUT de contribuyente SII, sin puntos y con Dígito Verificador.
 $contribuyente_rut = &#039;12345678-9&#039;;
@@ -179,6 +176,9 @@ $auth = [
         &#039;clave&#039; =&gt; $contribuyente_clave,
     ],
 ];
+
+# Creación de nueva instancia de cliente de API
+$client = new BheEmitidas($auth);
 
 $datos_bhe = [
     &#039;Encabezado&#039; =&gt; [
@@ -208,16 +208,8 @@ $datos_bhe = [
     ]
 ];
 
-# Recurso a consumir.
-$resource = &#039;/sii/bhe/emitidas/emitir&#039;;
-
-$data = [
-    &#039;auth&#039; =&gt; $auth,
-    &#039;boleta&#039; =&gt; $datos_bhe
-];
-
 # Se efectua la solicitud HTTP y se guarda la respuesta.
-$response = $client-&gt;post(resource: $resource, data: $data);
+$response = $client-&gt;emitirBhe($datos_bhe);
 
 # Código del response
 echo &quot;Status: &quot;.$response-&gt;getStatusCode().&quot;\n&quot;;

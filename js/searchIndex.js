@@ -188,7 +188,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\apigatewaycl\\api_client\\sii\\BheEmitidas\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Cliente\u0020espec\u00EDfico\u0020para\u0020gestionar\u0020Boletas\u0020de\u0020Honorarios\u0020Electr\u00F3nicas\u0020\u0028BHE\u0029\u0020emitidas.",
+            "summary": "Cliente\u0020espec\u00EDfico\u0020para\u0020gestionar\u0020Boletas\u0020de\u0020Honorarios\u0020Electr\u00F3nicas\n\u0028BHE\u0029\u0020emitidas.",
             "url": "classes/apigatewaycl-api-client-sii-BheEmitidas.html#method___construct"
         },                {
             "fqsen": "\\apigatewaycl\\api_client\\sii\\BheEmitidas\u003A\u003AlistarBhesEmitidas\u0028\u0029",
@@ -248,7 +248,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\apigatewaycl\\api_client\\sii\\BheRecibidas\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Cliente\u0020espec\u00EDfico\u0020para\u0020gestionar\u0020Boletas\u0020de\u0020Honorarios\u0020Electr\u00F3nicas\u0020\u0028BHE\u0029\u0020recibidas.",
+            "summary": "Cliente\u0020espec\u00EDfico\u0020para\u0020gestionar\u0020Boletas\u0020de\u0020Honorarios\u0020Electr\u00F3nicas\n\u0028BHE\u0029\u0020recibidas.",
             "url": "classes/apigatewaycl-api-client-sii-BheRecibidas.html#method___construct"
         },                {
             "fqsen": "\\apigatewaycl\\api_client\\sii\\BheRecibidas\u003A\u003AlistarBhesRecibidas\u0028\u0029",
@@ -363,12 +363,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\apigatewaycl\\api_client\\sii\\Misii",
             "name": "Misii",
-            "summary": "M\u00F3dulo\u0020para\u0020interactuar\u0020con\u0020la\u0020secci\u00F3n\u0020MiSii\u0020de\u0020un\u0020contribuyente\u0020en\u0020el\u0020sitio\u0020web\u0020del\u0020SII.",
+            "summary": "M\u00F3dulo\u0020para\u0020interactuar\u0020con\u0020la\u0020secci\u00F3n\u0020MiSii\u0020de\u0020un\u0020contribuyente\u0020en\u0020el\nsitio\u0020web\u0020del\u0020SII.",
             "url": "classes/apigatewaycl-api-client-sii-Misii.html"
         },                {
             "fqsen": "\\apigatewaycl\\api_client\\sii\\Misii\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Cliente\u0020espec\u00EDfico\u0020para\u0020interactuar\u0020con\u0020los\u0020endpoints\u0020de\u0020un\u0020Contribuyente\u0020de\u0020MiSii\u0020de\u0020la\u0020API\u0020de\u0020API\u0020Gateway.",
+            "summary": "Cliente\u0020espec\u00EDfico\u0020para\u0020interactuar\u0020con\u0020los\u0020endpoints\u0020de\u0020un\u0020Contribuyente\nde\u0020MiSii\u0020de\u0020la\u0020API\u0020de\u0020API\u0020Gateway.",
             "url": "classes/apigatewaycl-api-client-sii-Misii.html#method___construct"
         },                {
             "fqsen": "\\apigatewaycl\\api_client\\sii\\Misii\u003A\u003AobtenerDatosContribuyenteMisii\u0028\u0029",
@@ -548,7 +548,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\apigatewaycl\\api_client\\sii\\Rcv\u003A\u003AobtenerResumenCompras\u0028\u0029",
             "name": "obtenerResumenCompras",
-            "summary": "Obtiene\u0020un\u0020resumen\u0020de\u0020las\u0020compras\u0020registradas\u0020para\u0020un\u0020receptor\u0020en\u0020un\u0020periodo\u0020espec\u00EDfico.",
+            "summary": "Obtiene\u0020un\u0020resumen\u0020de\u0020las\u0020compras\u0020registradas\u0020para\u0020un\u0020receptor\u0020en\u0020un\nperiodo\u0020espec\u00EDfico.",
             "url": "classes/apigatewaycl-api-client-sii-Rcv.html#method_obtenerResumenCompras"
         },                {
             "fqsen": "\\apigatewaycl\\api_client\\sii\\Rcv\u003A\u003AobtenerDetalleCompras\u0028\u0029",
@@ -558,7 +558,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\apigatewaycl\\api_client\\sii\\Rcv\u003A\u003AobtenerResumenVentas\u0028\u0029",
             "name": "obtenerResumenVentas",
-            "summary": "Obtiene\u0020un\u0020resumen\u0020de\u0020las\u0020ventas\u0020registradas\u0020para\u0020un\u0020emisor\u0020en\u0020un\u0020periodo\u0020espec\u00EDfico.",
+            "summary": "Obtiene\u0020un\u0020resumen\u0020de\u0020las\u0020ventas\u0020registradas\u0020para\u0020un\u0020emisor\u0020en\u0020un\nperiodo\u0020espec\u00EDfico.",
             "url": "classes/apigatewaycl-api-client-sii-Rcv.html#method_obtenerResumenVentas"
         },                {
             "fqsen": "\\apigatewaycl\\api_client\\sii\\Rcv\u003A\u003AobtenerDetalleVentas\u0028\u0029",
