@@ -40,7 +40,7 @@
     "scripts": {
         "docs": "php tools/phpdocumentor run --config=phpdoc.xml",
         "tests": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage",
-        "tests-readonly": "XDEBUG_MODE=coverage vendor/bin/phpunit --configuration=phpunit.xml --filter 'testListarActividadesEconomicas|testObtenerSituacionTributariaTercero|testListarUfAnual|testListarUfMensual|testListarUfDiario|testObtenerDatosContribMisii|testObtenerCsvCompraDetalle|testObtenerCsvVentaDetalle'",
+        "tests-readonly": "XDEBUG_MODE=coverage vendor/bin/phpunit --configuration=phpunit.xml --filter 'testListarActividadesEconomicas|testObtenerSituacionTributariaTercero|testListarUfAnual|testListarUfMensual|testListarUfDiario'",
         "tests-cover": "XDEBUG_MODE=coverage vendor/bin/phpunit --configuration=phpunit.xml",
         "tests-debug": "XDEBUG_MODE=debug vendor/bin/phpunit --configuration=phpunit.xml",
         "tests-act": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage --testsuite activ",
