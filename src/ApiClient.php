@@ -38,7 +38,7 @@ class ApiClient
      *
      * @var string
      */
-    private $api_url = 'https://apigateway.cl';
+    private $api_url = 'https://legacy.apigateway.cl';
 
     /**
      * El prefijo para las rutas de la API.

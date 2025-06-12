@@ -6,7 +6,7 @@ Pruebas unitarias
 
 Antes de empezar, debes configurar las siguientes variables de entorno:
 .. code-block:: shell
-    APIGATEWAY_API_URL="https://apigateway.cl"
+    APIGATEWAY_API_URL="https://legacy.apigateway.cl"
     API_GATEWAY_API_TOKEN="token-apigateway"
     CONTRIBUYENTE_RUT="66666666-6"
     CONTRIBUYENTE_CLAVE="clave-sii"

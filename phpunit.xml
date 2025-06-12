@@ -82,7 +82,7 @@
     </logging>
     <php>
         <ini name="memory_limit" value="-1" />
-        <env name="APIGATEWAY_API_URL" value="https://apigateway.cl" />
+        <env name="APIGATEWAY_API_URL" value="https://legacy.apigateway.cl" />
         <env name="TEST_CONTRIBUYENTE_RUT" value="76192083-9" />
     </php>
 </phpunit>

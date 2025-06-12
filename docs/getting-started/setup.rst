@@ -12,7 +12,7 @@ En Linux o MacOS:
 El token se almacena en una variable de entorno. Para almacenar en una variable de entorno, se debe escribir lo siguiente en consola:
 
 .. code-block:: shell
-    export APIGATEWAY_API_URL="https://apigateway.cl"
+    export APIGATEWAY_API_URL="https://legacy.apigateway.cl"
     export APIGATEWAY_API_TOKEN="aqui-su-token-de-apigateway"
 
 - ``APIGATEWAY_API_TOKEN`` es una cadena de caracteres extremadamente larga. Almacena ese token en un lugar seguro y no lo compartas con nadie.
@@ -33,13 +33,13 @@ En Windows:
 Para almacenar en una variable de entorno en Windows, hay varias alternativas. La primera es utilizando cmd, y para almacenarlas utilizando cmd, ejecuta en el buscador de Windows "cmd", y ejecuta los siguientes comandos:
 
 .. code-block:: shell
-    setx APIGATEWAY_API_URL "https://apigateway.cl"
+    setx APIGATEWAY_API_URL "https://legacy.apigateway.cl"
     setx APIGATEWAY_API_TOKEN "aqui-su-token-de-apigateway"
 
 También se pueden definir utilizando Windows PowerShell, de una manera similar. Ejecuta en el buscador de Windows "PowerShell", y ejecuta los siguientes comandos:
 
 .. code-block:: shell
-    $Env:APIGATEWAY_API_URL = "https://apigateway.cl"
+    $Env:APIGATEWAY_API_URL = "https://legacy.apigateway.cl"
     $Env:APIGATEWAY_API_TOKEN = "aqui-su-token-de-apigateway"
 
 Como alternativa para almacenar las variables de manera persistente, debes seguir los siguientes pasos:
