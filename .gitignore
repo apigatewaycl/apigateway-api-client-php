@@ -9,6 +9,8 @@ tests/archivos/dte_emit_mipyme_xml/*
 tests/archivos/dte_recib_mipyme_pdf/*
 tests/archivos/dte_recib_mipyme_xml/*
 
+composer.lock
+
 .phpunit.result.cache
 .vscode/
 var/
