@@ -44,8 +44,8 @@ class ApiBase extends ApiClient
      */
     public function __construct(
         array $credenciales = [],
-        string $token = null,
-        string $url = null
+        ?string $token = null,
+        ?string $url = null
     ) {
         parent::__construct($token, $url);
         $this->setupAuth($credenciales);
@@ -129,9 +129,9 @@ class ApiBase extends ApiClient
      * @return bool true si el RUT tiene un formato válido,false en caso
      * contrario.
      */
-    private function isAuthPass(string $rut): bool
+    private function isAuthPass(?string $rut): bool
     {
-        if (is_null($rut)) {
+        if ($rut === null) {
             return false;
         }
         // Expresión regular para validar el formato del RUT chileno
@@ -146,9 +146,9 @@ class ApiBase extends ApiClient
      * @return bool true si la cadena es válida en Base64, false en caso
      * contrario.
      */
-    private function isAuthFileData(string $firmaElectronicaBase64): bool
+    private function isAuthFileData(?string $firmaElectronicaBase64): bool
     {
-        if (is_null($firmaElectronicaBase64)) {
+        if ($firmaElectronicaBase64 === null) {
             return false;
         }
         // Asegúrate de que la longitud de la cadena sea múltiplo de 4
@@ -189,9 +189,9 @@ class ApiBase extends ApiClient
      * @param string $pemStr La cadena a validar.
      * @return bool true si la cadena tiene formato PEM válido, false en caso contrario.
      */
-    private function isAuthCertData(string $pemStr): bool
+    private function isAuthCertData(?string $pemStr): bool
     {
-        if (is_null($pemStr)) {
+        if ($pemStr === null) {
             return false;
         }
         // Expresión regular para validar el formato PEM

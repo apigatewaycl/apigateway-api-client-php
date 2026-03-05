@@ -25,10 +25,13 @@ use apigatewaycl\api_client\ApiException;
 use apigatewaycl\api_client\sii\DteEmitidos;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use Tests\Helpers\RequiresEnvironment;
 
 #[CoversClass(DteEmitidos::class)]
 class VerificarDteEmitidoTest extends TestCase
 {
+    use RequiresEnvironment;
+
     protected static $verbose;
 
     protected static $client;
@@ -39,6 +42,7 @@ class VerificarDteEmitidoTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
+        self::requireEnv('APIGATEWAY_API_TOKEN');
         self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         $firma_public_key = env('TEST_USUARIO_FIRMA_PUBLIC_KEY');
         $firma_private_key = env('TEST_USUARIO_FIRMA_PRIVATE_KEY');
@@ -99,7 +103,7 @@ class VerificarDteEmitidoTest extends TestCase
                 "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(message: sprintf(
+            $this->fail(sprintf(
                 '[ApiException %d] %s',
                 $e->getCode(),
                 $e->getMessage()

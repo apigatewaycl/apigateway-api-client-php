@@ -33,7 +33,7 @@ use Psr\Http\Message\ResponseInterface;
  *
  * Cliente específico para gestionar DTE emitidos en el Portal Mipyme.
  */
-class PortalMipymeDteEmitidos extends PortalMiPymeDte
+class PortalMipymeDteEmitidos extends PortalMipyme
 {
     /**
      * Obtiene documentos de DTE emitidos por un emisor.
@@ -70,7 +70,7 @@ class PortalMipymeDteEmitidos extends PortalMiPymeDte
     public function descargarPdfDteEmitido(
         string $emisor,
         string $dte,
-        string $folio = null
+        ?string $folio = null
     ): ResponseInterface {
         $url = $folio != null ? sprintf(
             '/sii/mipyme/emitidos/pdf/%s/%s/%s',

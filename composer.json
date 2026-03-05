@@ -17,7 +17,8 @@
     },
     "autoload": {
         "psr-4": {
-            "apigatewaycl\\api_client\\": "src/"
+            "apigatewaycl\\api_client\\": "src/",
+            "Tests\\": "tests/"
         }
     },
     "require": {
@@ -26,9 +27,10 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.94",
-        "phpstan/phpstan": "^1.12",
+        "phpstan/phpstan": "^2",
         "phpunit/phpunit": "^13.0",
-        "vlucas/phpdotenv": "^5.6"
+        "vlucas/phpdotenv": "^5.6",
+        "phpstan/phpstan-phpunit": "^2"
     },
     "scripts": {
         "docs": "php tools/phpdocumentor run --config=phpdoc.xml",

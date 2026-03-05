@@ -45,8 +45,8 @@ class BteEmitidas extends ApiBase
      */
     public function __construct(
         array $credenciales,
-        string $token = null,
-        string $url = null
+        ?string $token = null,
+        ?string $url = null
     ) {
         parent::__construct(
             credenciales: $credenciales,
@@ -67,7 +67,7 @@ class BteEmitidas extends ApiBase
     public function listarBtesEmitidas(
         string $emisor,
         string $periodo,
-        int $pagina = null
+        ?int $pagina = null
     ): ResponseInterface {
         $url = sprintf(
             '/sii/bte/emitidas/documentos/%s/%s',
@@ -139,7 +139,7 @@ class BteEmitidas extends ApiBase
         string $emisor,
         string $numero,
         int $causa = 3,
-        string $periodo = null
+        ?string $periodo = null
     ): ResponseInterface {
         $url = sprintf(
             '/sii/bhe/emitidas/anular/%s/%s?causa=%d',
@@ -169,7 +169,7 @@ class BteEmitidas extends ApiBase
     public function obtenerTasaReceptorBte(
         string $emisor,
         string $receptor,
-        string $periodo = null
+        ?string $periodo = null
     ): ResponseInterface {
         $url = sprintf(
             '/sii/bte/emitidas/receptor_tasa/%s/%s',

@@ -25,10 +25,13 @@ use apigatewaycl\api_client\ApiException;
 use apigatewaycl\api_client\sii\BheRecibidas;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use Tests\Helpers\RequiresEnvironment;
 
 #[CoversClass(BheRecibidas::class)]
 class ObservarBheRecibidaTest extends TestCase
 {
+    use RequiresEnvironment;
+
     protected static $verbose;
 
     protected static $client;
@@ -39,6 +42,7 @@ class ObservarBheRecibidaTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
+        self::requireEnv('APIGATEWAY_API_TOKEN');
         self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
@@ -70,7 +74,7 @@ class ObservarBheRecibidaTest extends TestCase
                 "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(message: sprintf(
+            $this->fail(sprintf(
                 '[ApiException %d] %s',
                 $e->getCode(),
                 $e->getMessage()

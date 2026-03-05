@@ -25,6 +25,7 @@ use apigatewaycl\api_client\ApiException;
 use apigatewaycl\api_client\sii\Rcv;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use Tests\Helpers\RequiresEnvironment;
 
 #[CoversClass(Rcv::class)]
 /**
@@ -32,6 +33,8 @@ use PHPUnit\Framework\TestCase;
  */
 class ObtenerCsvCompraDetalleTest extends TestCase
 {
+    use RequiresEnvironment;
+
     protected static $verbose;
 
     protected static $client;
@@ -42,10 +45,9 @@ class ObtenerCsvCompraDetalleTest extends TestCase
 
     private static $periodo;
 
-    private static $estados = ['REGISTRO', 'PENDIENTE', 'NO_INCLUIR', 'RECLAMADO'];
-
     public static function setUpBeforeClass(): void
     {
+        self::requireEnv('APIGATEWAY_API_TOKEN');
         self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
@@ -81,7 +83,7 @@ class ObtenerCsvCompraDetalleTest extends TestCase
                 "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(message: sprintf(
+            $this->fail(sprintf(
                 '[ApiException %d] %s',
                 $e->getCode(),
                 $e->getMessage()

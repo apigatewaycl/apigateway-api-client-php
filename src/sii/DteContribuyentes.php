@@ -52,7 +52,7 @@ class DteContribuyentes extends ApiBase
      */
     public function verificarAutorizacion(
         string $rut,
-        bool $certificacion = null
+        ?bool $certificacion = null
     ): ResponseInterface {
         $certificacion_flag = $certificacion ? 1 : 0;
         $url = sprintf(

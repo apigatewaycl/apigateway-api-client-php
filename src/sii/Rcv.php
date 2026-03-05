@@ -46,8 +46,8 @@ class Rcv extends ApiBase
      */
     public function __construct(
         array $credenciales,
-        string $token = null,
-        string $url = null
+        ?string $token = null,
+        ?string $url = null
     ) {
         parent::__construct(
             credenciales: $credenciales,
@@ -103,7 +103,7 @@ class Rcv extends ApiBase
         string $periodo,
         int $dte = 0,
         string $estado = 'REGISTRO',
-        string $tipo = null
+        ?string $tipo = null
     ): ResponseInterface {
         $tipo = (
             $dte == 0 &&
@@ -164,7 +164,7 @@ class Rcv extends ApiBase
         string $emisor,
         string $periodo,
         int $dte = 0,
-        string $tipo = null
+        ?string $tipo = null
     ): ResponseInterface {
         $tipo = $dte == 0 ? 'rcv_csv' : ($tipo ?? 'rcv');
         $url = sprintf(

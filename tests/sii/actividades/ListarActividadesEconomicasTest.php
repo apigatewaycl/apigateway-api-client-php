@@ -25,6 +25,7 @@ use apigatewaycl\api_client\ApiException;
 use apigatewaycl\api_client\sii\ActividadesEconomicas;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use Tests\Helpers\RequiresEnvironment;
 
 #[CoversClass(ActividadesEconomicas::class)]
 /**
@@ -32,12 +33,15 @@ use PHPUnit\Framework\TestCase;
  */
 class ListarActividadesEconomicasTest extends TestCase
 {
+    use RequiresEnvironment;
+
     protected static $verbose;
 
     protected static $client;
 
     public static function setUpBeforeClass(): void
     {
+        self::requireEnv('APIGATEWAY_API_TOKEN');
         self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$client = new ActividadesEconomicas();
     }

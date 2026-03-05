@@ -79,8 +79,8 @@ class BheEmitidas extends ApiBase
      */
     public function __construct(
         array $credenciales,
-        string $token = null,
-        string $url = null
+        ?string $token = null,
+        ?string $url = null
     ) {
         parent::__construct(
             credenciales: $credenciales,
@@ -103,8 +103,8 @@ class BheEmitidas extends ApiBase
     public function listarBhesEmitidas(
         string $emisor,
         string $periodo,
-        int $pagina = null,
-        string $pagina_sig_codigo = null
+        ?int $pagina = null,
+        ?string $pagina_sig_codigo = null
     ): ResponseInterface {
         $url = sprintf(
             '/sii/bhe/emitidas/documentos/%s/%s',
@@ -116,11 +116,15 @@ class BheEmitidas extends ApiBase
                 $url.'?pagina=%d',
                 $pagina
             );
-            if ($pagina_sig_codigo != null) {
+
+            if ($pagina_sig_codigo !== null) {
                 $url = sprintf(
-                    $url.'&pagina_sig_codigo=%s',
-                    $pagina_sig_codigo ?? '0'
-                );
+                    $url . '&pagina_sig_codigo=%s',
+                    $pagina_sig_codigo);
+            } else {
+                $url = sprintf(
+                    $url . '&pagina_sig_codigo=%s',
+                    '0');
             }
         }
         $body = [

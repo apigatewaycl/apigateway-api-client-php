@@ -34,7 +34,7 @@ use Psr\Http\Message\ResponseInterface;
  * Cliente específico para gestionar DTE recibidos en el Portal Mipyme.
  * Proporciona métodos para obtener documentos, PDF y XML de DTE recibidos.
  */
-class PortalMipymeDteRecibidos extends PortalMiPymeDte
+class PortalMipymeDteRecibidos extends PortalMipyme
 {
     /**
      * Obtiene documentos de DTE recibidos por un receptor.
@@ -73,7 +73,7 @@ class PortalMipymeDteRecibidos extends PortalMiPymeDte
         string $receptor,
         string $emisor,
         string $dte,
-        string $folio = null
+        ?string $folio = null
     ): ResponseInterface {
         $url = $folio != null ? sprintf(
             '/sii/mipyme/recibidos/pdf/%s/%s/%s/%s',

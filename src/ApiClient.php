@@ -81,7 +81,7 @@ class ApiClient
      * @param string|null $token Token de autenticación para la API.
      * @param string|null $url URL base de la API.
      */
-    public function __construct(string $token = null, string $url = null)
+    public function __construct(?string $token = null, ?string $url = null)
     {
         $this->api_token = $token ?: $this->env('APIGATEWAY_API_TOKEN');
         if (!$this->api_token) {
@@ -168,7 +168,7 @@ class ApiClient
      * @throws ApiException Si no hay respuesta previa o el cuerpo no se
      * puede decodificar.
      */
-    public function getBodyDecoded(): mixed
+    public function getBodyDecoded(): ?array
     {
         $body = $this->getBody();
 
@@ -353,7 +353,7 @@ class ApiClient
         string $resource,
         array $data = [],
         array $headers = [],
-        string $method = null,
+        ?string $method = null,
         $options = []
     ): static {
         $this->last_response = null;
@@ -390,9 +390,11 @@ class ApiClient
                 uri: $this->last_url,
                 options: $options
             );
-        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
             // Obtener la respuesta de la llamada.
-            $this->last_response = $e->getResponse();
+            if ($e->hasResponse()) {
+                $this->last_response = $e->getResponse();
+            }
             // Se lanza la excepción.
             $this->throwException();
         }
@@ -426,7 +428,7 @@ class ApiClient
         }
 
         // Se maneja el caso donde no se encuentra un mensaje de error específico
-        if (!$message || $message === '') {
+        if (!$message) {
             $message = '[API Gateway] Código HTTP ' . $code . ': ' . $reasonPhrase;
         }
 
