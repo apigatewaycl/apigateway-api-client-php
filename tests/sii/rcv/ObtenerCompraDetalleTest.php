@@ -97,7 +97,7 @@ class ObtenerCompraDetalleTest extends TestCase
                 );
 
                 if ($compras_resumen_array['data'] != null) {
-                    foreach ($compras_resumen_array as $resumen) {
+                    foreach ($compras_resumen_array['data'] as $resumen) {
                         if (
                             $resumen['dcvTipoIngresoDoc'] != 'DET_ELE' ||
                             $resumen['rsmnTotDoc'] == 0

@@ -391,12 +391,15 @@ class ApiClient
                 options: $options
             );
         } catch (\GuzzleHttp\Exception\RequestException $e) {
-            // Obtener la respuesta de la llamada.
             if ($e->hasResponse()) {
                 $this->last_response = $e->getResponse();
             }
-            // Se lanza la excepción.
             $this->throwException();
+        } catch (\GuzzleHttp\Exception\ConnectException $e) {
+            throw new ApiException(
+                message: 'Error de conexión con el SII: ' . $e->getMessage(),
+                code: 500
+            );
         }
 
         // Entregar respuesta (contenida en el mismo objeto del cliente).
