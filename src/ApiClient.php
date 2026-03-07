@@ -186,7 +186,7 @@ class ApiClient
     public function toArray()
     {
         if (!$this->last_response) {
-            throw new ApiException('No hay una respuesta HTTP previa para procesar.');
+            throw new ApiException('No hay una respuesta HTTP de API Gateway para procesar. Esto normalmente ocurre cuando existe algún problema en la conexión con la API.');
         }
 
         $headers = $this->getLastResponse()->getHeaders();
@@ -332,7 +332,7 @@ class ApiClient
             // Ejecutar consulta al SII.
             try {
                 $this->last_response = $client->request($method, $this->last_url, $options);
-            } catch (\GuzzleHttp\Exception\GuzzleException $e) {
+            } catch (\GuzzleHttp\Exception\BadResponseException $e) {
                 // Obtener la respuesta de la llamada.
                 $this->last_response = $e->getResponse();
 
@@ -346,6 +346,8 @@ class ApiClient
 
                 // Si no es un error 401 con problema de sesión se lanza la excepción.
                 $this->throwException();
+            } catch (\GuzzleHttp\Exception\GuzzleException $e) {
+                throw new ApiException('Error al realizar la consulta: ' . $e->getMessage(), 500);
             }
 
             // Break obligatorio, ya que si la llamada es exitosa no se debe reintentar.
