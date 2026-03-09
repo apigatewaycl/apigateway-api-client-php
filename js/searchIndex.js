@@ -126,6 +126,11 @@ Search.appendIndex(
             "summary": "Obtiene\u0020el\u0020valor\u0020de\u0020una\u0020variable\u0020de\u0020entorno.",
             "url": "classes/apigatewaycl-api-client-ApiClient.html#method_env"
         },                {
+            "fqsen": "\\apigatewaycl\\api_client\\ApiClient\u003A\u003AforceUrlParams\u0028\u0029",
+            "name": "forceUrlParams",
+            "summary": "Fuerza\u0020par\u00E1metros\u0020espec\u00EDficos\u0020en\u0020la\u0020URL\u0020dada.",
+            "url": "classes/apigatewaycl-api-client-ApiClient.html#method_forceUrlParams"
+        },                {
             "fqsen": "\\apigatewaycl\\api_client\\ApiClient\u003A\u003A\u0024api_url",
             "name": "api_url",
             "summary": "La\u0020URL\u0020base\u0020de\u0020la\u0020API\u0020de\u0020API\u0020Gateway.",
