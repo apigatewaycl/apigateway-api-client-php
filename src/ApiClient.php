@@ -383,6 +383,14 @@ class ApiClient
             $options[\GuzzleHttp\RequestOptions::JSON] = $data;
         }
 
+        // realizar consulta HTTP con reintento por si falla la sesión del SII.
+        foreach ([true, false] as $auth_cache) {
+
+            // Forzar el valor de auth_cache en la llamada a la API.
+            $this->last_url = $this->forceUrlParams($this->last_url, [
+                'auth_cache' => (int)$auth_cache,
+            ]);
+
         // Ejecutar consulta al SII.
         try {
             $this->last_response = $client->request(
@@ -390,16 +398,31 @@ class ApiClient
                 uri: $this->last_url,
                 options: $options
             );
-        } catch (\GuzzleHttp\Exception\RequestException $e) {
-            if ($e->hasResponse()) {
+            } catch (\GuzzleHttp\Exception\BadResponseException $e) {
+                // Obtener la respuesta de la llamada.
                 $this->last_response = $e->getResponse();
+
+                // Si es un error HTTP 401 con problema de sesión pasamos a la otra iteración
+                // del ciclo foreach para reintentar sin caché de sesión del SII.
+                if ($this->getLastResponse()->getStatusCode() == 401) {
+                    if ($this->getLastResponse()->getHeaderLine('X-Stats-NavegadorSessionProblem')) {
+                        continue;
+                    }
+                }
+
+                // Si no es un error 401 con problema de sesión se lanza la excepción.
+                $this->throwException();
+            } catch (\GuzzleHttp\Exception\GuzzleException $e) {
+                throw new ApiException('Error de conexión con el SII: ' . $e->getMessage(), 500);
             }
+
+            // Break obligatorio, ya que si la llamada es exitosa no se debe reintentar.
+            if ($this->getLastResponse()->getStatusCode() == 200) {
+                break;
+            }
+
+            // Si no se reintentó se lanza excepción por no ser código 200 (break anterior).
             $this->throwException();
-        } catch (\GuzzleHttp\Exception\ConnectException $e) {
-            throw new ApiException(
-                message: 'Error de conexión con el SII: ' . $e->getMessage(),
-                code: 500
-            );
         }
 
         // Entregar respuesta (contenida en el mismo objeto del cliente).
@@ -468,4 +491,37 @@ class ApiClient
     {
         return function_exists('env') ? env($name) : getenv($name);
     }
+
+    /**
+     * Fuerza parámetros específicos en la URL dada.
+     *
+     * @param string $url La URL original a modificar.
+     * @param array $params Arreglo asociativo de parámetros para añadir a la URL.
+     * @return string La URL modificada con los nuevos parámetros.
+     */
+    private function forceUrlParams(string $url, array $params): string
+    {
+        // Parsear la URL para extraer componentes.
+        $parsedUrl = parse_url($url);
+
+        // Parsear la cadena de consulta existente y obtener los parámetros actuales.
+        parse_str($parsedUrl['query'] ?? '', $queryParams);
+
+        // Fusionar los parámetros existentes con los nuevos parámetros forzados.
+        $queryParams = array_merge($queryParams, $params);
+
+        // Reconstruir la cadena de consulta con los nuevos parámetros.
+        $parsedUrl['query'] = http_build_query($queryParams);
+
+        // Reconstruir y devolver la URL completa.
+        return (isset($parsedUrl['scheme']) ? "{$parsedUrl['scheme']}://" : '') .
+            (isset($parsedUrl['user']) ? "{$parsedUrl['user']}" . (isset($parsedUrl['pass']) ? ":{$parsedUrl['pass']}" : '') .'@' : '') .
+            (isset($parsedUrl['host']) ? "{$parsedUrl['host']}" : '') .
+            (isset($parsedUrl['port']) ? ":{$parsedUrl['port']}" : '') .
+            (isset($parsedUrl['path']) ? "{$parsedUrl['path']}" : '') .
+            (isset($parsedUrl['query']) ? "?{$parsedUrl['query']}" : '') .
+            (isset($parsedUrl['fragment']) ? "#{$parsedUrl['fragment']}" : '')
+        ;
+    }
+
 }
