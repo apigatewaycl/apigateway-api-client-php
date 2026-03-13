@@ -61,6 +61,11 @@ Search.appendIndex(
             "summary": "Establece\u0020el\u0020token\u0020de\u0020autenticaci\u00F3n.",
             "url": "classes/apigatewaycl-api-client-ApiClient.html#method_setToken"
         },                {
+            "fqsen": "\\apigatewaycl\\api_client\\ApiClient\u003A\u003AgetLastApiUrl\u0028\u0029",
+            "name": "getLastApiUrl",
+            "summary": "Obtiene\u0020la\u0020\u00FAltima\u0020URL\u0020utilizada\u0020en\u0020la\u0020solicitud\u0020HTTP.",
+            "url": "classes/apigatewaycl-api-client-ApiClient.html#method_getLastApiUrl"
+        },                {
             "fqsen": "\\apigatewaycl\\api_client\\ApiClient\u003A\u003AgetLastUrl\u0028\u0029",
             "name": "getLastUrl",
             "summary": "Obtiene\u0020la\u0020\u00FAltima\u0020URL\u0020utilizada\u0020en\u0020la\u0020solicitud\u0020HTTP.",
@@ -160,6 +165,11 @@ Search.appendIndex(
             "name": "last_response",
             "summary": "La\u0020\u00FAltima\u0020respuesta\u0020recibida\u0020de\u0020la\u0020API.",
             "url": "classes/apigatewaycl-api-client-ApiClient.html#property_last_response"
+        },                {
+            "fqsen": "\\apigatewaycl\\api_client\\ApiClient\u003A\u003A\u0024authorization",
+            "name": "authorization",
+            "summary": "Forma\u0020de\u0020autentificar\u0020de\u0020las\u0020distintas\u0020api\u0027s.",
+            "url": "classes/apigatewaycl-api-client-ApiClient.html#property_authorization"
         },                {
             "fqsen": "\\apigatewaycl\\api_client\\ApiException",
             "name": "ApiException",
