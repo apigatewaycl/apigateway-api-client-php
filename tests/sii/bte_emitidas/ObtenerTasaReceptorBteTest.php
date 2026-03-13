@@ -25,12 +25,12 @@ use apigatewaycl\api_client\ApiException;
 use apigatewaycl\api_client\sii\BteEmitidas;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Tests\Helpers\RequiresEnvironment;
+use Tests\Helpers\FunctionHelpers;
 
 #[CoversClass(BteEmitidas::class)]
 class ObtenerTasaReceptorBteTest extends TestCase
 {
-    use RequiresEnvironment;
+    use FunctionHelpers;
 
     protected static $verbose;
 
@@ -40,9 +40,14 @@ class ObtenerTasaReceptorBteTest extends TestCase
 
     private static $contribuyente_rut;
 
+    private static $version;
+
     public static function setUpBeforeClass(): void
     {
         self::requireEnv('APIGATEWAY_API_TOKEN');
+        self::requireEnv('TEST_CONTRIBUYENTE_RUT');
+        self::requireEnv('TEST_CONTRIBUYENTE_CLAVE');
+        self::requireEnv('TEST_RECEPTOR_RUT');
         self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
@@ -53,6 +58,7 @@ class ObtenerTasaReceptorBteTest extends TestCase
             ],
         ];
         self::$client = new BteEmitidas(self::$auth);
+        self::$version = env('TEST_VERSION') ?? 'v2';
     }
 
     public function testObtenerTasaReceptorBte(): void
@@ -73,11 +79,7 @@ class ObtenerTasaReceptorBteTest extends TestCase
                 "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf(
-                '[ApiException %d] %s',
-                $e->getCode(),
-                $e->getMessage()
-            ));
+            $this->handleApiException($e);
         }
     }
 }

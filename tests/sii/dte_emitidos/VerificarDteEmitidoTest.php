@@ -25,12 +25,12 @@ use apigatewaycl\api_client\ApiException;
 use apigatewaycl\api_client\sii\DteEmitidos;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Tests\Helpers\RequiresEnvironment;
+use Tests\Helpers\FunctionHelpers;
 
 #[CoversClass(DteEmitidos::class)]
 class VerificarDteEmitidoTest extends TestCase
 {
-    use RequiresEnvironment;
+    use FunctionHelpers;
 
     protected static $verbose;
 
@@ -40,9 +40,14 @@ class VerificarDteEmitidoTest extends TestCase
 
     private static $contribuyente_rut;
 
+    private static $version;
+
     public static function setUpBeforeClass(): void
     {
         self::requireEnv('APIGATEWAY_API_TOKEN');
+        self::requireEnv('TEST_USUARIO_FIRMA_PUBLIC_KEY');
+        self::requireEnv('TEST_USUARIO_FIRMA_PRIVATE_KEY');
+        self::requireEnv('TEST_CONTRIBUYENTE_RUT');
         self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         $firma_public_key = env('TEST_USUARIO_FIRMA_PUBLIC_KEY');
         $firma_private_key = env('TEST_USUARIO_FIRMA_PRIVATE_KEY');
@@ -54,6 +59,7 @@ class VerificarDteEmitidoTest extends TestCase
         ];
         self::$client = new DteEmitidos(self::$auth);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
+        self::$version = env('TEST_VERSION') ?? 'v2';
     }
 
     public function testVerificarDteEmitido()
@@ -64,11 +70,11 @@ class VerificarDteEmitidoTest extends TestCase
         );
         $dte = env(
             varname: 'TEST_DTE_EMITIDOS_VERIFICAR_DTE',
-            default: ''
+            default: 0
         );
         $folio = env(
             varname: 'TEST_DTE_EMITIDOS_VERIFICAR_FOLIO',
-            default: ''
+            default: 0
         );
         $fecha = env(
             varname: 'TEST_DTE_EMITIDOS_VERIFICAR_FECHA',
@@ -76,7 +82,7 @@ class VerificarDteEmitidoTest extends TestCase
         );
         $total = env(
             varname: 'TEST_DTE_EMITIDOS_VERIFICAR_TOTAL',
-            default: ''
+            default: 0
         );
         $firma = env(
             varname: 'TEST_DTE_EMITIDOS_VERIFICAR_FIRMA',
@@ -103,11 +109,7 @@ class VerificarDteEmitidoTest extends TestCase
                 "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf(
-                '[ApiException %d] %s',
-                $e->getCode(),
-                $e->getMessage()
-            ));
+            $this->handleApiException($e);
         }
     }
 }

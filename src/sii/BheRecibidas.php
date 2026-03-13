@@ -136,7 +136,7 @@ class BheRecibidas extends ApiBase
         int $causa = 1
     ): ResponseInterface {
         $url = sprintf(
-            '/sii/bhe/recibidas/observar/%s/%s/%d',
+            '/sii/bhe/recibidas/observar/%s/%s?causa=%d',
             $emisor,
             $numero,
             $causa

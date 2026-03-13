@@ -25,12 +25,12 @@ use apigatewaycl\api_client\ApiException;
 use apigatewaycl\api_client\sii\DteContribuyentes;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Tests\Helpers\RequiresEnvironment;
+use Tests\Helpers\FunctionHelpers;
 
 #[CoversClass(DteContribuyentes::class)]
 class VerificarAutorizacionDteTest extends TestCase
 {
-    use RequiresEnvironment;
+    use FunctionHelpers;
 
     protected static $verbose;
 
@@ -40,9 +40,14 @@ class VerificarAutorizacionDteTest extends TestCase
 
     private static $contribuyente_rut;
 
+    private static $version;
+
     public static function setUpBeforeClass(): void
     {
         self::requireEnv('APIGATEWAY_API_TOKEN');
+        self::requireEnv('TEST_USUARIO_FIRMA_PUBLIC_KEY');
+        self::requireEnv('TEST_USUARIO_FIRMA_PRIVATE_KEY');
+        self::requireEnv('TEST_CONTRIBUYENTE_RUT');
         self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$client = new DteContribuyentes();
         $firma_public_key = env('TEST_USUARIO_FIRMA_PUBLIC_KEY');
@@ -54,6 +59,7 @@ class VerificarAutorizacionDteTest extends TestCase
             ],
         ];
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
+        self::$version = env('TEST_VERSION') ?? 'v2';
     }
 
     public function testVerificarAutorizacionDte(): void
@@ -95,11 +101,7 @@ class VerificarAutorizacionDteTest extends TestCase
         } catch (ApiException $e) {
             fclose($resource);
             unlink($filename);
-            $this->fail(sprintf(
-                '[ApiException %d] %s',
-                $e->getCode(),
-                $e->getMessage()
-            ));
+            $this->handleApiException($e);
         }
 
     }

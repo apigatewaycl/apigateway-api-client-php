@@ -25,12 +25,12 @@ use apigatewaycl\api_client\ApiException;
 use apigatewaycl\api_client\sii\BheEmitidas;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Tests\Helpers\RequiresEnvironment;
+use Tests\Helpers\FunctionHelpers;
 
 #[CoversClass(BheEmitidas::class)]
 class EmitirBheTest extends TestCase
 {
-    use RequiresEnvironment;
+    use FunctionHelpers;
 
     protected static $verbose;
 
@@ -42,9 +42,14 @@ class EmitirBheTest extends TestCase
 
     private static $receptor_rut;
 
+    private static $version;
+
     public static function setUpBeforeClass(): void
     {
         self::requireEnv('APIGATEWAY_API_TOKEN');
+        self::requireEnv('TEST_CONTRIBUYENTE_RUT');
+        self::requireEnv('TEST_CONTRIBUYENTE_CLAVE');
+        self::requireEnv('TEST_EMISOR_RUT');
         self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
@@ -56,6 +61,7 @@ class EmitirBheTest extends TestCase
         ];
         self::$client = new BheEmitidas(self::$auth);
         self::$receptor_rut = env('TEST_EMISOR_RUT');
+        self::$version = env('TEST_VERSION') ?? 'v2';
     }
 
     public function testEmitirBhe(): void
@@ -103,11 +109,7 @@ class EmitirBheTest extends TestCase
                 "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf(
-                '[ApiException %d] %s',
-                $e->getCode(),
-                $e->getMessage()
-            ));
+            $this->handleApiException($e);
         }
     }
 }

@@ -25,12 +25,12 @@ use apigatewaycl\api_client\ApiException;
 use apigatewaycl\api_client\sii\BheEmitidas;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Tests\Helpers\RequiresEnvironment;
+use Tests\Helpers\FunctionHelpers;
 
 #[CoversClass(BheEmitidas::class)]
 class EnviarEmailBheEmitidaTest extends TestCase
 {
-    use RequiresEnvironment;
+    use FunctionHelpers;
 
     protected static $verbose;
 
@@ -42,9 +42,14 @@ class EnviarEmailBheEmitidaTest extends TestCase
 
     private static $periodo;
 
+    private static $version;
+
     public static function setUpBeforeClass(): void
     {
         self::requireEnv('APIGATEWAY_API_TOKEN');
+        self::requireEnv('TEST_CONTRIBUYENTE_RUT');
+        self::requireEnv('TEST_CONTRIBUYENTE_CLAVE');
+        self::requireEnv('TEST_PERIODO_YMD');
         self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
@@ -55,7 +60,8 @@ class EnviarEmailBheEmitidaTest extends TestCase
             ],
         ];
         self::$client = new BheEmitidas(self::$auth);
-        self::$periodo = env('TEST_PERIODO');
+        self::$periodo = env('TEST_PERIODO_YMD');
+        self::$version = env('TEST_VERSION') ?? 'v2';
     }
 
     public function testEnviarEmailBheEmitida(): void
@@ -66,31 +72,36 @@ class EnviarEmailBheEmitidaTest extends TestCase
                 self::$periodo
             );
 
-            $codigo = json_decode(
+            $data = json_decode(
                 json: (string)$documentos->getBody(),
                 associative: true
-            )[0]['codigo'];
-            $receptor_email = env('TEST_RECEPTOR_EMAIL');
-
-            $email = self::$client->enviarEmailBheEmitida(
-                $codigo,
-                $receptor_email
             );
 
-            $this->assertSame(200, $email->getStatusCode());
+            if($data !== []){
+                $codigo = $data['codigo'];
+                $receptor_email = env('TEST_RECEPTOR_EMAIL');
 
-            if (self::$verbose) {
-                echo "\n",
-                'testEnviarEmailBheEmitida() email: ',
-                $email->getBody(),
-                "\n";
+                $email = self::$client->enviarEmailBheEmitida(
+                    $codigo,
+                    $receptor_email
+                );
+
+                $this->assertSame(200, $email->getStatusCode());
+
+                if (self::$verbose) {
+                    echo "\n",
+                    'testEnviarEmailBheEmitida() email: ',
+                    $email->getBody(),
+                    "\n";
+                }
+            }else{
+                $this->markTestIncomplete(
+                    "No hay BHEs emitidas para esta prueba."
+                    );
             }
+
         } catch (ApiException $e) {
-            $this->fail(sprintf(
-                '[ApiException %d] %s',
-                $e->getCode(),
-                $e->getMessage()
-            ));
+            $this->handleApiException($e);
         }
     }
 }

@@ -25,12 +25,12 @@ use apigatewaycl\api_client\ApiException;
 use apigatewaycl\api_client\sii\BheRecibidas;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Tests\Helpers\RequiresEnvironment;
+use Tests\Helpers\FunctionHelpers;
 
 #[CoversClass(BheRecibidas::class)]
 class ListarBheRecibidasTest extends TestCase
 {
-    use RequiresEnvironment;
+    use FunctionHelpers;
 
     protected static $verbose;
 
@@ -42,9 +42,14 @@ class ListarBheRecibidasTest extends TestCase
 
     private static $periodo;
 
+    private static $version;
+
     public static function setUpBeforeClass(): void
     {
         self::requireEnv('APIGATEWAY_API_TOKEN');
+        self::requireEnv('TEST_CONTRIBUYENTE_RUT');
+        self::requireEnv('TEST_CONTRIBUYENTE_CLAVE');
+        self::requireEnv('TEST_PERIODO_YMD');
         self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
@@ -55,7 +60,8 @@ class ListarBheRecibidasTest extends TestCase
             ],
         ];
         self::$client = new BheRecibidas(self::$auth);
-        self::$periodo = env('TEST_PERIODO');
+        self::$periodo = env('TEST_PERIODO_YMD');
+        self::$version = env('TEST_VERSION') ?? 'v2';
     }
 
     public function testListarBheRecibidasSimple(): void
@@ -78,11 +84,7 @@ class ListarBheRecibidasTest extends TestCase
                 "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf(
-                '[ApiException %d] %s',
-                $e->getCode(),
-                $e->getMessage()
-            ));
+            $this->handleApiException($e);
         }
     }
 }

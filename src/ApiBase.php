@@ -62,7 +62,11 @@ class ApiBase extends ApiClient
     private function setupAuth(array $credenciales): void
     {
         $tipo = key($credenciales); // Detecta si es 'pass' o 'cert'
-        $datos = $credenciales[$tipo] ?? [];
+        $datos = [];
+
+        if($tipo !== null && isset($credenciales[$tipo])){
+            $datos = $credenciales[$tipo];
+        }
 
         $identificador = $datos['rut'] ??
         $datos['cert-data'] ??

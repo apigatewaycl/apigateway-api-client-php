@@ -25,12 +25,12 @@ use apigatewaycl\api_client\ApiException;
 use apigatewaycl\api_client\sii\BteEmitidas;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Tests\Helpers\RequiresEnvironment;
+use Tests\Helpers\FunctionHelpers;
 
 #[CoversClass(BteEmitidas::class)]
 class DescargarHtmlBteEmitidaTest extends TestCase
 {
-    use RequiresEnvironment;
+    use FunctionHelpers;
 
     protected static $verbose;
 
@@ -42,9 +42,14 @@ class DescargarHtmlBteEmitidaTest extends TestCase
 
     private static $periodo;
 
+    private static $version;
+
     public static function setUpBeforeClass(): void
     {
         self::requireEnv('APIGATEWAY_API_TOKEN');
+        self::requireEnv('TEST_CONTRIBUYENTE_RUT');
+        self::requireEnv('TEST_CONTRIBUYENTE_CLAVE');
+        self::requireEnv('TEST_PERIODO_YMD');
         self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
@@ -55,7 +60,8 @@ class DescargarHtmlBteEmitidaTest extends TestCase
             ],
         ];
         self::$client = new BteEmitidas(self::$auth);
-        self::$periodo = env('TEST_PERIODO');
+        self::$periodo = env('TEST_PERIODO_YMD');
+        self::$version = env('TEST_VERSION') ?? 'v2';
     }
 
     public function testDescargarHtmlBteEmitida(): void
@@ -70,16 +76,15 @@ class DescargarHtmlBteEmitidaTest extends TestCase
                 json: (string)$documentos->getBody(),
                 associative: true
             );
-
-            if (count($documentosArray) <= 0) {
-                $this->markTestSkipped(
-                    "\n".
-                    "No hay BTEs emitidas para esta prueba.".
-                    "\n"
-                );
+            $documento = $documentosArray[0] ?? null;
+            if ($documento === null) {
+                $this->markTestIncomplete(
+                    "No hay BTEs emitidas para esta prueba."
+                    );
             }
+            $documentoData = $documento['data'] ?? $documento;
 
-            $codigo = $documentosArray[0]['codigo'];
+            $codigo = $documentoData['codigo'];
 
             $response = self::$client->obtenerHtmlBteEmitida($codigo);
 
@@ -114,11 +119,7 @@ class DescargarHtmlBteEmitidaTest extends TestCase
                 "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(sprintf(
-                '[ApiException %d] %s',
-                $e->getCode(),
-                $e->getMessage()
-            ));
+            $this->handleApiException($e);
         }
     }
 }

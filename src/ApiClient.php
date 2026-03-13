@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace apigatewaycl\api_client;
 
 use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Psr7\Utils;
 
 /**
  * Cliente de la API de API Gateway.
@@ -38,7 +39,7 @@ class ApiClient
      *
      * @var string
      */
-    private $api_url = 'https://legacy.apigateway.cl';
+    private $api_url = 'https://app.apigateway.cl';
 
     /**
      * El prefijo para las rutas de la API.
@@ -52,7 +53,7 @@ class ApiClient
      *
      * @var string
      */
-    private $api_version = 'v1';
+    private $api_version = 'v2';
 
     /**
      * El token de autenticación para la API.
@@ -76,6 +77,13 @@ class ApiClient
     private $last_response = null;
 
     /**
+     * Forma de autentificar de las distintas api's.
+     *
+     * @var string|null
+     */
+    private $authorization = null;
+
+    /**
      * Constructor del cliente de la API.
      *
      * @param string|null $token Token de autenticación para la API.
@@ -91,6 +99,14 @@ class ApiClient
         $this->api_url = $url ?: $this->env(
             'APIGATEWAY_API_URL'
         ) ?: $this->api_url;
+
+        $this->authorization = 'Token';
+
+        $this->api_version = $this->env('VERSION');
+        if($this->api_version == 'v1'){
+            $this->api_url = 'https://legacy.apigateway.cl';
+            $this->authorization = 'Bearer';
+        }
     }
 
     /**
@@ -115,6 +131,16 @@ class ApiClient
     {
         $this->api_token = $token;
         return $this;
+    }
+
+    /**
+     * Obtiene la última URL utilizada en la solicitud HTTP.
+     *
+     * @return string|null
+     */
+    public function getLastApiUrl(): string|null
+    {
+        return $this->api_url;
     }
 
     /**
@@ -373,7 +399,7 @@ class ApiClient
 
         // preparar cabeceras que se usarán
         $options[\GuzzleHttp\RequestOptions::HEADERS] = array_merge([
-            'Authorization' => 'Bearer ' . $this->api_token,
+            'Authorization' => $this->authorization . ' ' . $this->api_token,
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
         ], $headers);
@@ -393,6 +419,12 @@ class ApiClient
 
         // Ejecutar consulta al SII.
         try {
+            // echo $method;
+            // echo $this->last_url;
+            // echo $options;
+            // fwrite(STDERR, $method);
+            // fwrite(STDERR, $this->last_url);
+            // fwrite(STDERR, json_encode($options));
             $this->last_response = $client->request(
                 method: $method,
                 uri: $this->last_url,
@@ -426,6 +458,15 @@ class ApiClient
         }
 
         // Entregar respuesta (contenida en el mismo objeto del cliente).
+
+        $response_body = (string) $this->last_response->getBody();
+        $data =  json_decode($response_body, true);
+        if(json_last_error() === JSON_ERROR_NONE && isset($data['data'])){
+            $data = $data['data'];
+            $response_data = Utils::streamFor(json_encode($data));
+            $this->last_response = $this->last_response->withBody($response_data);
+        }
+
         return $this;
     }
 
