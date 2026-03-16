@@ -136,6 +136,11 @@ Search.appendIndex(
             "summary": "Fuerza\u0020par\u00E1metros\u0020espec\u00EDficos\u0020en\u0020la\u0020URL\u0020dada.",
             "url": "classes/apigatewaycl-api-client-ApiClient.html#method_forceUrlParams"
         },                {
+            "fqsen": "\\apigatewaycl\\api_client\\ApiClient\u003A\u003AgetApiVersion\u0028\u0029",
+            "name": "getApiVersion",
+            "summary": "",
+            "url": "classes/apigatewaycl-api-client-ApiClient.html#method_getApiVersion"
+        },                {
             "fqsen": "\\apigatewaycl\\api_client\\ApiClient\u003A\u003A\u0024api_url",
             "name": "api_url",
             "summary": "La\u0020URL\u0020base\u0020de\u0020la\u0020API\u0020de\u0020API\u0020Gateway.",
@@ -175,6 +180,21 @@ Search.appendIndex(
             "name": "ApiException",
             "summary": "Clase\u0020para\u0020las\u0020excepciones\u0020del\u0020cliente\u0020de\u0020la\u0020API.",
             "url": "classes/apigatewaycl-api-client-ApiException.html"
+        },                {
+            "fqsen": "\\apigatewaycl\\api_client\\ApiException\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/apigatewaycl-api-client-ApiException.html#method___construct"
+        },                {
+            "fqsen": "\\apigatewaycl\\api_client\\ApiException\u003A\u003AgetResponseBody\u0028\u0029",
+            "name": "getResponseBody",
+            "summary": "",
+            "url": "classes/apigatewaycl-api-client-ApiException.html#method_getResponseBody"
+        },                {
+            "fqsen": "\\apigatewaycl\\api_client\\ApiException\u003A\u003A\u0024responseBody",
+            "name": "responseBody",
+            "summary": "",
+            "url": "classes/apigatewaycl-api-client-ApiException.html#property_responseBody"
         },                {
             "fqsen": "\\apigatewaycl\\api_client\\sii\\ActividadesEconomicas",
             "name": "ActividadesEconomicas",
