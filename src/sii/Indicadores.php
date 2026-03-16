@@ -68,10 +68,20 @@ class Indicadores extends ApiBase
         $anio = substr(string: $periodo, offset: 0, length: 4);
         $mes = substr(string: $periodo, offset: 4, length: 2);
         $url = sprintf(
-            '/sii/indicadores/uf/anual/%s/%s',
+            '/sii/indicadores/uf/mensual/%s%s',
             $anio,
             $mes
         );
+
+        if ($this->getApiVersion() === 'v1')
+        {
+            $url = sprintf(
+                '/sii/indicadores/anul/%s/%s',
+                $anio,
+                $mes
+            );
+        }
+
         $response = $this->get(resource: $url);
         return $response;
     }
@@ -91,11 +101,21 @@ class Indicadores extends ApiBase
         $dia = $partes[2];
 
         $url = sprintf(
-            '/sii/indicadores/uf/anual/%s/%s/%s',
+            '/sii/indicadores/uf/diario/%s%s%s',
             $anio,
             $mes,
             $dia
         );
+
+        if ($this->getApiVersion() === 'v1')
+        {
+            $url = sprintf(
+                '/sii/indicadores/anual/%s/%s/%s',
+                $anio,
+                $mes,
+                $dia
+            );
+        }
         $response = $this->get(resource: $url);
         return $response;
     }

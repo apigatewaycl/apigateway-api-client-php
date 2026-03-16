@@ -33,6 +33,7 @@
         "phpstan/phpstan-phpunit": "^2"
     },
     "scripts": {
+        "_Instalar docs":   "curl -L https://www.phpdoc.org/phpDocumentor.phar -o phpdoc.phar; chmod +x phpdoc.phar",
         "docs": "php tools/phpdocumentor run --config=phpdoc.xml",
         "tests": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage",
         "tests-readonly": "XDEBUG_MODE=coverage vendor/bin/phpunit --configuration=phpunit.xml --filter 'testListarActividadesEconomicas|testObtenerSituacionTributariaTercero|testListarUfAnual|testListarUfMensual|testListarUfDiario'",

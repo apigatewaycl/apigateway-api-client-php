@@ -95,8 +95,8 @@ class ObtenerVentaDetalleTest extends TestCase
                 associative: true
             );
 
-            if ($ventas_resumen_array != null) {
-                foreach ($ventas_resumen_array as $resumen) {
+            if ($ventas_resumen_array['data'] != null) {
+                foreach ($ventas_resumen_array['data'] as $resumen) {
                     if (
                         $resumen['dcvTipoIngresoDoc'] != 'DET_ELE' ||
                         $resumen['rsmnTotDoc'] == 0

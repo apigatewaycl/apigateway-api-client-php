@@ -102,7 +102,8 @@ class ApiClient
 
         $this->authorization = 'Token';
 
-        $this->api_version = $this->env('VERSION');
+        $this->api_version = $this->env('APIGATEWAY_API_VERSION') ?? $this->api_version;
+
         if($this->api_version == 'v1'){
             $this->api_url = 'https://legacy.apigateway.cl';
             $this->authorization = 'Bearer';
@@ -517,8 +518,25 @@ class ApiClient
      */
     private function throwException(): ApiException
     {
-        $error = $this->getError();
-        throw new ApiException(message: $error->message, code: $error->code);
+        $response = $this->getLastResponse();
+
+        if (!$response) {
+            throw new ApiException(
+                message: 'Error desconocido.',
+                code: 500,
+                responseBody: null
+            );
+        }
+
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
+        $message = $body !== '' ? $body : $response->getReasonPhrase();
+
+        throw new ApiException(
+            message: $message,
+            code: $status,
+            responseBody: $body
+        );
     }
 
     /**
@@ -563,6 +581,10 @@ class ApiClient
             (isset($parsedUrl['query']) ? "?{$parsedUrl['query']}" : '') .
             (isset($parsedUrl['fragment']) ? "#{$parsedUrl['fragment']}" : '')
         ;
+    }
+    public function getApiVersion(): string
+    {
+        return $this->api_version;
     }
 
 }
