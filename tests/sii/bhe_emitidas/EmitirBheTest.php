@@ -62,6 +62,10 @@ class EmitirBheTest extends TestCase
         self::$client = new BheEmitidas(self::$auth);
         self::$receptor_rut = env('TEST_EMISOR_RUT');
         self::$version = env('TEST_VERSION') ?? 'v2';
+
+        if (self::$verbose) {
+            echo "TEST_VERSION=" . self::$version;
+        }
     }
 
     public function testEmitirBhe(): void

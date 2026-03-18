@@ -62,6 +62,10 @@ class ListarBheEmitidasPaginadoTest extends TestCase
         self::$client = new BheEmitidas(self::$auth);
         self::$periodo = env('TEST_PERIODO_YMD');
         self::$version = env('TEST_VERSION') ?? 'v2';
+
+        if (self::$verbose) {
+            echo "TEST_VERSION=" . self::$version;
+        }
     }
 
     public function testListarBheEmitidasPaginado(): void
@@ -83,8 +87,8 @@ class ListarBheEmitidasPaginadoTest extends TestCase
                     json: (string)$responsePaginado,
                     associative: true
                 );
-                if($documentos_array['n_boletas'] === 0 &&
-                    $documentos_array['boletas'] === []){
+                if ($documentos_array['n_boletas'] === 0 &&
+                    $documentos_array['boletas'] === []) {
                     $this->markTestIncomplete('Lista de BHEs emitidas vacía');
                 }
                 $n_paginas = $documentos_array['n_paginas'];

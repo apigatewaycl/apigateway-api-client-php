@@ -64,7 +64,7 @@ class ApiBase extends ApiClient
         $tipo = key($credenciales); // Detecta si es 'pass' o 'cert'
         $datos = [];
 
-        if($tipo !== null && isset($credenciales[$tipo])){
+        if ($tipo !== null && isset($credenciales[$tipo])) {
             $datos = $credenciales[$tipo];
         }
 

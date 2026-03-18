@@ -50,6 +50,10 @@ class ListarUfMensualTest extends TestCase
         self::$client = new Indicadores();
         self::$fecha = date('Y-m-d');
         self::$version = env('TEST_VERSION') ?? 'v2';
+
+        if (self::$verbose) {
+            echo "TEST_VERSION=" . self::$version;
+        }
     }
 
     public function testListarUfMensual(): void

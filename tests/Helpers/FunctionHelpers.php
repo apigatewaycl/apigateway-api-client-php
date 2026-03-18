@@ -37,10 +37,12 @@ trait FunctionHelpers
     protected function handleApiException(ApiException $e): void
     {
         $code = (int) $e->getCode();
-        $message = sprintf('[ApiException %d] %s',
+        $message = sprintf(
+            '[ApiException %d] %s',
             $code,
-            $e->getMessage());
-        if($code >= 400 && $code < 500){
+            $e->getMessage()
+        );
+        if ($code >= 400 && $code < 500) {
             $this->markTestSkipped($message);
         }
         $this->fail($message);

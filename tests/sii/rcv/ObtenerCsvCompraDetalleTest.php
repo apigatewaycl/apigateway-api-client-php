@@ -67,6 +67,10 @@ class ObtenerCsvCompraDetalleTest extends TestCase
             default: date('Y-m')
         );
         self::$version = env('TEST_VERSION') ?? 'v2';
+
+        if (self::$verbose) {
+            echo "TEST_VERSION=" . self::$version;
+        }
     }
 
     /**

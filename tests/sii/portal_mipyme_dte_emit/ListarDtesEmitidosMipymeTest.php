@@ -58,6 +58,10 @@ class ListarDtesEmitidosMipymeTest extends TestCase
         ];
         self::$client = new PortalMipymeDteEmitidos(self::$auth);
         self::$version = env('TEST_VERSION') ?? 'v2';
+
+        if (self::$verbose) {
+            echo "TEST_VERSION=" . self::$version;
+        }
     }
 
     public function testListarDtesEmitidosMipyme(): void

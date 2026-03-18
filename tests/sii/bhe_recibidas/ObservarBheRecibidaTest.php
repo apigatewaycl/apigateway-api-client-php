@@ -58,6 +58,10 @@ class ObservarBheRecibidaTest extends TestCase
         ];
         self::$client = new BheRecibidas(self::$auth);
         self::$version = env('TEST_VERSION') ?? 'v2';
+
+        if (self::$verbose) {
+            echo "TEST_VERSION=" . self::$version;
+        }
     }
 
     public function testObservarBheRecibida(): void

@@ -87,11 +87,13 @@ class BheRecibidas extends ApiBase
             if ($pagina_sig_codigo !== null) {
                 $url = sprintf(
                     $url . '&pagina_sig_codigo=%s',
-                    $pagina_sig_codigo);
+                    $pagina_sig_codigo
+                );
             } else {
                 $url = sprintf(
                     $url . '&pagina_sig_codigo=%s',
-                    '00000000000000');
+                    '00000000000000'
+                );
             }
         }
         $body = [

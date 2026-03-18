@@ -23,8 +23,8 @@ declare(strict_types=1);
 
 namespace apigatewaycl\api_client;
 
-use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Psr7\Utils;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Cliente de la API de API Gateway.
@@ -104,7 +104,7 @@ class ApiClient
 
         $this->api_version = $this->env('APIGATEWAY_API_VERSION') ?? $this->api_version;
 
-        if($this->api_version == 'v1'){
+        if ($this->api_version == 'v1') {
             $this->api_url = 'https://legacy.apigateway.cl';
             $this->authorization = 'Bearer';
         }
@@ -418,19 +418,13 @@ class ApiClient
                 'auth_cache' => (int)$auth_cache,
             ]);
 
-        // Ejecutar consulta al SII.
-        try {
-            // echo $method;
-            // echo $this->last_url;
-            // echo $options;
-            // fwrite(STDERR, $method);
-            // fwrite(STDERR, $this->last_url);
-            // fwrite(STDERR, json_encode($options));
-            $this->last_response = $client->request(
-                method: $method,
-                uri: $this->last_url,
-                options: $options
-            );
+            // Ejecutar consulta al SII.
+            try {
+                $this->last_response = $client->request(
+                    method: $method,
+                    uri: $this->last_url,
+                    options: $options
+                );
             } catch (\GuzzleHttp\Exception\BadResponseException $e) {
                 // Obtener la respuesta de la llamada.
                 $this->last_response = $e->getResponse();
@@ -462,7 +456,7 @@ class ApiClient
 
         $response_body = (string) $this->last_response->getBody();
         $data =  json_decode($response_body, true);
-        if(json_last_error() === JSON_ERROR_NONE && isset($data['data'])){
+        if (json_last_error() === JSON_ERROR_NONE && isset($data['data'])) {
             $data = $data['data'];
             $response_data = Utils::streamFor(json_encode($data));
             $this->last_response = $this->last_response->withBody($response_data);
@@ -578,13 +572,13 @@ class ApiClient
             (isset($parsedUrl['host']) ? "{$parsedUrl['host']}" : '') .
             (isset($parsedUrl['port']) ? ":{$parsedUrl['port']}" : '') .
             (isset($parsedUrl['path']) ? "{$parsedUrl['path']}" : '') .
-            (isset($parsedUrl['query']) ? "?{$parsedUrl['query']}" : '') .
+            ($parsedUrl['query'] !== '' ? "?{$parsedUrl['query']}" : '') .
             (isset($parsedUrl['fragment']) ? "#{$parsedUrl['fragment']}" : '')
         ;
     }
+
     public function getApiVersion(): string
     {
         return $this->api_version;
     }
-
 }

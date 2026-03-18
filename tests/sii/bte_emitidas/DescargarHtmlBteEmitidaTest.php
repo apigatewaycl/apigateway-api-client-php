@@ -62,6 +62,10 @@ class DescargarHtmlBteEmitidaTest extends TestCase
         self::$client = new BteEmitidas(self::$auth);
         self::$periodo = env('TEST_PERIODO_YMD');
         self::$version = env('TEST_VERSION') ?? 'v2';
+
+        if (self::$verbose) {
+            echo "TEST_VERSION=" . self::$version;
+        }
     }
 
     public function testDescargarHtmlBteEmitida(): void
@@ -80,7 +84,7 @@ class DescargarHtmlBteEmitidaTest extends TestCase
             if ($documento === null) {
                 $this->markTestIncomplete(
                     "No hay BTEs emitidas para esta prueba."
-                    );
+                );
             }
             $documentoData = $documento['data'] ?? $documento;
 

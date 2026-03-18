@@ -62,6 +62,10 @@ class ListarBheRecibidasTest extends TestCase
         self::$client = new BheRecibidas(self::$auth);
         self::$periodo = env('TEST_PERIODO_YMD');
         self::$version = env('TEST_VERSION') ?? 'v2';
+
+        if (self::$verbose) {
+            echo "TEST_VERSION=" . self::$version;
+        }
     }
 
     public function testListarBheRecibidasSimple(): void

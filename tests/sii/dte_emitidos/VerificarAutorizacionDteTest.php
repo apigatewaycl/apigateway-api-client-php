@@ -60,6 +60,10 @@ class VerificarAutorizacionDteTest extends TestCase
         ];
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         self::$version = env('TEST_VERSION') ?? 'v2';
+
+        if (self::$verbose) {
+            echo "TEST_VERSION=" . self::$version;
+        }
     }
 
     public function testVerificarAutorizacionDte(): void

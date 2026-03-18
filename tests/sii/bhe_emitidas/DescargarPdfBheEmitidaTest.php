@@ -62,6 +62,10 @@ class DescargarPdfBheEmitidaTest extends TestCase
         self::$client = new BheEmitidas(self::$auth);
         self::$periodo = env('TEST_PERIODO_YMD');
         self::$version = env('TEST_VERSION') ?? 'v2';
+
+        if (self::$verbose) {
+            echo "TEST_VERSION=" . self::$version;
+        }
     }
 
     public function testDescargarPdfBheEmitida(): void
@@ -80,7 +84,7 @@ class DescargarPdfBheEmitidaTest extends TestCase
             if (count($documentos_array) <= 0) {
                 $this->markTestIncomplete(
                     "No hay BHEs emitidas para esta prueba."
-                    );
+                );
             }
 
             $codigo = $documentos_array[0]['codigo'];

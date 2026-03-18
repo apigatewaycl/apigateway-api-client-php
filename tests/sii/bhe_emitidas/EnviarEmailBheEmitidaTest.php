@@ -62,6 +62,10 @@ class EnviarEmailBheEmitidaTest extends TestCase
         self::$client = new BheEmitidas(self::$auth);
         self::$periodo = env('TEST_PERIODO_YMD');
         self::$version = env('TEST_VERSION') ?? 'v2';
+
+        if (self::$verbose) {
+            echo "TEST_VERSION=" . self::$version;
+        }
     }
 
     public function testEnviarEmailBheEmitida(): void
@@ -77,7 +81,7 @@ class EnviarEmailBheEmitidaTest extends TestCase
                 associative: true
             );
 
-            if($data !== []){
+            if ($data !== []) {
                 $codigo = $data['codigo'];
                 $receptor_email = env('TEST_RECEPTOR_EMAIL');
 
@@ -94,10 +98,10 @@ class EnviarEmailBheEmitidaTest extends TestCase
                     $email->getBody(),
                     "\n";
                 }
-            }else{
+            } else {
                 $this->markTestIncomplete(
                     "No hay BHEs emitidas para esta prueba."
-                    );
+                );
             }
 
         } catch (ApiException $e) {

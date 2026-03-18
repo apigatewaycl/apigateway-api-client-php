@@ -47,6 +47,10 @@ class ListarActividadesEconomicasTest extends TestCase
         self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$client = new ActividadesEconomicas();
         self::$version = env('TEST_VERSION') ?? 'v2';
+
+        if (self::$verbose) {
+            echo "TEST_VERSION=" . self::$version;
+        }
     }
 
     public function testListarActividadesEconomicas(): void

@@ -62,6 +62,10 @@ class DescargarPdfBheRecibidaTest extends TestCase
         self::$client = new BheRecibidas(self::$auth);
         self::$periodo = env('TEST_PERIODO_YMD');
         self::$version = env('TEST_VERSION') ?? 'v2';
+
+        if (self::$verbose) {
+            echo "TEST_VERSION=" . self::$version;
+        }
     }
 
     public function testDescargarPdfBheRecibida(): void
@@ -81,7 +85,7 @@ class DescargarPdfBheRecibidaTest extends TestCase
             if (count($documentosArray) <= 0) {
                 $this->markTestIncomplete(
                     "No hay BHEs emitidas para esta prueba."
-                    );
+                );
             }
 
             $codigo = $documentosArray[0]['codigo'];

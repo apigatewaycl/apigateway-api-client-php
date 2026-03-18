@@ -59,6 +59,10 @@ class ObtenerTasaReceptorBteTest extends TestCase
         ];
         self::$client = new BteEmitidas(self::$auth);
         self::$version = env('TEST_VERSION') ?? 'v2';
+
+        if (self::$verbose) {
+            echo "TEST_VERSION=" . self::$version;
+        }
     }
 
     public function testObtenerTasaReceptorBte(): void

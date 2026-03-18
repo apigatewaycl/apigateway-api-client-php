@@ -58,6 +58,10 @@ class DescargarXmlDteRecibMipymeTest extends TestCase
         ];
         self::$client = new PortalMipymeDteRecibidos(self::$auth);
         self::$version = env('TEST_VERSION') ?? 'v2';
+
+        if (self::$verbose) {
+            echo "TEST_VERSION=" . self::$version;
+        }
     }
 
     public function testDescargarXmlDteRecibMipyme(): void

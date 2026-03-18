@@ -73,8 +73,7 @@ class Indicadores extends ApiBase
             $mes
         );
 
-        if ($this->getApiVersion() === 'v1')
-        {
+        if ($this->getApiVersion() === 'v1') {
             $url = sprintf(
                 '/sii/indicadores/anul/%s/%s',
                 $anio,
@@ -107,8 +106,7 @@ class Indicadores extends ApiBase
             $dia
         );
 
-        if ($this->getApiVersion() === 'v1')
-        {
+        if ($this->getApiVersion() === 'v1') {
             $url = sprintf(
                 '/sii/indicadores/anual/%s/%s/%s',
                 $anio,
