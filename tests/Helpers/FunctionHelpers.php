@@ -42,7 +42,7 @@ trait FunctionHelpers
             $code,
             $e->getMessage()
         );
-        if ($code >= 400 && $code < 500) {
+        if ($code >= 400 && $code < 500 && env('ADD_SKIPPED', false)) {
             $this->markTestSkipped($message);
         }
         $this->fail($message);

@@ -33,6 +33,7 @@ jobs:
         env:
           APIGATEWAY_API_TOKEN: ${{ secrets.APIGATEWAY_API_TOKEN }}
           TEST_CONTRIBUYENTE_RUT: ${{ vars.TEST_CONTRIBUYENTE_RUT }}
+          ADD_SKIPPED: true
         run: |
           composer tests-readonly
 
