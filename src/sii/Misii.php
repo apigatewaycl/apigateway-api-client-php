@@ -48,8 +48,8 @@ class Misii extends ApiBase
      */
     public function __construct(
         array $credenciales,
-        string $token = null,
-        string $url = null
+        ?string $token = null,
+        ?string $url = null
     ) {
         parent::__construct(
             credenciales: $credenciales,

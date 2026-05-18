@@ -46,8 +46,8 @@ class DteEmitidos extends ApiBase
      */
     public function __construct(
         array $credenciales,
-        string $token = null,
-        string $url = null
+        ?string $token = null,
+        ?string $url = null
     ) {
         parent::__construct(
             credenciales: $credenciales,
@@ -78,8 +78,8 @@ class DteEmitidos extends ApiBase
         int $folio,
         string $fecha,
         int $total,
-        string $firma = null,
-        bool $certificacion = null
+        ?string $firma = null,
+        ?bool $certificacion = null
     ): ResponseInterface {
         $certificacion_flag = $certificacion ? 1 : 0;
         $url = sprintf(

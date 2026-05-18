@@ -25,21 +25,33 @@ use apigatewaycl\api_client\ApiException;
 use apigatewaycl\api_client\sii\Contribuyentes;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use Tests\Helpers\FunctionHelpers;
 
 #[CoversClass(Contribuyentes::class)]
 class ObtenerSituacionTributariaTerceroTest extends TestCase
 {
+    use FunctionHelpers;
+
     protected static $verbose;
 
     protected static $client;
 
     private static $contribuyente_rut;
 
+    private static $version;
+
     public static function setUpBeforeClass(): void
     {
+        self::requireEnv('APIGATEWAY_API_TOKEN');
+        self::requireEnv('TEST_CONTRIBUYENTE_RUT');
         self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$client = new Contribuyentes();
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
+        self::$version = env('TEST_VERSION') ?? 'v2';
+
+        if (self::$verbose) {
+            echo "TEST_VERSION=" . self::$version;
+        }
     }
 
     public function testObtenerSituacionTributariaTercero(): void
@@ -59,13 +71,7 @@ class ObtenerSituacionTributariaTerceroTest extends TestCase
                 "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(
-                message: sprintf(
-                    '[ApiException %d] %s',
-                    $e->getCode(),
-                    $e->getMessage()
-                )
-            );
+            $this->handleApiException($e);
         }
     }
 }

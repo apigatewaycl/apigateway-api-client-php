@@ -1,0 +1,142 @@
+PHPUnit 13.0.5 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.5.3
+Configuration: /var/www/sites/app.apigateway.org/phpunit.xml
+
+
+Ejecutando testListarActividadesEconomicas() en https://app.apigateway.cl : .
+Ejecutando testDescargarPdfBheEmitida() en https://app.apigateway.cl : SS
+Ejecutando testListarBheEmitidasPaginado() en https://app.apigateway.cl : IS
+Ejecutando testListarBheEmitidasSimple() en https://app.apigateway.cl : S
+Ejecutando testEnviarEmailBheEmitida() en https://app.apigateway.cl : S
+Ejecutando testListarBheRecibidasSimple() en https://app.apigateway.cl : S
+Ejecutando testObservarBheRecibida() en https://app.apigateway.cl : .
+Ejecutando testDescargarPdfBheRecibida() en https://app.apigateway.cl : S
+Ejecutando testAnularBteEmitida() en https://app.apigateway.cl : .
+Ejecutando testListarBteEmitidas() en https://app.apigateway.cl : S
+Ejecutando testObtenerTasaReceptorBte() en https://app.apigateway.cl : S
+Ejecutando testDescargarHtmlBteEmitida() en https://app.apigateway.cl : SS
+Ejecutando testObtenerSituacionTributariaTercero() en https://app.apigateway.cl : FSS
+Ejecutando testListarUfAnual() en https://app.apigateway.cl : .
+Ejecutando testListarUfDiario() en https://app.apigateway.cl : S
+Ejecutando testListarUfMensual() en https://app.apigateway.cl : .
+Ejecutando testObtenerDatosContribMisii() en https://app.apigateway.cl : .
+Ejecutando testObtenerDatosContribMipyme() en https://app.apigateway.cl : S
+Ejecutando testDescargarPdfDteEmitMipyme() en https://app.apigateway.cl : S
+Ejecutando testDescargarXmlDteEmitMipyme() en https://app.apigateway.cl : S
+Ejecutando testListarDtesEmitidosMipyme() en https://app.apigateway.cl : S
+Ejecutando testDescargarPdfDteRecibMipyme() en https://app.apigateway.cl : S
+Ejecutando testDescargarXmlDteRecibMipyme() en https://app.apigateway.cl : S
+Ejecutando testListarDtesRecibidosMipyme() en https://app.apigateway.cl : S
+testObtenerDetalleCompra() Libro compras RCV vacío.
+
+testObtenerDetalleCompra() Libro compras RCV vacío.
+
+testObtenerDetalleCompra() Libro compras RCV vacío.
+
+testObtenerDetalleCompra() Libro compras RCV vacío.
+
+Ejecutando testObtenerCompraDetalle() en https://app.apigateway.cl : .
+Ejecutando testObtenerVentaDetalle() en https://app.apigateway.cl : W
+Ejecutando testObtenerCsvCompraDetalle() en https://app.apigateway.cl : .
+Ejecutando testObtenerCsvVentaDetalle() en https://app.apigateway.cl : .                                 33 / 33 (100%)
+
+Time: 02:07.292, Memory: 8.00 MB
+
+Anular Bte Emitida
+ ✔ Anular bte emitida
+
+Descargar Html Bte Emitida
+ ↩ Descargar html bte emitida
+
+Descargar Pdf Bhe Emitida
+ ↩ Descargar pdf bhe emitida
+
+Descargar Pdf Bhe Recibida
+ ↩ Descargar pdf bhe recibida
+
+Descargar Pdf Dte Emit Mipyme
+ ↩ Descargar pdf dte emit mipyme
+
+Descargar Pdf Dte Recib Mipyme
+ ↩ Descargar pdf dte recib mipyme
+
+Descargar Xml Dte Emit Mipyme
+ ↩ Descargar xml dte emit mipyme
+
+Descargar Xml Dte Recib Mipyme
+ ↩ Descargar xml dte recib mipyme
+
+Enviar Email Bhe Emitida
+ ↩ Enviar email bhe emitida
+
+Listar Actividades Economicas
+ ✔ Listar actividades economicas
+
+Listar Bhe Emitidas Paginado
+ ∅ Listar bhe emitidas paginado
+   │
+   │ Lista de BHEs emitidas vacía
+   │
+   │ /var/www/sites/app.apigateway.org/tests/sii/bhe_emitidas/ListarBheEmitidasPaginadoTest.php:88
+   │
+
+Listar Bhe Emitidas Simple
+ ↩ Listar bhe emitidas simple
+
+Listar Bhe Recibidas
+ ↩ Listar bhe recibidas simple
+
+Listar Bte Emitidas
+ ↩ Listar bte emitidas
+
+Listar Dtes Emitidos Mipyme
+ ↩ Listar dtes emitidos mipyme
+
+Listar Dtes Recibidos Mipyme
+ ↩ Listar dtes recibidos mipyme
+
+Listar Uf Anual
+ ✔ Listar uf anual
+
+Listar Uf Diario
+ ↩ Listar uf diario
+
+Listar Uf Mensual
+ ✔ Listar uf mensual
+
+Observar Bhe Recibida
+ ✔ Observar bhe recibida
+
+Obtener Compra Detalle
+ ✔ Obtener compra detalle
+
+Obtener Csv Compra Detalle
+ ✔ Obtener csv compra detalle
+
+Obtener Csv Venta Detalle
+ ✔ Obtener csv venta detalle
+
+Obtener Datos Contrib Mipyme
+ ↩ Obtener datos contrib mipyme
+
+Obtener Datos Contrib Misii
+ ✔ Obtener datos contrib misii
+
+Obtener Situacion Tributaria Tercero
+ ✘ Obtener situacion tributaria tercero
+   │
+   │ [ApiException 202] {"code":202,"detail":"Error en la petición al sii: No fue posible obtener los datos del contribuyente. {\"captchaInvalido\":true,\"registrado\":false,\"nombre\":null,\"fechaConsulta\":null,\"inicioActividades\":false,\"fechaInicioActividades\":null,\"conTegi\":false,\"tiene8102\":false,\"fecha8102\":null,\"tieneININ\":false,\"tieneAPME\":false,\"tieneEMTP\":false,\"tieneROFL\":false,\"tieneRSUB\":false,\"fechaRSUB\":null,\"tieneGirosNegocio\":false,\"girosNegocio\":null,\"timbrajeVirtual\":false,\"tieneOFE\":false,\"tienePrimeraCategoria\":false,\"tienePOFE\":false,\"atributosPOFE\":null,\"tieneTimbraje\":false,\"timbrajes\":null,\"alertaTablas\":null,\"observacion1\":null,\"observacion2\":null,\"nocondonable\":null,\"mostrarFolios\":false,\"folios\":null,\"urlVdc\":null,\"tieneInicio\":false,\"cumpleObligacionTributaria\":null,\"mostrarObligacionTributaria\":false,\"tieneSPDE\":false,\"tieneSPRO\":false,\"tieneCULT\":false,\"fechaSPDE\":null,\"fechaSPRO\":null,\"fechaCULT\":null,\"atrbRferDTOS\":null}"}
+   │
+   │ /var/www/sites/app.apigateway.org/tests/Helpers/FunctionHelpers.php:46
+   │ /var/www/sites/app.apigateway.org/tests/sii/contribuyentes/ObtenerSituacionTributariaTerceroTest.php:70
+   │
+
+Obtener Tasa Receptor Bte
+ ↩ Obtener tasa receptor bte
+
+Obtener Venta Detalle
+ ⚠ Obtener venta detalle
+
+FAILURES!
+Tests: 33, Assertions: 15, Failures: 1, Warnings: 2, Skipped: 21, Incomplete: 1.

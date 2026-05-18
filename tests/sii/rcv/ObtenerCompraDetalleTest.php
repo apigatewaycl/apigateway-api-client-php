@@ -25,6 +25,7 @@ use apigatewaycl\api_client\ApiException;
 use apigatewaycl\api_client\sii\Rcv;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use Tests\Helpers\FunctionHelpers;
 
 #[CoversClass(Rcv::class)]
 /**
@@ -32,6 +33,8 @@ use PHPUnit\Framework\TestCase;
  */
 class ObtenerCompraDetalleTest extends TestCase
 {
+    use FunctionHelpers;
+
     protected static $verbose;
 
     protected static $client;
@@ -44,8 +47,13 @@ class ObtenerCompraDetalleTest extends TestCase
 
     private static $estados = ['REGISTRO', 'PENDIENTE', 'NO_INCLUIR', 'RECLAMADO'];
 
+    private static $version;
+
     public static function setUpBeforeClass(): void
     {
+        self::requireEnv('APIGATEWAY_API_TOKEN');
+        self::requireEnv('TEST_CONTRIBUYENTE_RUT');
+        self::requireEnv('TEST_CONTRIBUYENTE_CLAVE');
         self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
@@ -57,9 +65,14 @@ class ObtenerCompraDetalleTest extends TestCase
         ];
         self::$client = new Rcv(self::$auth);
         self::$periodo = env(
-            varname: 'TEST_PERIODO',
+            varname: 'TEST_PERIODO_YMD',
             default: date('Y-m-d')
         );
+        self::$version = env('TEST_VERSION') ?? 'v2';
+
+        if (self::$verbose) {
+            echo "TEST_VERSION=" . self::$version;
+        }
     }
 
     /**
@@ -92,8 +105,9 @@ class ObtenerCompraDetalleTest extends TestCase
                     associative: true
                 );
 
-                if ($compras_resumen_array['data'] != null) {
-                    foreach ($compras_resumen_array as $resumen) {
+                if ($compras_resumen_array != null &&
+                    $compras_resumen_array['data'] != null) {
+                    foreach ($compras_resumen_array['data'] as $resumen) {
                         if (
                             $resumen['dcvTipoIngresoDoc'] != 'DET_ELE' ||
                             $resumen['rsmnTotDoc'] == 0
@@ -124,11 +138,7 @@ class ObtenerCompraDetalleTest extends TestCase
                 }
             }
         } catch (ApiException $e) {
-            $this->fail(message: sprintf(
-                '[ApiException %d] %s',
-                $e->getCode(),
-                $e->getMessage()
-            ));
+            $this->handleApiException($e);
         }
     }
 }

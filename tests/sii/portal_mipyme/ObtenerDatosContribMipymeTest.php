@@ -25,10 +25,13 @@ use apigatewaycl\api_client\ApiException;
 use apigatewaycl\api_client\sii\PortalMipymeContrib;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use Tests\Helpers\FunctionHelpers;
 
 #[CoversClass(PortalMipymeContrib::class)]
 class ObtenerDatosContribMipymeTest extends TestCase
 {
+    use FunctionHelpers;
+
     protected static $verbose;
 
     protected static $client;
@@ -37,8 +40,13 @@ class ObtenerDatosContribMipymeTest extends TestCase
 
     protected static $auth;
 
+    private static $version;
+
     public static function setUpBeforeClass(): void
     {
+        self::requireEnv('APIGATEWAY_API_TOKEN');
+        self::requireEnv('TEST_CONTRIBUYENTE_RUT');
+        self::requireEnv('TEST_CONTRIBUYENTE_CLAVE');
         self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
@@ -49,6 +57,11 @@ class ObtenerDatosContribMipymeTest extends TestCase
             ],
         ];
         self::$client = new PortalMipymeContrib(self::$auth);
+        self::$version = env('TEST_VERSION') ?? 'v2';
+
+        if (self::$verbose) {
+            echo "TEST_VERSION=" . self::$version;
+        }
     }
 
     public function testObtenerDatosContribMipyme(): void
@@ -71,11 +84,7 @@ class ObtenerDatosContribMipymeTest extends TestCase
                 "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(message: sprintf(
-                '[ApiException %d] %s',
-                $e->getCode(),
-                $e->getMessage()
-            ));
+            $this->handleApiException($e);
         }
     }
 }

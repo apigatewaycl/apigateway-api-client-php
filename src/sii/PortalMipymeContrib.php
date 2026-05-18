@@ -33,7 +33,7 @@ use Psr\Http\Message\ResponseInterface;
  *
  * Cliente específico para interactuar con los endpoints de contribuyentes del Portal Mipyme.
  */
-class PortalMipymeContrib extends PortalMiPyme
+class PortalMipymeContrib extends PortalMipyme
 {
     /**
      * Obtiene información de un contribuyente específico.

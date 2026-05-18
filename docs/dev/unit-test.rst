@@ -5,9 +5,22 @@ Pruebas unitarias
   Al ejecutar pruebas, deberás tener configuradas las variables de entorno necesarias en el archivo test.env. Favor de duplicar test.env-dist, cambiar su nombre a test.env y rellenar las variables necesarias.
 
 Antes de empezar, debes configurar las siguientes variables de entorno:
+
+Para utilizar v1:
 .. code-block:: shell
     APIGATEWAY_API_URL="https://legacy.apigateway.cl"
-    API_GATEWAY_API_TOKEN="token-apigateway"
+    APIGATEWAY_API_TOKEN="token-apigateway"
+    APIGATEWAY_API_VERSION="v1"
+    CONTRIBUYENTE_RUT="66666666-6"
+    CONTRIBUYENTE_CLAVE="clave-sii"
+    TEST_VERBOSE=true
+    TEST_PERIODO=202401
+
+Para utilizar v2:
+.. code-block:: shell
+    APIGATEWAY_API_URL="https://legacy.apigateway.cl"
+    APIGATEWAY_API_TOKEN="token-apigateway"
+    APIGATEWAY_API_VERSION="v1"
     CONTRIBUYENTE_RUT="66666666-6"
     CONTRIBUYENTE_CLAVE="clave-sii"
     TEST_VERBOSE=true

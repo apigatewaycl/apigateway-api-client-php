@@ -25,6 +25,7 @@ use apigatewaycl\api_client\ApiException;
 use apigatewaycl\api_client\sii\Rcv;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use Tests\Helpers\FunctionHelpers;
 
 #[CoversClass(Rcv::class)]
 /**
@@ -32,6 +33,8 @@ use PHPUnit\Framework\TestCase;
  */
 class ObtenerVentaDetalleTest extends TestCase
 {
+    use FunctionHelpers;
+
     protected static $verbose;
 
     protected static $client;
@@ -42,10 +45,13 @@ class ObtenerVentaDetalleTest extends TestCase
 
     private static $periodo;
 
-    private static $estados = ['REGISTRO', 'PENDIENTE', 'NO_INCLUIR', 'RECLAMADO'];
+    private static $version;
 
     public static function setUpBeforeClass(): void
     {
+        self::requireEnv('APIGATEWAY_API_TOKEN');
+        self::requireEnv('TEST_CONTRIBUYENTE_RUT');
+        self::requireEnv('TEST_CONTRIBUYENTE_CLAVE');
         self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$contribuyente_rut = env('TEST_CONTRIBUYENTE_RUT');
         $contribuyente_clave = env('TEST_CONTRIBUYENTE_CLAVE');
@@ -57,9 +63,14 @@ class ObtenerVentaDetalleTest extends TestCase
         ];
         self::$client = new Rcv(self::$auth);
         self::$periodo = env(
-            varname: 'TEST_PERIODO',
+            varname: 'TEST_PERIODO_YMD',
             default: date('Y-m-d')
         );
+        self::$version = env('TEST_VERSION') ?? 'v2';
+
+        if (self::$verbose) {
+            echo "TEST_VERSION=" . self::$version;
+        }
     }
 
     /**
@@ -89,7 +100,7 @@ class ObtenerVentaDetalleTest extends TestCase
             );
 
             if ($ventas_resumen_array['data'] != null) {
-                foreach ($ventas_resumen_array as $resumen) {
+                foreach ($ventas_resumen_array['data'] as $resumen) {
                     if (
                         $resumen['dcvTipoIngresoDoc'] != 'DET_ELE' ||
                         $resumen['rsmnTotDoc'] == 0
@@ -115,11 +126,7 @@ class ObtenerVentaDetalleTest extends TestCase
                 "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(message: sprintf(
-                '[ApiException %d] %s',
-                $e->getCode(),
-                $e->getMessage()
-            ));
+            $this->handleApiException($e);
         }
     }
 }

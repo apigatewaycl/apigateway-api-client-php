@@ -17,20 +17,23 @@
     },
     "autoload": {
         "psr-4": {
-            "apigatewaycl\\api_client\\": "src/"
+            "apigatewaycl\\api_client\\": "src/",
+            "Tests\\": "tests/"
         }
     },
     "require": {
-        "php": "^8.4",
+        "php": "^8.5",
         "guzzlehttp/guzzle": "^7.10"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.94",
-        "phpstan/phpstan": "^1.12",
+        "phpstan/phpstan": "^2",
         "phpunit/phpunit": "^13.0",
-        "vlucas/phpdotenv": "^5.6"
+        "vlucas/phpdotenv": "^5.6",
+        "phpstan/phpstan-phpunit": "^2"
     },
     "scripts": {
+        "install-docs":   "curl -L https://www.phpdoc.org/phpDocumentor.phar -o phpdoc.phar; chmod +x phpdoc.phar",
         "docs": "php tools/phpdocumentor run --config=phpdoc.xml",
         "tests": "vendor/bin/phpunit --configuration=phpunit.xml --no-coverage",
         "tests-readonly": "XDEBUG_MODE=coverage vendor/bin/phpunit --configuration=phpunit.xml --filter 'testListarActividadesEconomicas|testObtenerSituacionTributariaTercero|testListarUfAnual|testListarUfMensual|testListarUfDiario'",

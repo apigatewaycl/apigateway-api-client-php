@@ -25,6 +25,7 @@ use apigatewaycl\api_client\ApiException;
 use apigatewaycl\api_client\sii\Indicadores;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use Tests\Helpers\FunctionHelpers;
 
 #[CoversClass(Indicadores::class)]
 /**
@@ -32,17 +33,27 @@ use PHPUnit\Framework\TestCase;
  */
 class ListarUfMensualTest extends TestCase
 {
+    use FunctionHelpers;
+
     protected static $verbose;
 
     protected static $client;
 
     protected static $fecha;
 
+    private static $version;
+
     public static function setUpBeforeClass(): void
     {
+        self::requireEnv('APIGATEWAY_API_TOKEN');
         self::$verbose = env(varname: 'TEST_VERBOSE', default: false);
         self::$client = new Indicadores();
         self::$fecha = date('Y-m-d');
+        self::$version = env('TEST_VERSION') ?? 'v2';
+
+        if (self::$verbose) {
+            echo "TEST_VERSION=" . self::$version;
+        }
     }
 
     public function testListarUfMensual(): void
@@ -63,11 +74,7 @@ class ListarUfMensualTest extends TestCase
                 "\n";
             }
         } catch (ApiException $e) {
-            $this->fail(message: sprintf(
-                '[ApiException %d] %s',
-                $e->getCode(),
-                $e->getMessage()
-            ));
+            $this->handleApiException($e);
         }
     }
 }

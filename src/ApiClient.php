@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace apigatewaycl\api_client;
 
+use GuzzleHttp\Psr7\Utils;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -38,7 +39,7 @@ class ApiClient
      *
      * @var string
      */
-    private $api_url = 'https://legacy.apigateway.cl';
+    private $api_url = 'https://app.apigateway.cl';
 
     /**
      * El prefijo para las rutas de la API.
@@ -52,7 +53,7 @@ class ApiClient
      *
      * @var string
      */
-    private $api_version = 'v1';
+    private $api_version = 'v2';
 
     /**
      * El token de autenticación para la API.
@@ -76,12 +77,19 @@ class ApiClient
     private $last_response = null;
 
     /**
+     * Forma de autentificar de las distintas api's.
+     *
+     * @var string|null
+     */
+    private $authorization = null;
+
+    /**
      * Constructor del cliente de la API.
      *
      * @param string|null $token Token de autenticación para la API.
      * @param string|null $url URL base de la API.
      */
-    public function __construct(string $token = null, string $url = null)
+    public function __construct(?string $token = null, ?string $url = null)
     {
         $this->api_token = $token ?: $this->env('APIGATEWAY_API_TOKEN');
         if (!$this->api_token) {
@@ -91,6 +99,15 @@ class ApiClient
         $this->api_url = $url ?: $this->env(
             'APIGATEWAY_API_URL'
         ) ?: $this->api_url;
+
+        $this->authorization = 'Token';
+
+        $this->api_version = $this->env('APIGATEWAY_API_VERSION') ?? $this->api_version;
+
+        if ($this->api_version == 'v1') {
+            $this->api_url = 'https://legacy.apigateway.cl';
+            $this->authorization = 'Bearer';
+        }
     }
 
     /**
@@ -115,6 +132,16 @@ class ApiClient
     {
         $this->api_token = $token;
         return $this;
+    }
+
+    /**
+     * Obtiene la última URL utilizada en la solicitud HTTP.
+     *
+     * @return string|null
+     */
+    public function getLastApiUrl(): string|null
+    {
+        return $this->api_url;
     }
 
     /**
@@ -168,7 +195,7 @@ class ApiClient
      * @throws ApiException Si no hay respuesta previa o el cuerpo no se
      * puede decodificar.
      */
-    public function getBodyDecoded(): mixed
+    public function getBodyDecoded(): ?array
     {
         $body = $this->getBody();
 
@@ -353,7 +380,7 @@ class ApiClient
         string $resource,
         array $data = [],
         array $headers = [],
-        string $method = null,
+        ?string $method = null,
         $options = []
     ): static {
         $this->last_response = null;
@@ -373,7 +400,7 @@ class ApiClient
 
         // preparar cabeceras que se usarán
         $options[\GuzzleHttp\RequestOptions::HEADERS] = array_merge([
-            'Authorization' => 'Bearer ' . $this->api_token,
+            'Authorization' => $this->authorization . ' ' . $this->api_token,
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
         ], $headers);
@@ -383,21 +410,58 @@ class ApiClient
             $options[\GuzzleHttp\RequestOptions::JSON] = $data;
         }
 
-        // Ejecutar consulta al SII.
-        try {
-            $this->last_response = $client->request(
-                method: $method,
-                uri: $this->last_url,
-                options: $options
-            );
-        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
-            // Obtener la respuesta de la llamada.
-            $this->last_response = $e->getResponse();
-            // Se lanza la excepción.
+        // realizar consulta HTTP con reintento por si falla la sesión del SII.
+        foreach ([true, false] as $auth_cache) {
+
+            // Forzar el valor de auth_cache en la llamada a la API.
+            $this->last_url = $this->forceUrlParams($this->last_url, [
+                'auth_cache' => (int)$auth_cache,
+            ]);
+
+            // Ejecutar consulta al SII.
+            try {
+                $this->last_response = $client->request(
+                    method: $method,
+                    uri: $this->last_url,
+                    options: $options
+                );
+            } catch (\GuzzleHttp\Exception\BadResponseException $e) {
+                // Obtener la respuesta de la llamada.
+                $this->last_response = $e->getResponse();
+
+                // Si es un error HTTP 401 con problema de sesión pasamos a la otra iteración
+                // del ciclo foreach para reintentar sin caché de sesión del SII.
+                if ($this->getLastResponse()->getStatusCode() == 401) {
+                    if ($this->getLastResponse()->getHeaderLine('X-Stats-NavegadorSessionProblem')) {
+                        continue;
+                    }
+                }
+
+                // Si no es un error 401 con problema de sesión se lanza la excepción.
+                $this->throwException();
+            } catch (\GuzzleHttp\Exception\GuzzleException $e) {
+                throw new ApiException('Error de conexión con el SII: ' . $e->getMessage(), 500);
+            }
+
+            // Break obligatorio, ya que si la llamada es exitosa no se debe reintentar.
+            if ($this->getLastResponse()->getStatusCode() == 200) {
+                break;
+            }
+
+            // Si no se reintentó se lanza excepción por no ser código 200 (break anterior).
             $this->throwException();
         }
 
         // Entregar respuesta (contenida en el mismo objeto del cliente).
+
+        $response_body = (string) $this->last_response->getBody();
+        $data =  json_decode($response_body, true);
+        if (json_last_error() === JSON_ERROR_NONE && isset($data['data'])) {
+            $data = $data['data'];
+            $response_data = Utils::streamFor(json_encode($data));
+            $this->last_response = $this->last_response->withBody($response_data);
+        }
+
         return $this;
     }
 
@@ -426,7 +490,7 @@ class ApiClient
         }
 
         // Se maneja el caso donde no se encuentra un mensaje de error específico
-        if (!$message || $message === '') {
+        if (!$message) {
             $message = '[API Gateway] Código HTTP ' . $code . ': ' . $reasonPhrase;
         }
 
@@ -448,8 +512,25 @@ class ApiClient
      */
     private function throwException(): ApiException
     {
-        $error = $this->getError();
-        throw new ApiException(message: $error->message, code: $error->code);
+        $response = $this->getLastResponse();
+
+        if (!$response) {
+            throw new ApiException(
+                message: 'Error desconocido.',
+                code: 500,
+                responseBody: null
+            );
+        }
+
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
+        $message = $body !== '' ? $body : $response->getReasonPhrase();
+
+        throw new ApiException(
+            message: $message,
+            code: $status,
+            responseBody: $body
+        );
     }
 
     /**
@@ -462,5 +543,42 @@ class ApiClient
     private function env(string $name)
     {
         return function_exists('env') ? env($name) : getenv($name);
+    }
+
+    /**
+     * Fuerza parámetros específicos en la URL dada.
+     *
+     * @param string $url La URL original a modificar.
+     * @param array $params Arreglo asociativo de parámetros para añadir a la URL.
+     * @return string La URL modificada con los nuevos parámetros.
+     */
+    private function forceUrlParams(string $url, array $params): string
+    {
+        // Parsear la URL para extraer componentes.
+        $parsedUrl = parse_url($url);
+
+        // Parsear la cadena de consulta existente y obtener los parámetros actuales.
+        parse_str($parsedUrl['query'] ?? '', $queryParams);
+
+        // Fusionar los parámetros existentes con los nuevos parámetros forzados.
+        $queryParams = array_merge($queryParams, $params);
+
+        // Reconstruir la cadena de consulta con los nuevos parámetros.
+        $parsedUrl['query'] = http_build_query($queryParams);
+
+        // Reconstruir y devolver la URL completa.
+        return (isset($parsedUrl['scheme']) ? "{$parsedUrl['scheme']}://" : '') .
+            (isset($parsedUrl['user']) ? "{$parsedUrl['user']}" . (isset($parsedUrl['pass']) ? ":{$parsedUrl['pass']}" : '') .'@' : '') .
+            (isset($parsedUrl['host']) ? "{$parsedUrl['host']}" : '') .
+            (isset($parsedUrl['port']) ? ":{$parsedUrl['port']}" : '') .
+            (isset($parsedUrl['path']) ? "{$parsedUrl['path']}" : '') .
+            ($parsedUrl['query'] !== '' ? "?{$parsedUrl['query']}" : '') .
+            (isset($parsedUrl['fragment']) ? "#{$parsedUrl['fragment']}" : '')
+        ;
+    }
+
+    public function getApiVersion(): string
+    {
+        return $this->api_version;
     }
 }

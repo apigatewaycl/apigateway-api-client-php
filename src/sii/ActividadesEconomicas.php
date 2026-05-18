@@ -48,7 +48,7 @@ class ActividadesEconomicas extends ApiBase
      * listado de actividades económicas.
      */
     public function listarActividades(
-        int $categoria = null
+        ?int $categoria = null
     ): ResponseInterface {
         $url = '/sii/contribuyentes/actividades_economicas';
         if ($categoria != null) {
