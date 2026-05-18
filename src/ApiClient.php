@@ -102,7 +102,7 @@ class ApiClient
 
         $this->authorization = 'Token';
 
-        $this->api_version = $this->env('APIGATEWAY_API_VERSION') ?? $this->api_version;
+        $this->api_version = $this->env('APIGATEWAY_API_VERSION') ?: $this->api_version;
 
         if ($this->api_version == 'v1') {
             $this->api_url = 'https://legacy.apigateway.cl';
@@ -392,11 +392,12 @@ class ApiClient
         }
         $method = $method ?: ($data ? 'POST' : 'GET');
         $client = new \GuzzleHttp\Client();
-        $this->last_url = $this->api_url .
-        $this->api_prefix .
-        '/'.
-        $this->api_version .
-        $resource;
+        $this->last_url = $this->api_url
+            . $this->api_prefix
+            . '/'
+            . $this->api_version
+            . $resource
+        ;
 
         // preparar cabeceras que se usarán
         $options[\GuzzleHttp\RequestOptions::HEADERS] = array_merge([
